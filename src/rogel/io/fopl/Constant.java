@@ -38,14 +38,17 @@ public class Constant implements Unifiable
 	@Override
 	public SubstitutionSet unify(Unifiable expression, SubstitutionSet substitutionSet) 
 	{
-		if(this == expression)
+		if(this == expression) {
 			return new SubstitutionSet(substitutionSet);
-		
-		if(expression instanceof Variable)
+		}
+			
+		if(expression instanceof Variable) {
 			return expression.unify(this, substitutionSet);
 			//although exp1.unify(exp2,s) and exp2.unify(exp1,s) is equivalent,
 			//when we encounter a variable, we need to do variable unification
 			//so we delegate the unification to the expression
+		}
+			
 			
 		return null; //we can only unify variables
 	}	

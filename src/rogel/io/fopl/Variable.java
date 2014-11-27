@@ -52,9 +52,9 @@ public class Variable implements Unifiable
 		}
 		
 		//this case is only reached when no existing substitution exists
-		SubstitutionSet newSet = new SubstitutionSet(substitutionSet);
-		newSet.add(this, expression);
-		return newSet;
+		SubstitutionSet newSubstitutionSet = new SubstitutionSet(substitutionSet);
+		newSubstitutionSet.add(this, expression);
+		return newSubstitutionSet;
 	}
 
 	
