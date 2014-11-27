@@ -40,9 +40,22 @@ public class Variable implements Unifiable
 	}
 	
 	@Override
-	public boolean unify() {
-		// TODO Auto-generated method stub
-		return false;
+	public SubstitutionSet unify(Unifiable expression, SubstitutionSet substitutionSet) 
+	{
+		if(this == expression) {
+			return substitutionSet;
+		}
+		
+		if(substitutionSet.isBound(this)) { //if this variable is bound in the given substitution set
+			Unifiable variableBoundExpression = substitutionSet.getBinding(this);//get the binding
+			return variableBoundExpression.unify(expression, substitutionSet);//and unify with the already bound expression
+		}
+		
+		//this case is only reached when no existing substitution exists
+		SubstitutionSet newSet = new SubstitutionSet(substitutionSet);
+		newSet.add(this, expression);
+		return newSet;
 	}
 
+	
 }
