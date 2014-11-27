@@ -65,6 +65,7 @@ public class SubstitutionSet
 		return bindings;
 	}
 	
+	
 	@Override
 	public String toString() {
 		return "Bindings: ["+this.bindings+"]";
