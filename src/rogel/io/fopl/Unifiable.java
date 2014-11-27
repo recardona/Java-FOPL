@@ -2,5 +2,5 @@ package rogel.io.fopl;
 
 public interface Unifiable extends PredicateCalculusExpression
 {
-	public boolean unify();
+	public SubstitutionSet unify(Unifiable expression, SubstitutionSet substitutionSet);
 }
