@@ -44,7 +44,7 @@ public class UnifiableTest {
 		Unifiable goal = new SimpleSentence(friend, X, Y); //(friend X Y)
 		SubstitutionSet solutionSet;
 		System.out.println("Goal = " + goal); 
-		for(Unifiable expression : expressions) {
+		for(Unifiable expression : this.expressions) {
 			solutionSet = expression.unify(goal, new SubstitutionSet());
 			
 			if(solutionSet != null)
@@ -53,6 +53,24 @@ public class UnifiableTest {
 			else
 				System.out.println("False");
 		}		
+	}
+	
+	@Test
+	public void testUnify2() {
+		
+		Unifiable goal = new SimpleSentence(friend, bill, X); //(friend bill Y)
+		SubstitutionSet solutionSet;
+		System.out.println("Goal = " + goal);
+		for(Unifiable expression : this.expressions) {
+			solutionSet = expression.unify(goal, new SubstitutionSet());
+			
+			if(solutionSet != null)
+				System.out.println(goal.replaceVariables(solutionSet));
+			
+			else
+				System.out.println("False");
+		}
+		
 	}
 
 }
