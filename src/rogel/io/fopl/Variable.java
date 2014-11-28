@@ -5,7 +5,6 @@ public class Variable implements Unifiable
 	private static int nextID = 1;
 	
 	private int id;
-
 	private String printName = null;
 	
 	public Variable() {
@@ -13,15 +12,18 @@ public class Variable implements Unifiable
 		Variable.nextID++;
 	}
 	
+	
 	public Variable(String printName) {
 		this();
 		this.printName = printName;
 	}
 	
+	
 	public Variable(Variable v) {
 		this();
 		this.printName = v.printName;
 	}
+	
 	
 	/**
 	 * @return the id
@@ -29,6 +31,7 @@ public class Variable implements Unifiable
 	public int getID() {
 		return id;
 	}
+	
 	
 	@Override
 	public String toString() {
@@ -38,6 +41,7 @@ public class Variable implements Unifiable
 		
 		return "V"+this.id;
 	}
+	
 	
 	@Override
 	public SubstitutionSet unify(Unifiable expression, SubstitutionSet substitutionSet) 
@@ -57,5 +61,18 @@ public class Variable implements Unifiable
 		return newSubstitutionSet;
 	}
 
+	
+	@Override
+	public PredicateCalculusExpression replaceVariables(SubstitutionSet substitutionSet) 
+	{
+		if(substitutionSet.isBound(this)) {
+			Unifiable variableBoundExpression = substitutionSet.getBinding(this);
+			return variableBoundExpression.replaceVariables(substitutionSet);
+		}
+		
+		else {
+			return this;
+		}
+	}
 	
 }

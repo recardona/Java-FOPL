@@ -12,10 +12,12 @@ public class Constant implements Unifiable
 		Constant.nextID++;
 	}
 	
+	
 	public Constant(String printName) {
 		this();
 		this.printName = printName;
 	}
+	
 	
 	/**
 	 * @return the id
@@ -23,6 +25,7 @@ public class Constant implements Unifiable
 	public int getID() {
 		return id;
 	}
+	
 	
 	@Override
 	public String toString() {
@@ -34,6 +37,7 @@ public class Constant implements Unifiable
 			return "constant_"+this.id;
 		}
 	}
+	
 	
 	@Override
 	public SubstitutionSet unify(Unifiable expression, SubstitutionSet substitutionSet) 
@@ -49,8 +53,13 @@ public class Constant implements Unifiable
 			//so we delegate the unification to the expression
 		}
 			
-			
 		return null; //we can only unify variables
-	}	
+	}
+	
+	
+	@Override
+	public PredicateCalculusExpression replaceVariables(SubstitutionSet substitutionSet) {
+		return this; //a constant can't be bound to anything! no variables to replace
+	}
 
 }
