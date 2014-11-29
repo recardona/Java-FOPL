@@ -1,5 +1,8 @@
 package rogel.io.fopl;
 
+import rogel.io.fopl.terms.Constant;
+import rogel.io.fopl.terms.Variable;
+
 public class SimpleSentence implements Unifiable
 {
 	private Unifiable[] terms;

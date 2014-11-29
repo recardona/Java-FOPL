@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
-import rogel.io.fopl.Constant;
 import rogel.io.fopl.SimpleSentence;
 import rogel.io.fopl.SubstitutionSet;
 import rogel.io.fopl.Unifiable;
-import rogel.io.fopl.Variable;
+import rogel.io.fopl.terms.Constant;
+import rogel.io.fopl.terms.Variable;
 
 public class UnifiableTest {
 

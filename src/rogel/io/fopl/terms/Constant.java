@@ -1,4 +1,8 @@
-package rogel.io.fopl;
+package rogel.io.fopl.terms;
+
+import rogel.io.fopl.PredicateCalculusExpression;
+import rogel.io.fopl.SubstitutionSet;
+import rogel.io.fopl.Unifiable;
 
 public class Constant implements Unifiable 
 {

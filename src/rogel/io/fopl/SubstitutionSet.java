@@ -2,6 +2,8 @@ package rogel.io.fopl;
 
 import java.util.HashMap;
 
+import rogel.io.fopl.terms.Variable;
+
 /**
  * A <code>SubstitutionSet</code> maintains variable bindings used in unification.
  * Variable bindings as a list of <code>Variable</code>/<code>Unifiable</code>
