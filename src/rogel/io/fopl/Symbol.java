@@ -12,6 +12,8 @@ import java.util.HashMap;
  */
 public class Symbol 
 {
+	//In the formal sciences, the domain of discourse is the set of entities over which 
+	//variables of interest in some formal language may range.
 	private static HashMap<String, Symbol> domainOfDiscourse = new HashMap<String, Symbol>(10000);
 	private String name;
 	
