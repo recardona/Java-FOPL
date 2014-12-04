@@ -3,9 +3,11 @@ package rogel.io.fopl;
 import java.util.HashMap;
 
 /**
- * A Symbol is a String that denotes itself. There is only <b>one</b> Symbol
- * with any given name (they are memory-unique objects).
+ * A Symbol follows the Herbrand interpretation, and is merely a (Java)
+ * String that represents itself. There is only <b>one</b> Symbol with
+ * any given name (they are memory-unique objects). 
  * 
+ * @see http://en.wikipedia.org/wiki/Herbrand_interpretation
  * @author recardona
  */
 public class Symbol 
