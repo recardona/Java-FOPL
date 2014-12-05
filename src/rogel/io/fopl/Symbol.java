@@ -17,6 +17,7 @@ public class Symbol
 	private static HashMap<String, Symbol> domainOfDiscourse = new HashMap<String, Symbol>(10000);
 	private String name;
 	
+	
 	/**
 	 * Returns a Symbol with the given name. If no such Symbol exists, it creates
 	 * a new one and adds it to the domain of discourse for future retrieval.
@@ -40,6 +41,7 @@ public class Symbol
 		return newSymbol;
 	}
 	
+	
 	/**
 	 * Private constructor
 	 * @param name the name of the symbol
@@ -54,15 +56,18 @@ public class Symbol
 		this.name = name;
 	}
 	
+	
 	@Override
 	protected Object clone() throws CloneNotSupportedException {
 		throw new CloneNotSupportedException("Symbol.clone() is not supported");
 	}
 	
+	
 	@Override
 	public String toString() {
 		return this.name;
 	}
+	
 	
 	@Override
 	public boolean equals(Object obj) {
@@ -73,6 +78,7 @@ public class Symbol
 		Symbol other = (Symbol) obj;
 		return (this.hashCode() == other.hashCode());
 	}
+	
 	
 	@Override
 	public int hashCode() {
