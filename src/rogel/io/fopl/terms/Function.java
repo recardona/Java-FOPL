@@ -1,9 +1,11 @@
 package rogel.io.fopl.terms;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
-import javax.naming.OperationNotSupportedException;
+import java.lang.UnsupportedOperationException;
 
 import rogel.io.fopl.Symbol;
 
@@ -13,9 +15,9 @@ import rogel.io.fopl.Symbol;
  */
 public class Function extends Term {
 
-	private Term[] arguments; //the placeholder terms this function applies to; e.g. in "f(x)" the argument would be "x"
 	private int arity; 
-	private HashMap<Symbol[], Symbol> relation;
+	private List<Term> arguments; //the placeholder terms this function applies to; e.g. in "f(x)" the argument would be "x"
+	public HashMap<List<Term>, Term> relation;
 		
 	
 	/**
@@ -34,8 +36,15 @@ public class Function extends Term {
 		this.arity = terms.length;
 		
 		//if the arity is 0, define arguments and the function itself as null
-		this.arguments = this.arity == 0? null : terms;
-		this.relation = this.arity == 0? null : new HashMap<Symbol[], Symbol>();
+		if(this.arity == 0) {
+			this.arguments = null;
+			this.relation = null;
+		}
+		
+		else {
+			this.arguments = Arrays.asList(terms);
+			this.relation = new HashMap<List<Term>, Term>();
+		}
 	}
 	
 	
@@ -52,8 +61,15 @@ public class Function extends Term {
 		this.arity = terms.length;
 
 		//if the arity is 0, define arguments and the function itself as null
-		this.arguments = this.arity == 0? null : terms;
-		this.relation = this.arity == 0? null : new HashMap<Symbol[], Symbol>();
+		if(this.arity == 0) {
+			this.arguments = null;
+			this.relation = null;
+		}
+		
+		else {
+			this.arguments = Arrays.asList(terms);
+			this.relation = new HashMap<List<Term>, Term>();
+		}
 	}
 	
 	
@@ -72,18 +88,18 @@ public class Function extends Term {
 	 * @param firstArgument a Symbol that will be in the domain of this Function
 	 * @param otherArguments a varargs of Symbols that serve as additional arguments to this Function
 	 * (this is useful for defining multi-dimensional arguments).
-	 * @throws OperationNotSupportedException if this is a constant (i.e. a 0-ary function symbol)
+	 * @throws UnsupportedOperationException if this is a constant (i.e. a 0-ary function symbol)
 	 * @throws TooManyArgumentsException if the number of arguments does not match the arity of this Function
 	 * @see {@code evaluate(Symbol... argument)} 
 	 */
-	public void map(Symbol value, Symbol firstArgument, Symbol... otherArguments) throws OperationNotSupportedException {
+	public void map(Term value, Term firstArgument, Term... otherArguments) {
 		
 		if(this.isConstant()) {
-			throw new OperationNotSupportedException("Cannot map arguments to values for a constant Function Symbol");
+			throw new UnsupportedOperationException("Cannot map arguments to values for a constant Function Symbol");
 		}
 		
-		if(1 + otherArguments.length != this.arity) {
-			throw new IllegalArgumentException("Number of arguments does not match this Function's defined arity of "+this.arity);
+		if((1 + otherArguments.length) != this.arity) {
+			throw new IllegalArgumentException("Number of arguments (" + (1 + otherArguments.length) + ") does not match this Function's defined arity of "+this.arity);
 		}
 		
 		if(value == null) {
@@ -94,39 +110,37 @@ public class Function extends Term {
 			throw new IllegalArgumentException("Arguments in Function's domain cannot be null");
 		}
 		
-		Symbol[] args = new Symbol[arity]; //arity should be 1 + otherArguments.length
-		args[0] = firstArgument;
-		for(int otherArgumentsIndex = 0; otherArgumentsIndex < otherArguments.length; otherArgumentsIndex++) {
-			args[otherArgumentsIndex + 1] = otherArguments[otherArgumentsIndex];
-		}
-		
-		this.relation.put(args, value);
+		List<Term> argumentList= new ArrayList<Term>(this.arity); //arity should be 1 + otherArguments.length
+		argumentList.add(firstArgument);
+		argumentList.addAll(Arrays.asList(otherArguments));
+		this.relation.put(argumentList, value);
 	}
 	
 	
 	/**
 	 * Attempts to evaluate the Function on the parameter argument.
 	 * <p> 
-	 * If this is a constant Function, the parameters are ignored, and the Symbol
-	 * denoting this constant is returned. Otherwise, this method returns the
-	 * value mapped to the parameter arguments.
+	 * If this is a constant Function, the parameters are ignored, and the method
+	 * returns this Function. Otherwise, this method returns the value mapped to
+	 * the parameter arguments.
 	 * 
 	 * @param argument the arguments to this Function
 	 * @return the value in this Function's co-domain given the argument, or <code>null</code> if the argument does not form part of this Function's domain
 	 * @see {@code map(Symbol value, Symbol firstArgument, Symbol... otherArguments)}
 	 */
-	public Symbol evaluate(Symbol... argument) {
+	public Term evaluate(Term... argument) {
 		
 		if(this.isConstant()) {
-			return this.symbol;
+			return this;
 		}
 		
 		else {
-			if(arguments.length != this.arity) {
-				throw new IllegalArgumentException("Number of arguments does not match this Function's defined arity of "+this.arity);
+			if(argument.length != this.arity) {
+				throw new IllegalArgumentException("Number of arguments (" + (1 + argument.length) + ") does not match this Function's defined arity of "+this.arity);
 			}
 			
-			return this.relation.get(argument);
+			List<Term> argumentList = new ArrayList<Term>(Arrays.asList(argument));
+			return this.relation.get(argumentList);
 		}
 	}
 	
@@ -152,8 +166,9 @@ public class Function extends Term {
 		
 		else {
 			sb.append("(");
-			for(Term t : this.arguments) {
-				sb.append(t.toString());
+			for(int argumentIndex = 0; argumentIndex < this.arguments.size(); argumentIndex++)
+			{
+				sb.append(this.arguments.get(argumentIndex));
 				sb.append(", ");
 			}
 			sb.replace(sb.length()-2, sb.length(), ")]"); //replace last comma+space for closing parenthesis
@@ -166,30 +181,14 @@ public class Function extends Term {
 	@Override
 	public boolean equals(Object obj) {
 		//Function equality is composed of type, symbol, arity, argument, and relation equality
+		//(See hashCode())
 		
 		if(!(obj instanceof Function)) {
 			return false;
 		}
 		
 		Function other = (Function) obj;
-		
-		if(! this.symbol.equals(other.symbol)) {
-			return false;
-		}
-		
-		if(this.arity != other.arity) {
-			return false;
-		}
-		
-		if(! this.arguments.equals(other.arguments)) {
-			return false;
-		}
-		
-		if(! this.relation.equals(other.relation)) {
-			return false;
-		}
-		
-		return true;
+		return (this.hashCode() == other.hashCode());
 	}
 	
 	
@@ -204,9 +203,3 @@ public class Function extends Term {
 	}
 	
 }
-
-
-
-
-
-
