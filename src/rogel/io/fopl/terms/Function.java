@@ -195,10 +195,11 @@ public class Function extends Term {
 	@Override
 	public int hashCode() {
 		 int hash = 1;
-		 hash = hash * 27 + this.symbol.hashCode();
+		 hash = this.symbol == null? hash : hash * 27 + this.symbol.hashCode();
 	     hash = hash * 17 + this.arity;
-	     hash = hash * 31 + this.arguments.hashCode();
-	     hash = hash * 13 + this.relation.hashCode();
+	     
+	     hash = this.arguments == null ? hash : hash * 31 + this.arguments.hashCode();
+	     hash = this.relation == null ? hash : hash * 13 + this.relation.hashCode();
 	     return hash;
 	}
 	
