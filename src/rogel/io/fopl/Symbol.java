@@ -66,7 +66,12 @@ public class Symbol
 	
 	@Override
 	public boolean equals(Object obj) {
-		return this == obj;
+		if( ! (obj instanceof Symbol)) {
+			return false;
+		}
+		
+		Symbol other = (Symbol) obj;
+		return (this.hashCode() == other.hashCode());
 	}
 	
 	@Override
