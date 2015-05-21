@@ -1,4 +1,4 @@
-package rogel.io.fopl.terms.test;
+package rogel.io.fopl.terms;
 
 import static org.junit.Assert.*;
 
