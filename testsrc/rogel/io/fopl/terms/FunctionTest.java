@@ -43,13 +43,16 @@ public class FunctionTest {
 	
 	@Test
 	public void testMap() {
-		
 		Function cBob = new Function("Bob");
 		father_of.map(cBob, cAbe);
 		assertEquals("Bob is Abe's father", cBob, father_of.evaluate(cAbe));
-		
 	}
-
+	
+	@Test
+	public void testIsConstant() {
+		assertTrue("cAbe is a 0-ary Function, and thus a constant.", cAbe.isConstant());
+		assertFalse("father_of is a 1-ary Function, and thus not a constant.", father_of.isConstant());
+	}
 
 	@Test
 	public void testEvaluate() {
@@ -68,7 +71,9 @@ public class FunctionTest {
 		assertEquals("[Function: father_of([Variable: x])]", father_of.toString());
 	}
 	
+	@Test
 	public void testEquals() {
+		assertEquals("father_of and father_of should be the same", father_of, father_of);
 		assertNotEquals("mother_of and father_of should be different", father_of, mother_of);
 	}
 
