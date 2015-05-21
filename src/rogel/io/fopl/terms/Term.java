@@ -5,18 +5,13 @@ import rogel.io.fopl.Symbol;
 /**
  * Terms name objects or things. As such, Terms require at least one Symbol,
  * to uniquely identify the Term within the domain of discourse.
- * 
- * There are two types:
- * @see Function.java
- * @see Variable.java
- * 
+ * There are two types: Functions and Variables.
  * @author recardona
  */
-public abstract class Term 
-{
-	//the symbol that denotes this variable within the domain of discourse
-	protected Symbol symbol;
+public abstract class Term {
 	
+	/** The Symbol that denotes this Term within the domain of discourse. */
+	protected Symbol symbol;
 	
 	/**
 	 * Defines a Term with the given name. If the name is a String that did not
@@ -28,7 +23,6 @@ public abstract class Term
 		this.symbol = Symbol.get(name);
 	}
 	
-	
 	/**
 	 * Defines a Term with the given Symbol.
 	 * @param symbol the Symbol that represents this Term within the domain of
@@ -38,14 +32,12 @@ public abstract class Term
 		this.symbol = symbol;
 	}
 	
-	
 	/**
 	 * @return the symbol
 	 */
 	public Symbol getSymbol() {
 		return this.symbol;
 	}
-	
 	
 	@Override
 	public String toString() {
@@ -62,11 +54,9 @@ public abstract class Term
 		}
 	}
 	
-	
 	@Override
 	public boolean equals(Object obj) {
 		//Term equality is composed of type and symbol equality
-		
 		if(!(obj instanceof Term)) {
 			return false;
 		}
@@ -74,7 +64,6 @@ public abstract class Term
 		Term other = (Term) obj;
 		return this.symbol.equals(other.symbol);		
 	}
-	
 	
 	@Override
 	public int hashCode() {
