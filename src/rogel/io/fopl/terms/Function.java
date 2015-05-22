@@ -263,6 +263,12 @@ public class Function extends Term {
 	}
 	
 	@Override
+	public Expression replaceVariables(Substitution substitution) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
 	public boolean equals(Object obj) {
 		//Function equality is composed of type, symbol, arity, argument, and relation equality.
 		if (this == obj) {

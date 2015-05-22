@@ -66,6 +66,13 @@ public class Variable extends Term {
 	public boolean containsVariable(Variable variable) {
 		return this.equals(variable);
 	}
+	
+	@Override
+	public Expression replaceVariables(Substitution substitution) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 
