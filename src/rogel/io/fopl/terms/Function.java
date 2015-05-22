@@ -264,8 +264,27 @@ public class Function extends Term {
 	
 	@Override
 	public Expression replaceVariables(Substitution substitution) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		if(this.isConstant()) {
+			// A constant Function can't replace variables, because it does not
+			// have any Variable Terms. We thus return the Function itself
+			// (unchanged).
+			return this;
+		}
+		
+		else {
+			// We must return a new Function with replaced Terms.
+			Term[] newArguments = new Term[this.arguments.size()];
+			
+			// For each argument Term, replace variables with the given substitution.
+			for(int argumentIndex = 0; argumentIndex < this.arguments.size(); argumentIndex++) {
+				newArguments[argumentIndex] = (Term) this.arguments.get(argumentIndex).replaceVariables(substitution);
+			}
+			
+			// Create and return the new Function with the same Symbol and new arguments.
+			Function substitutedVariableFunction = new Function(this.symbol, newArguments);
+			return substitutedVariableFunction;
+		}
 	}
 
 	@Override

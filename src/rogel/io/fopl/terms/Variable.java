@@ -69,8 +69,17 @@ public class Variable extends Term {
 	
 	@Override
 	public Expression replaceVariables(Substitution substitution) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		// Variables may be bound to other variables, and so if this Variable
+		// is bound, this method must search until it finds a constant binding
+		// or a final unbound variable.
+		if(substitution.isBound(this)) {
+			return substitution.getBinding(this).replaceVariables(substitution);
+		}
+		
+		else {
+			return this;
+		}
 	}
 	
 	@Override
