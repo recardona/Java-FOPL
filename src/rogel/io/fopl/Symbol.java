@@ -19,8 +19,6 @@ public class Symbol {
 	 */
 	private static HashMap<String, Symbol> domainOfDiscourse = new HashMap<String, Symbol>(10000);
 	
-	private static LexicographicSymbolComparator singletonLexicographicSymbolComparator;
-	
 	/**
 	 * The String name this Symbol represents.
 	 */
@@ -81,10 +79,13 @@ public class Symbol {
 		return this.name.hashCode();
 	}
 	
+	// The Comparator<Symbol> singleton.
+	private static LexicographicSymbolComparator singletonLexicographicSymbolComparator;
+	
 	/**
 	 * Returns a LexicographicSymbolComparator, used to compare two Symbols by
 	 * the Strings they represent.
-	 * @return a comparator of Symbols, which implements the Comparator interface
+	 * @return a Comparator of Symbols, which implements the Comparator interface
 	 * @see java.util.Comparator
 	 */
 	public static Comparator<Symbol> getLexicographicSymbolComparator() {
