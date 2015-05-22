@@ -1,5 +1,6 @@
 package rogel.io.fopl.terms;
 
+import rogel.io.fopl.Expression;
 import rogel.io.fopl.Substitution;
 import rogel.io.fopl.Symbol;
 import rogel.io.fopl.Unifiable;
@@ -51,16 +52,20 @@ public class Variable extends Term {
 		// initialize a new Substitution with the parameter Substitution.
 		Substitution sigma = new Substitution(substitution);
 		
+		// "Occurs" check:
+		if(unifiable.containsVariable(this)) {
+			return null; // Fail!
+		}
+		
 		// Add the new binding and return it.
 		sigma.add(this, unifiable);
 		return sigma;
 	}
 	
 	@Override
-	public String toString() {
-		return "[Variable: "+this.symbol.toString()+"]";
+	public boolean containsVariable(Variable variable) {
+		return this.equals(variable);
 	}
-
 	@Override
 	public boolean equals(Object obj) {
 
@@ -86,4 +91,10 @@ public class Variable extends Term {
 	public int hashCode() {
 		return super.hashCode();
 	}
+	
+	@Override
+	public String toString() {
+		return "[Variable: "+this.symbol.toString()+"]";
+	}
+	
 }
