@@ -35,7 +35,7 @@ public class Variable extends Term {
 	@Override
 	public Substitution unify(Unifiable unifiable, Substitution substitution) {
 		
-		if(this == unifiable) {
+		if(this.equals(unifiable)) {
 			// If they're the same, then the substitution cannot change.
 			return substitution;
 		}
