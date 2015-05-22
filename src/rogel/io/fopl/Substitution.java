@@ -2,26 +2,24 @@ package rogel.io.fopl;
 
 import java.util.HashMap;
 
-import rogel.io.fopl.terms.Term;
 import rogel.io.fopl.terms.Variable;
 
 /**
- * A Substitution maps a set of Variables to a set of Terms.  
- * 
+ * A Substitution is a mapping of a set of Variables to a set of Unifiable 
+ * Objects. It serves as a solution of a unification problem.
  * @author recardona
  */
 public class Substitution 
 {
-	//the mappings between the variable and terms
-	private HashMap<Variable, Term> bindings;
+	/** The mappings between Variables and Unifiables. */
+	private HashMap<Variable, Unifiable> bindings;
 	
 	/**
 	 * Creates an empty substitution set.
 	 */
 	public Substitution() {
-		this.bindings = new HashMap<Variable, Term>();
+		this.bindings = new HashMap<Variable, Unifiable>();
 	}
-	
 	
 	/**
 	 * Creates a non-empty substitution set, comprised of the bindings in the
@@ -29,9 +27,8 @@ public class Substitution
 	 * @param s the Substitution set to initialize with
 	 */
 	public Substitution(Substitution s) {
-		this.bindings = new HashMap<Variable, Term>(s.getBindings());
+		this.bindings = new HashMap<Variable, Unifiable>(s.getBindings());
 	}
-	
 	
 	/**
 	 * Clears this Substitution of all bindings.
@@ -40,27 +37,25 @@ public class Substitution
 		this.bindings.clear();
 	}
 	
-	
 	/**
 	 * Binds the Term to the Variable.
 	 * @param variable the Variable to be bound
-	 * @param term the Term that will be bound to the variable
+	 * @param unifiable the Term that will be bound to the variable
 	 */
-	public void add(Variable variable, Term term) {
-		this.bindings.put(variable, term);
+	public void add(Variable variable, Unifiable unifiable) {
+		this.bindings.put(variable, unifiable);
 	}
-	
 	
 	/**
-	 * Gets the binding for this Variable. This binding is a Term. If no such
-	 * binding exists, this method returns null.
+	 * Gets the binding for this Variable. This binding is a Unifiable Object. 
+	 * If no such binding exists, this method returns null.
 	 * @param variable the Variable to lookup
-	 * @return the Term bound to the variable, or null if the variable is not bound.
+	 * @return the Unifiable Object bound to the variable, or null if the 
+	 * 	variable is not bound.
 	 */
-	public Term getBinding(Variable variable) {
-		return (Term) this.bindings.get(variable);
+	public Unifiable getBinding(Variable variable) {
+		return (Unifiable) this.bindings.get(variable);
 	}
-	
 	
 	/**
 	 * @return true if the Variable is bound, false otherwise.
@@ -69,28 +64,25 @@ public class Substitution
 		return (this.bindings.get(variable) != null);
 	}
 	
-	
 	/**
 	 * A Substitution is "ground" if all terms are ground terms (no variables)
 	 * @return true if this Substitution is ground
 	 */
 	public boolean isGround() {
-		for(Term t : this.getBindings().values()) {
-			if(t instanceof Variable) {
+		for(Unifiable u : this.getBindings().values()) {
+			if(u instanceof Variable) {
 				return false;
 			}
 		}
 		return true;
 	}
 
-	
 	/**
 	 * @return the bindings
 	 */
-	public HashMap<Variable, Term> getBindings() {
+	public HashMap<Variable, Unifiable> getBindings() {
 		return this.bindings;
 	}
-
 	
 	@Override
 	public String toString() {
