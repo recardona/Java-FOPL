@@ -13,5 +13,4 @@ public interface Expression {
 	 * @return an Expression with substituted Variables.
 	 */
 	public Expression replaceVariables(Substitution substitution);
-	
 }
