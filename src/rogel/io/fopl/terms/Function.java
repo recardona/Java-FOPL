@@ -172,8 +172,71 @@ public class Function extends Term {
 	}
 	
 	@Override
-	public Substitution unify(Unifiable expression, Substitution set) {
-		// TODO Auto-generated method stub
+	public Substitution unify(Unifiable unifiable, Substitution substitution) {
+		
+		// If we're trying to unify with a Variable, then just delegate to that
+		// Variable's unify method.
+		if(unifiable instanceof Variable) {
+			return unifiable.unify(this, substitution);
+		}
+		
+		// Otherwise, 
+		else {
+			
+			// This implementation of unify does two different things,
+			// depending on whether this Function is a constant or not.
+			if(this.isConstant()) {
+				
+				// If they're the same, then any Substitution will make
+				// this and that unify.
+				if(this.equals(unifiable)) {
+					return substitution;
+				}
+			}
+
+			// If this Function is not a constant,
+			else {
+				
+				// If expression isn't a Function, we can't do anything.
+				if(unifiable instanceof Function) {
+					
+					Function fnUnifiable = (Function) unifiable;
+					
+					// If the Function Symbols are different, or if have
+					// different arity, they can't be unified.
+					if(!this.symbol.equals(fnUnifiable.symbol) || this.arity != fnUnifiable.arity) {
+						return null;
+					}
+					
+					// Otherwise, go through each of the Terms and attempt
+					// to unify.
+					else {
+
+						// Initialize the new Substitution set with existing mappings.
+						Substitution theta = new Substitution(substitution);
+						for(int termIndex = 0; termIndex < this.arguments.size(); termIndex++) {
+							
+							// Get the next Term from each Function argument.
+							Term t1 = this.arguments.get(termIndex);
+							Term t2 = fnUnifiable.arguments.get(termIndex);
+							
+							// Attempt to unify.
+							theta = t1.unify(t2, theta);
+							
+							// If we ever get null, we have failed, so fail.
+							if(theta == null) {
+								return null;
+							}
+						}
+						
+						// We have succeeded in the for loop, so return the new substitutions.
+						return theta;
+					}
+				}
+			}
+		}
+		
+		// No luck in finding Substitutions! Thus, none are possible.
 		return null;
 	}
 	
@@ -199,7 +262,6 @@ public class Function extends Term {
 				
 		return sb.toString();
 	}
-	
 	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
