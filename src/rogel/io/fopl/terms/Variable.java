@@ -38,9 +38,8 @@ public class Variable extends Term {
 	@Override
 	public boolean equals(Object obj) {
 
-		//Variable equality is composed of type and symbol equality
+		//Variable equality is composed of type and symbol equality.
 
-		//Function equality is composed of type, symbol, arity, argument, and relation equality.
 		if (this == obj) {
 			return true;
 		}
