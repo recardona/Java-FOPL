@@ -19,6 +19,6 @@ public interface Unifiable {
 	 * @return a Substitution that unifies this Object with the parameter 
 	 * 	Unifiable, or null if no Substitution exists
 	 */
-	Substitution unify(Unifiable unifiable, Substitution substitution);
+	public Substitution unify(Unifiable unifiable, Substitution substitution);
 	
 }
