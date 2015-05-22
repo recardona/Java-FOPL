@@ -23,7 +23,6 @@ public class FunctionTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		
 		cAbe = new Function("Abe");
 		cIsh = new Function("Ish");
 		cZak = new Function("Zak");
