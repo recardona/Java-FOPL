@@ -28,9 +28,9 @@ public class Function extends Term {
 	private HashMap<List<Term>, Term> relation;
 		
 	/**
-	 * Constructs a n-ary Function with the given name. If the name is a String
+	 * Constructs an n-ary Function with the given name. If the name is a String
 	 * that did not already exist within the domain of discourse (i.e. was 
-	 * already defined as a Symbol), then a new Symbol is created, and added to
+	 * already defined as a Symbol), then a new Symbol is created and added to
 	 * the domain of discourse. The arity of this Function depends on the number
 	 * of Terms added.
 	 * <p>
@@ -55,7 +55,7 @@ public class Function extends Term {
 	}
 	
 	/**
-	 * Constructs a 0-ary Function with the given Symbol. The arity of this Function
+	 * Constructs an n-ary Function with the given Symbol. The arity of this Function
 	 * depends on the number of Terms added.
 	 * <p>
 	 * Note: A 0-ary Function is used to represent a constant symbol.
@@ -148,7 +148,7 @@ public class Function extends Term {
 	}
 	
 	/**
-	 * True if this Function is a constant. Constants are 0-ary function symbols.
+	 * True if this Function is a constant. Constants are 0-ary Functions.
 	 * @return true if this Function has no arguments attached
 	 */
 	public boolean isConstant() {
@@ -166,6 +166,7 @@ public class Function extends Term {
 	/**
 	 * Returns a List of placeholder terms this function applies to. For example,
 	 * in the Function <code>f(x)</code> the argument would be <code>x</code>.
+	 * If this Function is constant, this method returns null.
 	 * @return this Function's arguments
 	 */
 	public List<Term> getArguments() {
