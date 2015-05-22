@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import rogel.io.fopl.Symbol;
+import rogel.io.fopl.Unifiable;
 
 /**
  * Terms name objects or things. As such, Terms require at least one Symbol,
@@ -12,7 +13,7 @@ import rogel.io.fopl.Symbol;
  * There are two types: Functions and Variables.
  * @author recardona
  */
-public abstract class Term {
+public abstract class Term implements Unifiable {
 	
 	/** The Symbol that denotes this Term within the domain of discourse. */
 	protected Symbol symbol;
