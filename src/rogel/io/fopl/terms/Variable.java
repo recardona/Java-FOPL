@@ -36,7 +36,8 @@ public class Variable extends Term {
 	public Substitution unify(Unifiable unifiable, Substitution substitution) {
 		
 		if(this.equals(unifiable)) {
-			// If they're the same, then the substitution cannot change.
+			// If they're the same, then anything in the substitution will make
+			// this and that unify.
 			return substitution;
 		}
 		
