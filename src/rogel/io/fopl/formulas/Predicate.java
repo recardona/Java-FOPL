@@ -147,5 +147,33 @@ public class Predicate extends Formula implements Unifiable {
 		result = prime * result + ((terms == null) ? 0 : terms.hashCode());
 		return result;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("[Predicate: ");
+		sb.append(this.symbol.toString());
+		
+		if(this.isPropositional()) {
+			sb.append(" (propositional)]");
+		}
+		
+		else {
+			sb.append("(");
+			for(int termIndex = 0; termIndex < this.terms.size(); termIndex++)
+			{
+				sb.append(this.terms.get(termIndex));
+				sb.append(", ");
+			}
+			sb.replace(sb.length()-2, sb.length(), ")]"); //replace last comma+space for closing parenthesis
+		}
+		
+		return sb.toString();
+	}
+	
+	
 	
 }
