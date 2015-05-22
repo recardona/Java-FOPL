@@ -6,7 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.lang.UnsupportedOperationException;
 
+import rogel.io.fopl.Substitution;
 import rogel.io.fopl.Symbol;
+import rogel.io.fopl.Unifiable;
 
 /**
  * A Function is a relation between a set of inputs and a set of outputs. In
@@ -170,6 +172,12 @@ public class Function extends Term {
 	}
 	
 	@Override
+	public Substitution unify(Unifiable expression, Substitution set) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("[Function: ");
@@ -251,4 +259,5 @@ public class Function extends Term {
 				+ ((relation == null) ? 0 : relation.hashCode());
 		return result;
 	}
+
 }
