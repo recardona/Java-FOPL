@@ -1,10 +1,12 @@
 package rogel.io.fopl;
 
+import rogel.io.fopl.terms.Variable;
+
 /**
  * A Unifiable Object is a logical expression that can be used in unification.
  * @author recardona
  */
-public interface Unifiable {
+public interface Unifiable extends Expression {
 	
 	/**
 	 * Attempts to find the Substitution that unifies (i.e. makes syntactically
@@ -20,5 +22,14 @@ public interface Unifiable {
 	 * 	Unifiable, or null if no Substitution exists
 	 */
 	public Substitution unify(Unifiable unifiable, Substitution substitution);
+	
+	/**
+	 * Checks to see if this Unifiable expression contains the parameter
+	 * Variable. This method accomplishes what is colloquially referred to as 
+	 * the "occurs check" during unification.
+	 * @param variable the Variable to check for
+	 * @return true if this Unifiable Object contains the Variable, false otherwise
+	 */
+	public boolean containsVariable(Variable variable);
 	
 }
