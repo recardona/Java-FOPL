@@ -95,11 +95,6 @@ public class Predicate extends Formula implements Unifiable {
 	public List<Term> getTerms() {
 		return this.terms;
 	}
-	
-	@Override
-	public boolean getValue() {
-		return this.value;
-	}
 
 	@Override
 	public Expression replaceVariables(Substitution substitution) {
@@ -120,15 +115,37 @@ public class Predicate extends Formula implements Unifiable {
 	}
 	
 	@Override
-	public boolean equals() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!super.equals(obj)) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		Predicate other = (Predicate) obj;
+		if (arity != other.arity) {
+			return false;
+		}
+		if (terms == null) {
+			if (other.terms != null) {
+				return false;
+			}
+		} else if (!terms.equals(other.terms)) {
+			return false;
+		}
+		return true;
 	}
 
 	@Override
 	public int hashCode() {
-		// TODO Auto-generated method stub
-		return 0;
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + arity;
+		result = prime * result + ((terms == null) ? 0 : terms.hashCode());
+		return result;
 	}
-
+	
 }
