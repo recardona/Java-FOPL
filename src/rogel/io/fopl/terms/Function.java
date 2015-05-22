@@ -153,25 +153,20 @@ public class Function extends Term {
 	}
 	
 	/**
-	 * Returns an array of all the Symbols for this Function. In the Function
-	 * <code>f(x)</code>, this method would return an array of size 2:
-	 * <code>[f,x]</code>.
-	 * @return an array of all the Symbols for this Function.
+	 * Returns the number of arguments this Function has.
+	 * @return this Function's arity
 	 */
-	public Symbol[] getSymbols() {
-		
-		// Initialize an empty array of Symbols.
-		Symbol[] functionSymbols = new Symbol[1+this.arity];
-		
-		// The first Symbol is this Function's Symbol.
-		functionSymbols[0] = this.symbol;
-		
-		// The rest of the Symbols are the Symbols for each of the argument Terms.
-		for(int i = 0; i < this.arity; i++) {
-			functionSymbols[i+1] = this.arguments.get(i).symbol;
-		}
-		
-		return functionSymbols;
+	public int getArity() {
+		return this.arity;
+	}
+	
+	/**
+	 * Returns a List of placeholder terms this function applies to. For example,
+	 * in the Function <code>f(x)</code> the argument would be <code>x</code>.
+	 * @return this Function's arguments
+	 */
+	public List<Term> getArguments() {
+		return this.arguments;
 	}
 	
 	@Override
@@ -256,5 +251,4 @@ public class Function extends Term {
 				+ ((relation == null) ? 0 : relation.hashCode());
 		return result;
 	}
-	
 }
