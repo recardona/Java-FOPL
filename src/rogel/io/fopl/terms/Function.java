@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.lang.UnsupportedOperationException;
 
+import rogel.io.fopl.Expression;
 import rogel.io.fopl.Substitution;
 import rogel.io.fopl.Symbol;
 import rogel.io.fopl.Unifiable;
@@ -241,31 +242,26 @@ public class Function extends Term {
 	}
 	
 	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("[Function: ");
-		sb.append(this.symbol.toString());
+	public boolean containsVariable(Variable variable) {
 		
 		if(this.isConstant()) {
-			sb.append(" (constant)]");
+			// A constant Function cannot contain a Variable.
+			return false; 
 		}
 		
 		else {
-			sb.append("(");
-			for(int argumentIndex = 0; argumentIndex < this.arguments.size(); argumentIndex++)
-			{
-				sb.append(this.arguments.get(argumentIndex));
-				sb.append(", ");
+			
+			// If we have an n-ary Function, check all the arguments.
+			for(Term t : this.arguments) {
+				if(t.equals(variable)) {
+					return true;
+				}
 			}
-			sb.replace(sb.length()-2, sb.length(), ")]"); //replace last comma+space for closing parenthesis
+			
+			return false;
 		}
-				
-		return sb.toString();
 	}
 	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		//Function equality is composed of type, symbol, arity, argument, and relation equality.
@@ -307,9 +303,6 @@ public class Function extends Term {
 		return true;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -321,5 +314,27 @@ public class Function extends Term {
 				+ ((relation == null) ? 0 : relation.hashCode());
 		return result;
 	}
-
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("[Function: ");
+		sb.append(this.symbol.toString());
+		
+		if(this.isConstant()) {
+			sb.append(" (constant)]");
+		}
+		
+		else {
+			sb.append("(");
+			for(int argumentIndex = 0; argumentIndex < this.arguments.size(); argumentIndex++)
+			{
+				sb.append(this.arguments.get(argumentIndex));
+				sb.append(", ");
+			}
+			sb.replace(sb.length()-2, sb.length(), ")]"); //replace last comma+space for closing parenthesis
+		}
+				
+		return sb.toString();
+	}
 }
