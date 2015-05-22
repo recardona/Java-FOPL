@@ -4,22 +4,26 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-
 import java.lang.UnsupportedOperationException;
 
 import rogel.io.fopl.Symbol;
 
 /**
- * A Function is a relation between a set of inputs, and a set of outputs. 
+ * A Function is a relation between a set of inputs and a set of outputs. In
+ * FOPL, the inputs and outputs are all Symbols. 
  * @author recardona
  */
 public class Function extends Term {
 
+	/** The number of arguments this Function has. */
 	private int arity; 
-	private List<Term> arguments; //the placeholder terms this function applies to; e.g. in "f(x)" the argument would be "x"
-	public HashMap<List<Term>, Term> relation;
-		
 	
+	/** The placeholder terms this function applies to; e.g. in "f(x)" the argument would be "x". */
+	private List<Term> arguments; 
+	
+	/** The underlying relationship between a domain and its co-domain that this Function represents. */
+	private HashMap<List<Term>, Term> relation;
+		
 	/**
 	 * Constructs a n-ary Function with the given name. If the name is a String
 	 * that did not already exist within the domain of discourse (i.e. was 
@@ -47,7 +51,6 @@ public class Function extends Term {
 		}
 	}
 	
-	
 	/**
 	 * Constructs a 0-ary Function with the given Symbol. The arity of this Function
 	 * depends on the number of Terms added.
@@ -72,15 +75,13 @@ public class Function extends Term {
 		}
 	}
 	
-	
 	/**
 	 * Defines a relation between the argument(s) and the value. This operation
 	 * expands this Function's domain by the arguments, and the Function's co-
 	 * domain by the value.
 	 * <p>
-	 * If
-	 * <code>x</code> and <code>y</code> are Symbols, and
-	 * <code>f</code> is a Function object,
+	 * If <code>x</code> and <code>y</code> are Symbols, and
+	 *    <code>f</code> is a Function object,
 	 * calling <code>f.map(y, x)</code> implies that subsequently 
 	 * calling <code>f.evaluate(x)</code> will return <code>y</code>.
 	 * 
@@ -116,7 +117,6 @@ public class Function extends Term {
 		this.relation.put(argumentList, value);
 	}
 	
-	
 	/**
 	 * Attempts to evaluate the Function on the parameter argument.
 	 * <p> 
@@ -144,15 +144,35 @@ public class Function extends Term {
 		}
 	}
 	
-	
 	/**
-	 * Constants are 0-ary function symbols.
+	 * True if this Function is a constant. Constants are 0-ary function symbols.
 	 * @return true if this Function has no arguments attached
 	 */
 	public boolean isConstant() {
 		return (this.arity == 0);
 	}
 	
+	/**
+	 * Returns an array of all the Symbols for this Function. In the Function
+	 * <code>f(x)</code>, this method would return an array of size 2:
+	 * <code>[f,x]</code>.
+	 * @return an array of all the Symbols for this Function.
+	 */
+	public Symbol[] getSymbols() {
+		
+		// Initialize an empty array of Symbols.
+		Symbol[] functionSymbols = new Symbol[1+this.arity];
+		
+		// The first Symbol is this Function's Symbol.
+		functionSymbols[0] = this.symbol;
+		
+		// The rest of the Symbols are the Symbols for each of the argument Terms.
+		for(int i = 0; i < this.arity; i++) {
+			functionSymbols[i+1] = this.arguments.get(i).symbol;
+		}
+		
+		return functionSymbols;
+	}
 	
 	@Override
 	public String toString() {
@@ -178,29 +198,63 @@ public class Function extends Term {
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
-		//Function equality is composed of type, symbol, arity, argument, and relation equality
-		//(See hashCode())
+		//Function equality is composed of type, symbol, arity, argument, and relation equality.
+		if (this == obj) {
+			return true;
+		}
 		
-		if(!(obj instanceof Function)) {
+		if (!super.equals(obj)) {
+			return false;
+		}
+		
+		if (getClass() != obj.getClass()) {
 			return false;
 		}
 		
 		Function other = (Function) obj;
-		return (this.hashCode() == other.hashCode());
+		if (arguments == null) {
+			if (other.arguments != null) {
+				return false;
+			}
+		} 
+		else if (!arguments.equals(other.arguments)) {
+			return false;
+		}
+		
+		if (arity != other.arity) {
+			return false;
+		}
+		
+		if (relation == null) {
+			if (other.relation != null) {
+				return false;
+			}
+		} 
+		else if (!relation.equals(other.relation)) {
+			return false;
+		}
+		
+		return true;
 	}
-	
-	
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
-		 int hash = 1;
-		 hash = this.symbol == null? hash : hash * 27 + this.symbol.hashCode();
-	     hash = hash * 17 + this.arity;
-	     
-	     hash = this.arguments == null ? hash : hash * 31 + this.arguments.hashCode();
-	     hash = this.relation == null ? hash : hash * 13 + this.relation.hashCode();
-	     return hash;
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result
+				+ ((arguments == null) ? 0 : arguments.hashCode());
+		result = prime * result + arity;
+		result = prime * result
+				+ ((relation == null) ? 0 : relation.hashCode());
+		return result;
 	}
 	
 }

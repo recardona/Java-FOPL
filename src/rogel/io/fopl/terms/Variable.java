@@ -10,8 +10,7 @@ import rogel.io.fopl.Symbol;
  * @author recardona
  */
 public class Variable extends Term {
-	
-	
+
 	/**
 	 * Constructs a Variable with the given name. If the name is a String that did
 	 * not already exist within the domain of discourse (defined as a Symbol),
@@ -22,7 +21,6 @@ public class Variable extends Term {
 		super(name);
 	}
 
-	
 	/**
 	 * Constructs a Variable with the given Symbol.
 	 * @param symbol the Symbol that represents this Variable within the domain of
@@ -31,29 +29,36 @@ public class Variable extends Term {
 	public Variable(Symbol symbol) {
 		super(symbol);
 	}
-	
-	
+
 	@Override
 	public String toString() {
 		return "[Variable: "+this.symbol.toString()+"]";
 	}
-	
-	
+
 	@Override
 	public boolean equals(Object obj) {
+
 		//Variable equality is composed of type and symbol equality
-		
-		if(!(obj instanceof Variable)) {
+
+		//Function equality is composed of type, symbol, arity, argument, and relation equality.
+		if (this == obj) {
+			return true;
+		}
+
+		if (!super.equals(obj)) {
+			return false;
+		}
+
+		if (getClass() != obj.getClass()) {
 			return false;
 		}
 		
-		Variable other = (Variable) obj;
-		return this.symbol.equals(other.symbol);
+		return true;
+
 	}
 
-	
 	@Override
 	public int hashCode() {
-		return this.symbol.hashCode();
+		return super.hashCode();
 	}
 }
