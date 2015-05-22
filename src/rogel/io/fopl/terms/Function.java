@@ -12,7 +12,7 @@ import rogel.io.fopl.Symbol;
 import rogel.io.fopl.Unifiable;
 
 /**
- * A Function is a relation between a set of inputs and a set of outputs. In
+ * A Function is a function between a set of inputs and a set of outputs. In
  * FOPL, the inputs and outputs are all Symbols. 
  * @author recardona
  */
