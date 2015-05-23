@@ -48,14 +48,15 @@ public class Variable extends Term {
 			return substitution.getBinding(this).unify(unifiable, substitution);
 		}
 		
-		// At this point, we're attempting to add a new binding. First,
-		// initialize a new Substitution with the parameter Substitution.
-		Substitution sigma = new Substitution(substitution);
-		
 		// "Occurs" check:
 		if(unifiable.containsVariable(this, substitution)) {
 			return null; // Fail!
 		}
+		
+		
+		// At this point, we're attempting to add a new binding. First,
+		// initialize a new Substitution with the parameter Substitution.
+		Substitution sigma = new Substitution(substitution);
 		
 		// Add the new binding and return it.
 		sigma.add(this, unifiable);
