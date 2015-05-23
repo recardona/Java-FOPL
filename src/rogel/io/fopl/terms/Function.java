@@ -268,7 +268,7 @@ public class Function extends Term {
 	}
 	
 	@Override
-	public boolean containsVariable(Variable variable) {
+	public boolean containsVariable(Variable variable, Substitution substitution) {
 		
 		if(this.isConstant()) {
 			// A constant Function cannot contain a Variable.
@@ -279,11 +279,17 @@ public class Function extends Term {
 			
 			// If we have an n-ary Function, check all the arguments.
 			for(Term t : this.arguments) {
-				if(t.equals(variable)) {
+				
+				// Terms can be Functions or Variables, so delegate to the Term's method.
+				boolean containsVariable = t.containsVariable(variable, substitution);
+
+				// If we ever get true, we've found it, so return.
+				if(containsVariable == true) {
 					return true;
 				}
 			}
 			
+			// This Function does not contain the parameter Variable.
 			return false;
 		}
 	}

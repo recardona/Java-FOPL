@@ -190,7 +190,7 @@ public class Predicate extends Formula implements Unifiable {
 	}
 
 	@Override
-	public boolean containsVariable(Variable variable) {
+	public boolean containsVariable(Variable variable, Substitution substitution) {
 		
 		if(this.isPropositional()) {
 			// A propositional Predicate cannot contain a Variable.

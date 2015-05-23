@@ -83,7 +83,7 @@ public class Substitution
 	public HashMap<Variable, Unifiable> getBindings() {
 		return this.bindings;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Bindings: ["+this.bindings+"]";

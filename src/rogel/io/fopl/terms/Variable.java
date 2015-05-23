@@ -53,7 +53,7 @@ public class Variable extends Term {
 		Substitution sigma = new Substitution(substitution);
 		
 		// "Occurs" check:
-		if(unifiable.containsVariable(this)) {
+		if(unifiable.containsVariable(this, substitution)) {
 			return null; // Fail!
 		}
 		
@@ -63,8 +63,20 @@ public class Variable extends Term {
 	}
 	
 	@Override
-	public boolean containsVariable(Variable variable) {
-		return this.equals(variable);
+	public boolean containsVariable(Variable variable, Substitution substitution) {
+		
+		if(this.equals(variable)) {
+			// If this is equal to the variable, clearly we contain the variable.
+			return true;
+		}
+		
+		if(substitution.isBound(this)) {
+			// If this Variable is bound within the parameter Substitution,
+			// the check must continue with the bound value.
+			return substitution.getBinding(this).containsVariable(variable, substitution);
+		}
+		
+		return false;
 	}
 	
 	@Override
