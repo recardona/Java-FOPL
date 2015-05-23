@@ -98,20 +98,116 @@ public class Predicate extends Formula implements Unifiable {
 
 	@Override
 	public Expression replaceVariables(Substitution substitution) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		if(this.isPropositional()) {
+			// A propositional Predicate can't replace variables, because it
+			// does not have any Variable Terms. We thus return the Predicate
+			// itself (unchanged).
+			return this;
+		}
+		
+		else {
+			// We must return a new Predicate with replaced Terms.
+			Term[] newTerms = new Term[this.terms.size()];
+			
+			// For each Term, replace variables with the given substitution.
+			for(int termIndex = 0; termIndex < this.terms.size(); termIndex++) {
+				newTerms[termIndex] = (Term) this.terms.get(termIndex).replaceVariables(substitution);
+			}
+			
+			// Create and return the new Function with the same Symbol and new arguments.
+			Predicate substitutedVariablePredicate = new Predicate(this.symbol, newTerms);
+			return substitutedVariablePredicate;
+		}
 	}
 
 	@Override
 	public Substitution unify(Unifiable unifiable, Substitution substitution) {
-		// TODO Auto-generated method stub
+
+		// If we're trying to unify with a Variable, just delegate to that 
+		// Variable's unify method.
+		if(unifiable instanceof Variable) {
+			return unifiable.unify(this, substitution);
+		}
+		
+		// Otherwise,
+		else {
+			
+			// This implementation of unify does two different things,
+			// depending on whether this Predicate is propositional or not.
+			if(this.isPropositional()) {
+				
+				// If they're the same, then any Substitution will make
+				// this and that unify.
+				if(this.equals(unifiable)) {
+					return substitution;
+				}
+			}
+			
+			// If this Predicate is not propositional,
+			else {
+				
+				// If unifiable isn't a Predicate, we can't do anything.
+				if(unifiable instanceof Predicate) {
+					
+					Predicate pUnifiable = (Predicate) unifiable;
+					
+					// If the Predicate Symbols are different, or if they have
+					// different arity, they can't be unified.
+					if( !this.symbol.equals(pUnifiable.symbol) || this.arity != pUnifiable.arity) {
+						return null;
+					}
+					
+					// Otherwise, go through each of the Terms and attempt to unify.
+					else {
+						
+						// Initialize the new Substitution set with existing mappings.
+						Substitution theta = new Substitution(substitution);
+						for(int termIndex = 0; termIndex < this.terms.size(); termIndex++) {
+							
+							// Get the next Term from each Predicate.
+							Term t1 = this.terms.get(termIndex);
+							Term t2 = pUnifiable.terms.get(termIndex);
+							
+							// Attempt to unify.
+							theta = t1.unify(t2, theta);
+							
+							// If we ever get null, we have failed, so fail.
+							if(theta == null) {
+								return null;
+							}
+						}
+						
+						// We have succeeded in the for loop, so return the new substitutions.
+						return theta;
+					}
+				}
+			}
+		}
+		
+		// No luck in finding Substitutions! Thus, none are possible.
 		return null;
 	}
 
 	@Override
 	public boolean containsVariable(Variable variable) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		if(this.isPropositional()) {
+			// A propositional Predicate cannot contain a Variable.
+			return false;
+		}
+		
+		else {
+			
+			// If we have an n-ary Predicate, check all the arguments.
+			for(Term t : this.terms) {
+				if(t.equals(variable)) {
+					return true;
+				}
+			}
+			
+			return false;
+		}
 	}
 	
 	@Override
@@ -148,9 +244,6 @@ public class Predicate extends Formula implements Unifiable {
 		return result;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
