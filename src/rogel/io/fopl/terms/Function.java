@@ -174,6 +174,31 @@ public class Function extends Term {
 	}
 	
 	@Override
+	public Expression replaceVariables(Substitution substitution) {
+		
+		if(this.isConstant()) {
+			// A constant Function can't replace variables, because it does not
+			// have any Variable Terms. We thus return the Function itself
+			// (unchanged).
+			return this;
+		}
+		
+		else {
+			// We must return a new Function with replaced Terms.
+			Term[] newArguments = new Term[this.arguments.size()];
+			
+			// For each argument Term, replace variables with the given substitution.
+			for(int argumentIndex = 0; argumentIndex < this.arguments.size(); argumentIndex++) {
+				newArguments[argumentIndex] = (Term) this.arguments.get(argumentIndex).replaceVariables(substitution);
+			}
+			
+			// Create and return the new Function with the same Symbol and new arguments.
+			Function substitutedVariableFunction = new Function(this.symbol, newArguments);
+			return substitutedVariableFunction;
+		}
+	}
+	
+	@Override
 	public Substitution unify(Unifiable unifiable, Substitution substitution) {
 		
 		// If we're trying to unify with a Variable, then just delegate to that
@@ -199,12 +224,12 @@ public class Function extends Term {
 			// If this Function is not a constant,
 			else {
 				
-				// If expression isn't a Function, we can't do anything.
+				// If unifiable isn't a Function, we can't do anything.
 				if(unifiable instanceof Function) {
 					
 					Function fnUnifiable = (Function) unifiable;
 					
-					// If the Function Symbols are different, or if have
+					// If the Function Symbols are different, or if they have
 					// different arity, they can't be unified.
 					if(!this.symbol.equals(fnUnifiable.symbol) || this.arity != fnUnifiable.arity) {
 						return null;
@@ -216,11 +241,11 @@ public class Function extends Term {
 
 						// Initialize the new Substitution set with existing mappings.
 						Substitution theta = new Substitution(substitution);
-						for(int termIndex = 0; termIndex < this.arguments.size(); termIndex++) {
+						for(int argumentIndex = 0; argumentIndex < this.arguments.size(); argumentIndex++) {
 							
 							// Get the next Term from each Function argument.
-							Term t1 = this.arguments.get(termIndex);
-							Term t2 = fnUnifiable.arguments.get(termIndex);
+							Term t1 = this.arguments.get(argumentIndex);
+							Term t2 = fnUnifiable.arguments.get(argumentIndex);
 							
 							// Attempt to unify.
 							theta = t1.unify(t2, theta);
@@ -260,31 +285,6 @@ public class Function extends Term {
 			}
 			
 			return false;
-		}
-	}
-	
-	@Override
-	public Expression replaceVariables(Substitution substitution) {
-		
-		if(this.isConstant()) {
-			// A constant Function can't replace variables, because it does not
-			// have any Variable Terms. We thus return the Function itself
-			// (unchanged).
-			return this;
-		}
-		
-		else {
-			// We must return a new Function with replaced Terms.
-			Term[] newArguments = new Term[this.arguments.size()];
-			
-			// For each argument Term, replace variables with the given substitution.
-			for(int argumentIndex = 0; argumentIndex < this.arguments.size(); argumentIndex++) {
-				newArguments[argumentIndex] = (Term) this.arguments.get(argumentIndex).replaceVariables(substitution);
-			}
-			
-			// Create and return the new Function with the same Symbol and new arguments.
-			Function substitutedVariableFunction = new Function(this.symbol, newArguments);
-			return substitutedVariableFunction;
 		}
 	}
 
