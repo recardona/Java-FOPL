@@ -41,6 +41,23 @@ public class FunctionTest {
 	}
 	
 	@Test
+	public void testConstructor() throws Exception {
+		
+		try {
+			Function f = new Function("f", null);
+		}
+		catch(NullPointerException e) { }
+		catch(Exception e) { fail("A NullPointerException should have been caught."); }
+		
+		try {
+			Function f = new Function("f", null, null);
+		}
+		catch(NullPointerException e) { }
+		catch(Exception e) { fail("A NullPointerException should have been caught."); }
+		
+	}
+	
+	@Test
 	public void testMap() {
 		Function cBob = new Function("Bob");
 		father_of.map(cBob, cAbe);

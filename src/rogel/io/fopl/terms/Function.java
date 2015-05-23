@@ -10,6 +10,7 @@ import rogel.io.fopl.Expression;
 import rogel.io.fopl.Substitution;
 import rogel.io.fopl.Symbol;
 import rogel.io.fopl.Unifiable;
+import rogel.io.util.VarargsUtils;
 
 /**
  * A Function is a function between a set of inputs and a set of outputs. In
@@ -40,6 +41,8 @@ public class Function extends Term {
 	 */
 	public Function(String name, Term... terms) {
 		super(name);
+		VarargsUtils.checkForNull( (Object[]) terms);
+		
 		this.arity = terms.length;
 		
 		//if the arity is 0, define arguments and the function itself as null
