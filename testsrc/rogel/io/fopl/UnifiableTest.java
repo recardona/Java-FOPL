@@ -92,10 +92,4 @@ public class UnifiableTest {
 		mostGeneralUnifier = P_5.unify(P_6, identity);
 		assertNull("This unification fails because it fails the 'occurs' check.", mostGeneralUnifier);
 	}
-
-	@Test
-	public void testContainsVariable() {
-		fail("Not yet implemented");
-	}
-
 }
