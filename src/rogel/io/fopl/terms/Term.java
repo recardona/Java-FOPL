@@ -1,7 +1,5 @@
 package rogel.io.fopl.terms;
 
-import java.util.Comparator;
-
 import rogel.io.fopl.Symbol;
 import rogel.io.fopl.Unifiable;
 
@@ -29,10 +27,10 @@ public abstract class Term implements Unifiable {
 	/**
 	 * Defines a Term with the given Symbol.
 	 * @param symbol the Symbol that represents this Term within the domain of
-	 * discourse
+	 *   discourse
 	 */
 	protected Term(Symbol symbol) {
-		this.symbol = symbol;
+		this(symbol.toString());
 	}
 	
 	/**

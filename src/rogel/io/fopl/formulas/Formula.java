@@ -12,6 +12,12 @@ import rogel.io.fopl.Symbol;
  * @see QuantifiedFormula.java
  */
 public abstract class Formula {
+		
+	/** Represents the value "true" (top) in FOPL. */
+	public static final Formula TRUE = new Formula(Symbol.TRUE) {};
+	
+	/** Represents the value "false" (bottom) in FOPL. */
+	public static final Formula FALSE = new Formula(Symbol.FALSE) {};
 	
 	/** This Formula's truth value. */
 	protected Boolean value;
@@ -36,8 +42,7 @@ public abstract class Formula {
 	 * of discourse
 	 */
 	protected Formula(Symbol symbol) {
-		this.value = null;
-		this.symbol = symbol;
+		this(symbol.toString());
 	}
 	
 	/**
@@ -90,5 +95,5 @@ public abstract class Formula {
 		result = prime * result + ((symbol == null) ? 0 : symbol.hashCode());
 		result = prime * result + ((value == null) ? 0 : value.hashCode());
 		return result;
-	}
+	}	
 }
