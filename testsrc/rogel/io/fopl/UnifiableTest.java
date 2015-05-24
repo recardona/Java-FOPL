@@ -145,5 +145,8 @@ public class UnifiableTest {
 		expectedBindings.put(w, cB);
 		assertNotNull("This unification sequence does have a most general unifier.", mostGeneralUnifier);
 		assertEquals(expectedBindings, mostGeneralUnifier.getBindings());
+		
+		// Compare with the unify provided by Substitution.
+		assertEquals(mostGeneralUnifier, Substitution.unify(Q_1, Q_2, Q_3));
 	}
 }
