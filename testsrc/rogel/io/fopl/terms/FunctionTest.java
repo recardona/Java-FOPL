@@ -43,13 +43,15 @@ public class FunctionTest {
 	@Test
 	public void testConstructor() throws Exception {
 		try {
-			Function f = new Function("f", null);
+			Function f = new Function("f", (Term) null);
+			System.out.println(f);
 		}
 		catch(NullPointerException e) { }
 		catch(Exception e) { fail("A NullPointerException should have been caught."); }
 		
 		try {
 			Function f = new Function("f", null, null);
+			System.out.println(f);
 		}
 		catch(NullPointerException e) { }
 		catch(Exception e) { fail("A NullPointerException should have been caught."); }
