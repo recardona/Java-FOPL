@@ -9,6 +9,7 @@ import rogel.io.fopl.Symbol;
 import rogel.io.fopl.Unifiable;
 import rogel.io.fopl.terms.Term;
 import rogel.io.fopl.terms.Variable;
+import rogel.io.util.VarargsUtils;
 
 /**
  * A Predicate names a relation between Terms in a domain of discourse.
@@ -35,6 +36,8 @@ public class Predicate extends Formula implements Unifiable {
 	 */
 	public Predicate(String name, Term... terms) {
 		super(name);
+		VarargsUtils.checkForNull((Object []) terms);
+		
 		this.value = true; // Predicates are true by default.
 		this.arity = terms.length;
 		
