@@ -56,10 +56,14 @@ public class Predicate extends Formula implements Unifiable {
 	 * Predicate depends on the number of Terms added.
 	 * <p>
 	 * Note: A 0-ary Predicate is used to represent a propositional symbol.
-	 * @param symbol
+	 * @param symbol the Symbol that represents this Predicate within the
+	 * domain of discourse
+	 * @param terms the terms this Predicate describes
 	 */
 	public Predicate(Symbol symbol, Term... terms) {
 		super(symbol);
+		VarargsUtils.checkForNull((Object[]) terms);
+		
 		this.value = true; // Predicates are true by default.
 		this.arity = terms.length;
 		
