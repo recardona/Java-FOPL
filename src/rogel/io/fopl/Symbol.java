@@ -78,32 +78,4 @@ public class Symbol {
 	public int hashCode() {
 		return this.name.hashCode();
 	}
-	
-	// The Comparator<Symbol> singleton.
-	private static LexicographicSymbolComparator singletonLexicographicSymbolComparator;
-	
-	/**
-	 * Returns a LexicographicSymbolComparator, used to compare two Symbols by
-	 * the Strings they represent.
-	 * @return a Comparator of Symbols, which implements the Comparator interface
-	 * @see java.util.Comparator
-	 */
-	public static Comparator<Symbol> getLexicographicSymbolComparator() {
-		//lazy initialization
-		if(singletonLexicographicSymbolComparator == null) {
-			singletonLexicographicSymbolComparator = new LexicographicSymbolComparator();
-		}
-		return singletonLexicographicSymbolComparator;
-	}
-	
-	/**
-	 * A Symbol Comparator which compares the Strings the Symbol represents
-	 * lexicographically.
-	 */
-	private static class LexicographicSymbolComparator implements Comparator<Symbol> {
-		@Override
-		public int compare(Symbol s1, Symbol s2) {
-			return s1.toString().compareTo(s2.toString());
-		}
-	}	
 }

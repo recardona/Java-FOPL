@@ -72,31 +72,4 @@ public abstract class Term implements Unifiable {
 	public int hashCode() {
 		return this.symbol.hashCode();
 	}
-	
-	// The Comparator<Term> singleton.
-	private static LexicographicTermComparator singletonLexicographicTermComparator;
-
-	/**
-	 * Returns a LexicographicTermComparator(), used to compare two Terms by the
-	 * Symbols they contain. 
-	 * @return a Comparator of Terms
-	 */
-	public static Comparator<Term> getLexicographicTermComparator() {
-		// lazy initialization
-		if(singletonLexicographicTermComparator == null) {
-			singletonLexicographicTermComparator = new LexicographicTermComparator();
-		}
-		return singletonLexicographicTermComparator;
-	}
-	
-	/**
-	 * A Term Comparator which compares the Symbols it contains. 
-	 */
-	private static class LexicographicTermComparator implements Comparator<Term> {
-		@Override
-		public int compare(Term o1, Term o2) {
-			return Symbol.getLexicographicSymbolComparator().compare(o1.symbol, o2.symbol);
-		}
-	}
-	
 }
