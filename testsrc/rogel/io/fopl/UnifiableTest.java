@@ -149,7 +149,6 @@ public class UnifiableTest {
 		
 		// Compare with the unify provided by Substitution.
 		assertEquals(mostGeneralUnifier, Substitution.unify(Q_1, Q_2, Q_3));
-		
 	}
 	
 	@Test
@@ -161,23 +160,15 @@ public class UnifiableTest {
 		assertTrue("f(x) does contain y when y is bounded to x", f_of_x.containsVariable(y, x.unify(y, identity)));
 		assertTrue("f(f(x)) does contain x", f_of_f_of_x.containsVariable(x, identity));
 		assertFalse("f(f(x)) does not contain y", f_of_f_of_x.containsVariable(y, identity));
+		assertTrue("f(f(x)) does contain y when y is bounded to f(x)", f_of_f_of_x.containsVariable(y, f_of_x.unify(y, identity)));
 		
-		Substitution f_of_x_for_y = f_of_x.unify(y, identity);
-		assertTrue("f(f(x)) does contain y when y is bounded to f(x)", f_of_f_of_x.containsVariable(y, f_of_x_for_y));
-		
-		// Function (constant) tests:
+		// Constant test:
 		assertFalse("cA cannot contain x", cA.containsVariable(x, identity));
 		
-		
-		
+		// Predicate test:
+		assertTrue("P( f(x), f(f(y)) ) does contain x", P_3.containsVariable(x, identity));
+		assertFalse("P( f(x), f(f(y)) ) does not contain z", P_3.containsVariable(z, identity));
+		assertTrue("P( f(x), f(f(y)) ) does contain z when z is bounded to f(x)", P_3.containsVariable(z, z.unify(f_of_x, identity)));
 	}
 	
 }
-
-
-
-
-
-
-
-
