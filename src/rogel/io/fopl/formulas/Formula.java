@@ -14,12 +14,6 @@ import rogel.io.fopl.Symbol;
  */
 public abstract class Formula {
 		
-	/** Represents the value "true" (top) in FOPL. */
-	public static final Formula TRUE = new Formula(Symbol.TRUE) {};
-	
-	/** Represents the value "false" (bottom) in FOPL. */
-	public static final Formula FALSE = new Formula(Symbol.FALSE) {};
-	
 	/** This Formula's truth value. */
 	protected Boolean value;
 	
@@ -43,7 +37,8 @@ public abstract class Formula {
 	 * of discourse
 	 */
 	protected Formula(Symbol symbol) {
-		this(symbol.toString());
+		this.value = null;
+		this.symbol = symbol;
 	}
 	
 	/**

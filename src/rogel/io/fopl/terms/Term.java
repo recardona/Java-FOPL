@@ -30,7 +30,7 @@ public abstract class Term implements Unifiable {
 	 *   discourse
 	 */
 	protected Term(Symbol symbol) {
-		this(symbol.toString());
+		this.symbol = symbol;
 	}
 	
 	/**

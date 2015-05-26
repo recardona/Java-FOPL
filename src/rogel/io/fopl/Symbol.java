@@ -12,24 +12,11 @@ import java.util.HashMap;
  */
 public class Symbol {
 
-	/** The Symbol for the value "true" (top) in FOPL. */
-	public static final Symbol TRUE = new Symbol("true");
-	
-	/** The Symbol for the value "false" (bottom) in FOPL. */
-	public static final Symbol FALSE = new Symbol("false");
-	
 	/**
 	 * The domain of discourse is the set of entities over which variables of
 	 * interest in some formal language may range. 
 	 */
 	private static HashMap<String, Symbol> domainOfDiscourse = new HashMap<String, Symbol>(10000);
-	static {
-		
-		// Statically initializing the domain of discourse with the two
-		// reserved Symbols: true and false.
-		domainOfDiscourse.put("true", TRUE);
-		domainOfDiscourse.put("false", FALSE);
-	}
 
 	/** The String name this Symbol represents. */
 	private String name;
@@ -39,7 +26,7 @@ public class Symbol {
 	 * a new one and adds it to the domain of discourse for future retrieval.
 	 * @param name the name of the Symbol that is sought
 	 * @return a Symbol with the given name
-	 * @throws IllegalArgumentException if the Symbol name is null, empty or reserved ('true' or 'false')
+	 * @throws IllegalArgumentException if the Symbol name is null or empty
 	 */
 	public static Symbol get(String name) throws IllegalArgumentException {
 		
@@ -47,10 +34,6 @@ public class Symbol {
 			throw new IllegalArgumentException("Attempted to get a Symbol without a name.");
 		}
 
-		if(name.equals("true") || name.equals("false")) {
-			throw new IllegalArgumentException("Attempted to get a Symbol with the reserved keyword: " + name);
-		}
-		
 		if(domainOfDiscourse.containsKey(name)) {
 			return domainOfDiscourse.get(name);
 		}
