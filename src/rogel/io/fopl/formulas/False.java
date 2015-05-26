@@ -25,4 +25,9 @@ public class False extends Formula {
 		this.value = false;
 	}
 
+	@Override
+	public String toString() {
+		return this.symbol.toString();
+	}
+	
 }

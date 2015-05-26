@@ -24,4 +24,9 @@ public class True extends Formula {
 		super("true");
 		this.value = true;
 	}
+	
+	@Override
+	public String toString() {
+		return this.symbol.toString();
+	}
 }
