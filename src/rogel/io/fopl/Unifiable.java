@@ -25,8 +25,9 @@ public interface Unifiable extends Expression {
 	
 	/**
 	 * Checks to see if this Unifiable expression contains the parameter
-	 * Variable. This method accomplishes what is colloquially referred to as 
-	 * the "occurs check" during unification.
+	 * Variable, given an existing set of Substitutions (which may involve the
+	 * Variable to check for). This method accomplishes what is colloquially 
+	 * referred to as the "occurs check" during unification.
 	 * @param variable the Variable to check for
 	 * @param substitution the existing set of Substitutions to work with
 	 * @return true if this Unifiable Object contains the Variable, false otherwise
