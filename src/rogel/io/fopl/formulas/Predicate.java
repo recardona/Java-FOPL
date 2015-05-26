@@ -208,7 +208,12 @@ public class Predicate extends Formula implements Unifiable {
 			
 			// If we have an n-ary Predicate, check all the arguments.
 			for(Term t : this.terms) {
-				if(t.equals(variable)) {
+				
+				// Terms can be Functions or Variables, so delegate to the Term's method.
+				boolean containsVariable = t.containsVariable(variable, substitution);
+				
+				// If we ever get true, we've found it, so return.
+				if(containsVariable == true) {
 					return true;
 				}
 			}
