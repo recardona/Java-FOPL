@@ -18,5 +18,6 @@ public class Disjunction extends BinaryConnective {
 	 */
 	public Disjunction(Formula left, Formula right) {
 		super("or", left, right);
+		this.value = left.getValue() || right.getValue();
 	}
 }

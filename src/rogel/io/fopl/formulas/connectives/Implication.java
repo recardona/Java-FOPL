@@ -20,19 +20,4 @@ public class Implication extends BinaryConnective {
 		super("implies", left, right);
 		this.value = !left.getValue() || right.getValue();
 	}
-
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Implication [value=");
-		builder.append(value);
-		builder.append(", symbol=");
-		builder.append(symbol);
-		builder.append(", getLeft()=");
-		builder.append(getLeft());
-		builder.append(", getRight()=");
-		builder.append(getRight());
-		builder.append("]");
-		return builder.toString();
-	}
 }

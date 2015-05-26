@@ -63,5 +63,22 @@ public abstract class BinaryConnective extends Formula {
 	public Formula getRight() {
 		return right;
 	}
+	
+	@Override
+	public final String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("[");
+		builder.append(this.getClass().getSimpleName());
+		builder.append(": ");
+		builder.append(getLeft());
+		builder.append(" ");
+		builder.append(this.symbol);
+		builder.append(" ");
+		builder.append(getRight());
+		builder.append(" (");
+		builder.append(this.value);
+		builder.append(")]");
+		return builder.toString();
+	}
 
 }
