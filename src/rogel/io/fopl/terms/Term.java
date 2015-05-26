@@ -36,7 +36,7 @@ public abstract class Term implements Unifiable {
 	/**
 	 * @return the symbol
 	 */
-	public Symbol getSymbol() {
+	public final Symbol getSymbol() {
 		return this.symbol;
 	}
 	

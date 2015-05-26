@@ -2,6 +2,7 @@ package rogel.io.fopl.formulas;
 
 import rogel.io.fopl.Symbol;
 
+
 /**
  * Formulas state conditions. Like Terms, they require at least one Symbol to 
  * designate what kind of condition they identify as true or false.
@@ -48,7 +49,7 @@ public abstract class Formula {
 	/**
 	 * @return the symbol
 	 */
-	public Symbol getSymbol() {
+	public final Symbol getSymbol() {
 		return this.symbol;
 	}
 	
