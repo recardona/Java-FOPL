@@ -145,8 +145,39 @@ public class UnifiableTest {
 		expectedBindings.put(w, cB);
 		assertNotNull("This unification sequence does have a most general unifier.", mostGeneralUnifier);
 		assertEquals(expectedBindings, mostGeneralUnifier.getBindings());
+		expectedBindings.clear();
 		
 		// Compare with the unify provided by Substitution.
 		assertEquals(mostGeneralUnifier, Substitution.unify(Q_1, Q_2, Q_3));
+		
 	}
+	
+	@Test
+	public void testContainsVariable() throws Exception {
+		
+		// Function tests:
+		assertTrue("f(x) does contain x", f_of_x.containsVariable(x, identity));
+		assertFalse("f(x) does not contain y", f_of_x.containsVariable(y, identity));
+		assertTrue("f(x) does contain y when y is bounded to x", f_of_x.containsVariable(y, x.unify(y, identity)));
+		assertTrue("f(f(x)) does contain x", f_of_f_of_x.containsVariable(x, identity));
+		assertFalse("f(f(x)) does not contain y", f_of_f_of_x.containsVariable(y, identity));
+		
+		Substitution f_of_x_for_y = f_of_x.unify(y, identity);
+		assertTrue("f(f(x)) does contain y when y is bounded to f(x)", f_of_f_of_x.containsVariable(y, f_of_x_for_y));
+		
+		// Function (constant) tests:
+		assertFalse("cA cannot contain x", cA.containsVariable(x, identity));
+		
+		
+		
+	}
+	
 }
+
+
+
+
+
+
+
+

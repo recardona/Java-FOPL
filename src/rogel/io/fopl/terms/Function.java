@@ -279,21 +279,8 @@ public class Function extends Term {
 		}
 		
 		else {
-			
-			// If we have an n-ary Function, check all the arguments.
-			for(Term t : this.arguments) {
-				
-				// Terms can be Functions or Variables, so delegate to the Term's method.
-				boolean containsVariable = t.containsVariable(variable, substitution);
-
-				// If we ever get true, we've found it, so return.
-				if(containsVariable == true) {
-					return true;
-				}
-			}
-			
-			// This Function does not contain the parameter Variable.
-			return false;
+			// Delegate to the static Term method.
+			return Term.containsVariable(this.arguments, variable, substitution);
 		}
 	}
 
