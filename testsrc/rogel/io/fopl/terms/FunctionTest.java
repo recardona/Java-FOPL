@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import rogel.io.fopl.terms.Function;
-import rogel.io.fopl.terms.Term;
 import rogel.io.fopl.terms.Variable;
 
 public class FunctionTest {
