@@ -12,7 +12,7 @@ public class VarargsUtils {
 	
 	/**
 	 * Checks the parameter varargs for a null reference. 
-	 * @param o the varargs to check
+	 * @param o the varargs to check.
 	 * @throws NullPointerException if either the argument is null or contains a null element.
 	 */
 	public static void checkForNull(Object... o) throws NullPointerException {
@@ -23,6 +23,24 @@ public class VarargsUtils {
 		if(Arrays.asList(o).contains(null)) {
 			throw new NullPointerException("Parameter varargs " + o + " contains a null element.");
 		}
+	}
+	
+	/**
+	 * Checks the parameter varargs for a null reference.
+	 * @param o the varargs to check.
+	 * @return true if the argument is null or contains a null element, false otherwise.
+	 */
+	public static boolean containsNull(Object... o) {
+		
+		try {
+			checkForNull(o);
+		} 
+		
+		catch(NullPointerException e) {
+			return true;
+		}
+		
+		return false;
 	}
 
 }

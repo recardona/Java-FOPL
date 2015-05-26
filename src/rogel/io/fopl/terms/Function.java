@@ -113,7 +113,7 @@ public class Function extends Term {
 			throw new IllegalArgumentException("Attempted to map to a null value in Function's co-domain");
 		}
 		
-		if(firstArgument == null || Arrays.asList(otherArguments).contains(null)) {
+		if(firstArgument == null || VarargsUtils.containsNull((Object[]) otherArguments)) {
 			throw new IllegalArgumentException("Arguments in Function's domain cannot be null");
 		}
 		
