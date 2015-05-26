@@ -24,7 +24,7 @@ public class NegatedFormula extends Formula {
 	public NegatedFormula(String name, Formula formula) {
 		super(name);
 		this.formula = formula; // The Formula this class describes.
-		this.value = !this.formula.value; // This class' value is the opposite of the Formula it describes.
+		this.value = !this.formula.getValue(); // This class' value is the opposite of the Formula it describes.
 	}
 	
 	/**
@@ -38,7 +38,7 @@ public class NegatedFormula extends Formula {
 	public NegatedFormula(Symbol symbol, Formula formula) {
 		super(symbol);
 		this.formula = formula;
-		this.value = !this.formula.value;
+		this.value = !this.formula.getValue();
 	}
 	
 	@Override
