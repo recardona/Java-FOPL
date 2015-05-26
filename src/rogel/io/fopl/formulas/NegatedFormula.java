@@ -9,7 +9,7 @@ import rogel.io.fopl.Symbol;
  */
 public class NegatedFormula extends Formula {
 
-	/** The Formula this class negates. */
+	/** The Formula this Object negates. */
 	private Formula formula;
 	
 	/**
