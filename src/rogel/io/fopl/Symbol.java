@@ -3,7 +3,7 @@ package rogel.io.fopl;
 import java.util.HashMap;
 
 /**
- * A Symbol follows the Herbrand interpretation, and is merely a (Java) String 
+ * A Symbol follows the Herbrand interpretation and is merely a (Java) String 
  * that represents itself. There is only <b>one</b> Symbol with any given name
  * (they are memory-unique objects). 
  * 
