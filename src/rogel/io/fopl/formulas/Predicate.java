@@ -246,25 +246,25 @@ public class Predicate extends Formula implements Unifiable {
 
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("[Predicate: ");
-		sb.append(this.symbol.toString());
+		StringBuilder builder = new StringBuilder();
+		builder.append("[Predicate: ");
+		builder.append(this.symbol.toString());
 		
 		if(this.isPropositional()) {
-			sb.append(" (propositional)]");
+			builder.append(" (propositional)]");
 		}
 		
 		else {
-			sb.append("(");
+			builder.append("(");
 			for(int termIndex = 0; termIndex < this.terms.size(); termIndex++)
 			{
-				sb.append(this.terms.get(termIndex));
-				sb.append(", ");
+				builder.append(this.terms.get(termIndex));
+				builder.append(", ");
 			}
-			sb.replace(sb.length()-2, sb.length(), ")]"); //replace last comma+space for closing parenthesis
+			builder.replace(builder.length()-2, builder.length(), ")]"); //replace last comma+space for closing parenthesis
 		}
 		
-		return sb.toString();
+		return builder.toString();
 	}
 	
 	
