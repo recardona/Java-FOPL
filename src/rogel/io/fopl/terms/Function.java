@@ -40,21 +40,7 @@ public class Function extends Term {
 	 * @param terms the parameters to this Function
 	 */
 	public Function(String name, Term... terms) {
-		super(name);
-		VarargsUtils.throwExceptionOnNull( (Object[]) terms);
-		
-		this.arity = terms.length;
-		
-		//if the arity is 0, define arguments and the function itself as null
-		if(this.arity == 0) {
-			this.arguments = null;
-			this.relation = null;
-		}
-		
-		else {
-			this.arguments = Arrays.asList(terms);
-			this.relation = new HashMap<List<Term>, Term>();
-		}
+		this(Symbol.get(name), terms);
 	}
 	
 	/**
@@ -91,12 +77,12 @@ public class Function extends Term {
 	 * calling <code>f.map(y, x)</code> implies that subsequently 
 	 * calling <code>f.evaluate(x)</code> will return <code>y</code>.
 	 * 
-	 * @param value a Symbol that will be in the co-domain of this Function mapped to the argument Symbol(s)
-	 * @param firstArgument a Symbol that will be in the domain of this Function
+	 * @param value a Symbol that will be in the co-domain of this Function mapped to the argument Symbol(s).
+	 * @param firstArgument a Symbol that will be in the domain of this Function.
 	 * @param otherArguments a varargs of Symbols that serve as additional arguments to this Function
 	 * (this is useful for defining multi-dimensional arguments).
-	 * @throws UnsupportedOperationException if this is a constant (i.e. a 0-ary function symbol)
-	 * @throws TooManyArgumentsException if the number of arguments does not match the arity of this Function
+	 * @throws UnsupportedOperationException if this is a constant (i.e. a 0-ary function symbol).
+	 * @throws IllegalArgumentException if the number of arguments does not match the arity of this Function.
 	 * @see {@code evaluate(Symbol... argument)} 
 	 */
 	public void map(Term value, Term firstArgument, Term... otherArguments) {
@@ -130,8 +116,8 @@ public class Function extends Term {
 	 * returns this Function. Otherwise, this method returns the value mapped to
 	 * the parameter arguments.
 	 * 
-	 * @param argument the arguments to this Function
-	 * @return the value in this Function's co-domain given the argument, or <code>null</code> if the argument does not form part of this Function's domain
+	 * @param argument the arguments to this Function.
+	 * @return the value in this Function's co-domain given the argument, or <code>null</code> if the argument does not form part of this Function's domain.
 	 * @see {@code map(Symbol value, Symbol firstArgument, Symbol... otherArguments)}
 	 */
 	public Term evaluate(Term... argument) {
@@ -152,7 +138,7 @@ public class Function extends Term {
 	
 	/**
 	 * True if this Function is a constant. Constants are 0-ary Functions.
-	 * @return true if this Function has no arguments attached
+	 * @return true if this Function has no arguments attached.
 	 */
 	public boolean isConstant() {
 		return (this.arity == 0);
@@ -160,7 +146,7 @@ public class Function extends Term {
 	
 	/**
 	 * Returns the number of arguments this Function has.
-	 * @return this Function's arity
+	 * @return this Function's arity.
 	 */
 	public int getArity() {
 		return this.arity;
@@ -170,7 +156,7 @@ public class Function extends Term {
 	 * Returns a List of placeholder terms this function applies to. For example,
 	 * in the Function <code>f(x)</code> the argument would be <code>x</code>.
 	 * If this Function is constant, this method returns null.
-	 * @return this Function's arguments
+	 * @return this Function's arguments.
 	 */
 	public List<Term> getArguments() {
 		return this.arguments;
