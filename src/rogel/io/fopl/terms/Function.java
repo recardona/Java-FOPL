@@ -41,7 +41,7 @@ public class Function extends Term {
 	 */
 	public Function(String name, Term... terms) {
 		super(name);
-		VarargsUtils.checkForNull( (Object[]) terms);
+		VarargsUtils.throwExceptionOnNull( (Object[]) terms);
 		
 		this.arity = terms.length;
 		

@@ -42,7 +42,7 @@ public class Substitution
 		mostGeneralUnifier = arg1.unify(arg2, identity);
 		
 		// Unify the rest of the arguments.
-		VarargsUtils.checkForNull((Object[]) moreArgs);
+		VarargsUtils.throwExceptionOnNull((Object[]) moreArgs);
 		for(Unifiable u : moreArgs) {
 			mostGeneralUnifier = arg1.unify(u, mostGeneralUnifier);
 		}

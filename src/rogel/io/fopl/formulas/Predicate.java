@@ -36,7 +36,7 @@ public class Predicate extends Formula implements Unifiable {
 	 */
 	public Predicate(String name, Term... terms) {
 		super(name);
-		VarargsUtils.checkForNull((Object []) terms);
+		VarargsUtils.throwExceptionOnNull((Object []) terms);
 		
 		this.value = true; // Predicates are true by default.
 		this.arity = terms.length;
@@ -62,7 +62,7 @@ public class Predicate extends Formula implements Unifiable {
 	 */
 	public Predicate(Symbol symbol, Term... terms) {
 		super(symbol);
-		VarargsUtils.checkForNull((Object[]) terms);
+		VarargsUtils.throwExceptionOnNull((Object[]) terms);
 		
 		this.value = true; // Predicates are true by default.
 		this.arity = terms.length;
