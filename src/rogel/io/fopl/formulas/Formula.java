@@ -8,6 +8,8 @@ import rogel.io.fopl.Symbol;
  * The base class for FOPL Formulas. Formulas are Expressions made up of a
  * Symbol that identifies the Formula and a Boolean value. 
  * @author recardona
+ * @see rogel.io.fopl.True.java
+ * @see rogel.io.fopl.False.java
  * @see rogel.io.fopl.Predicate.java
  * @see rogel.io.fopl.NegatedFormula.java
  * @see rogel.io.fopl.BinaryConnective.java
