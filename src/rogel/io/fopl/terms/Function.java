@@ -29,6 +29,16 @@ public class Function extends Term {
 			new HashMap<Pair<Symbol, Integer>, Function>(100);
 	
 	/** 
+	 * The Function space is a mapping of Function signatures to Function 
+	 * relations. This Map allows distinct Function Objects with equal Function
+	 * signatures to perform {@link Function#map(Term, Term, Term...)} and 
+	 * {@link Function#evaluate(Term...)} operations over the same domain and
+	 * co-domain sets.
+	 */
+	private static HashMap< Pair<Symbol, Integer>, HashMap<List<Term>, Term>> functionSpace = 
+			new HashMap< Pair<Symbol, Integer>, HashMap<List<Term>, Term> >(100);
+	
+	/** 
 	 * The default prefix to use for Variables when generating Functions with 
 	 * arity greater than 0.
 	 */ 
@@ -43,13 +53,49 @@ public class Function extends Term {
 	/** The placeholder terms this function applies to; e.g. in "f(x)" the argument would be "x". */
 	private List<Term> arguments; 
 	
-	/** The underlying relationship between a domain and its co-domain that this Function represents. */
-	private HashMap<List<Term>, Term> relation;
+	/**
+	 * Declares a Function identified by the Symbol that represents the String
+	 * {@code name}. This Function's signature is defined to be the Pair:
+	 * {@code ({@link Symbol#get(name)}, variables.length)}. Like 
+	 * {@link Function#get(name, numberOfArguments)}, if no Function with equal
+	 * signature exists within the domain of discourse, this method creates a 
+	 * new Function and adds it to the domain for future retrieval. 
+	 * <p>
+	 * However, if a Function with the same signature already exists within the
+	 * domain of discourse, then the returned Function is equivalent (as per
+	 * {@link Object#equals(Object)}) but not the same (i.e. different Object)
+	 * as the existing one. The returned Function Object then replaces the 
+	 * existing one in the domain of discourse.
+	 * <p>
+	 * The Function's underlying relation (as defined by calls to 
+	 * {@link Function#map(Term, Term, Term...)}) is preserved across all
+	 * Function Objects that share the same signature.
+	 * @param name the name of this Function.
+	 * @param variables the variables of this Function.
+	 * @return a Function whose arguments are the parameter Variables.
+	 */
+	public static Function declare(String name, Variable... variables) {
+		
+		// Get the Function Symbol.
+		Symbol functionSymbol = Symbol.get(name);
+		
+		// Create the method signature for recording within the domain of discourse.
+		Pair<Symbol, Integer> functionSignature = Pair.of(functionSymbol, variables.length);
+
+		// Create the new Function.
+		Function function = new Function(functionSymbol, variables);
+		
+		// Put/replace the entry of the previous Function.
+		Function.functionDomainOfDiscourse.put(functionSignature, function);
+		return function;
+	}
 	
 	/**
-	 * Returns a Function with the given parameters. If no such Function
-	 * exists, this method creates a new Function and adds it to the domain of
-	 * discourse for future retrieval.
+	 * Returns a Function identified by the Symbol that represents the String 
+	 * {@code name}. This Function's signature is defined to be the Pair:
+	 * {@code (Symbol.get(name), numberOfArguments)}. If no Function with equal
+	 * signature exists within the domain of discourse, this method creates a 
+	 * new Function and adds it to the domain for future retrieval.
 	 * @param name the name of this Function.
 	 * @param numberOfArguments the number of arguments this Function has.
 	 * @return a Function with the given name and number of arguments.
@@ -109,16 +155,17 @@ public class Function extends Term {
 		this.arity = terms.length;
 		this.signature = Pair.of(this.symbol, this.arity);
 				
-		//if the arity is 0, define arguments and the function itself as null
+		// if the arity is 0, define arguments and the function itself as null.
 		if(this.arity == 0) {
 			this.arguments = null;
-			this.relation = null;
 		}
 		
 		else {
 			VarargsUtils.throwExceptionOnNull( (Object[]) terms);
 			this.arguments = Arrays.asList(terms);
-			this.relation = new HashMap<List<Term>, Term>();
+			
+			// Declare a new relation for this signature within the Function space.
+			Function.functionSpace.put(this.signature,  new HashMap<List<Term>, Term>());
 		}
 	}
 	
@@ -157,21 +204,27 @@ public class Function extends Term {
 			throw new IllegalArgumentException("Arguments in Function's domain cannot be null");
 		}
 		
+		// Prepare the argument list.
 		List<Term> argumentList= new ArrayList<Term>(this.arity); //arity should be 1 + otherArguments.length
 		argumentList.add(firstArgument);
 		argumentList.addAll(Arrays.asList(otherArguments));
-		this.relation.put(argumentList, value);
+		
+		// Find the relation that corresponds to this Function signature.
+		HashMap<List<Term>, Term> relation = Function.functionSpace.get(this.getSignature());
+		
+		// Place the mapping in this relation.
+		relation.put(argumentList, value);		
 	}
 	
 	/**
 	 * Attempts to evaluate the Function on the parameter argument.
 	 * <p> 
-	 * If this is a constant Function, the parameters are ignored, and the method
-	 * returns this Function. Otherwise, this method returns the value mapped to
-	 * the parameter arguments.
-	 * 
+	 * If this is a constant Function, the parameters are ignored, and the 
+	 * method returns this Function. Otherwise, this method returns the value 
+	 * mapped to the parameter arguments.
 	 * @param arguments the arguments to this Function.
-	 * @return the value in this Function's co-domain given the argument, or <code>null</code> if the argument does not form part of this Function's domain.
+	 * @return the value in this Function's co-domain given the argument, or 
+	 * 	null if the argument does not form part of this Function's domain.
 	 * @see {@code map(Symbol value, Symbol firstArgument, Symbol... otherArguments)}
 	 */
 	public Term evaluate(Term... arguments) {
@@ -186,8 +239,14 @@ public class Function extends Term {
 				throw new IllegalArgumentException("Number of arguments (" + (1 + arguments.length) + ") does not match this Function's defined arity of "+this.arity);
 			}
 			
+			// Prepare the argument List.
 			List<Term> argumentList = new ArrayList<Term>(Arrays.asList(arguments));
-			return this.relation.get(argumentList);
+			
+			// Find the relation that corresponds to this Function signature.
+			HashMap<List<Term>, Term> relation = Function.functionSpace.get(this.getSignature());
+			
+			// Return the mapping you find there given the argument List.
+			return relation.get(argumentList);
 		}
 	}
 	
@@ -341,7 +400,6 @@ public class Function extends Term {
 	public boolean equals(Object obj) {
 		
 		// Function equality is determined by Type and signature equality.
-		
 		if (this == obj)
 			return true;
 		if (!super.equals(obj))
