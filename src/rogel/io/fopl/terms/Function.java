@@ -332,7 +332,8 @@ public class Function extends Term {
 	@Override
 	public boolean equals(Object obj) {
 		
-		//Function equality is composed of type, symbol, and arity equality.
+		// Function equality is determined by Type and signature equality.
+		
 		if (this == obj)
 			return true;
 		if (!super.equals(obj))
@@ -340,7 +341,10 @@ public class Function extends Term {
 		if (getClass() != obj.getClass())
 			return false;
 		Function other = (Function) obj;
-		if (arity != other.arity)
+		if (signature == null) {
+			if (other.signature != null)
+				return false;
+		} else if (!signature.equals(other.signature))
 			return false;
 		return true;
 	}
@@ -349,7 +353,8 @@ public class Function extends Term {
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + arity;
+		result = prime * result
+				+ ((signature == null) ? 0 : signature.hashCode());
 		return result;
 	}
 	
