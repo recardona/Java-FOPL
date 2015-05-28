@@ -72,7 +72,6 @@ public class Function extends Term {
 		return function;		
 	}
 	
-	
 	/**
 	 * Constructs an n-ary Function with the given name. If the name is a String
 	 * that did not already exist within the domain of discourse (i.e. was 
