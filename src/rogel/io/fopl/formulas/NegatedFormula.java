@@ -39,4 +39,17 @@ public class NegatedFormula extends Formula {
 		Formula replacedVariableFormula = (Formula) this.formula.replaceVariables(substitution);
 		return new NegatedFormula(replacedVariableFormula);
 	}
+
+	@Override
+	public boolean isLiteral() {
+		
+		// In FOPL, a literal is an atomic Formula or its negation.
+		// For a NegatedFormula to be a literal, the Formula it
+		// describes must be atomic.
+		if(this.formula.isAtomic()) {
+			return true;
+		}
+
+		return false;
+	}
 }

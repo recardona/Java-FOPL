@@ -45,6 +45,25 @@ public abstract class Formula implements Expression {
 	}
 	
 	/**
+	 * A literal is an atomic Formula or its negation.
+	 * @return true if this Formula is atomic or is the negation of an atomic 
+	 * 	Formula, false otherwise
+	 */
+	public boolean isLiteral() {
+		//default to false. (Let subclasses override if necessary)
+		return false; 
+	}
+	
+	/**
+	 * An atomic Formula is a Predicate.
+	 * @return true if this Formula is a Predicate, false otherwise.
+	 */
+	public boolean isAtomic() {
+		//default to false. (Let subclasses override if necessary)
+		return false;
+	}
+	
+	/**
 	 * @return the symbol
 	 */
 	public final Symbol getSymbol() {
@@ -57,7 +76,7 @@ public abstract class Formula implements Expression {
 	public boolean getValue() {
 		return this.value;
 	}
-
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {

@@ -104,6 +104,16 @@ public class Predicate extends Formula implements Unifiable {
 	}
 
 	@Override
+	public boolean isLiteral() {
+		return true;
+	}
+
+	@Override
+	public boolean isAtomic() {
+		return true;
+	}
+	
+	@Override
 	public Expression replaceVariables(Substitution substitution) {
 		
 		if(this.isPropositional()) {
@@ -266,7 +276,5 @@ public class Predicate extends Formula implements Unifiable {
 		
 		return builder.toString();
 	}
-	
-	
-	
+
 }
