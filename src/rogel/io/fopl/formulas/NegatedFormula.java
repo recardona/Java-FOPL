@@ -2,7 +2,6 @@ package rogel.io.fopl.formulas;
 
 import rogel.io.fopl.Expression;
 import rogel.io.fopl.Substitution;
-import rogel.io.fopl.Symbol;
 
 /**
  * A NegatedFormula is a Formula whose value is the opposite of the
@@ -15,30 +14,13 @@ public class NegatedFormula extends Formula {
 	private Formula formula;
 	
 	/**
-	 * Constructs a NegatedFormula with the given name, over the given Formula.
-	 * If the name is a String that did not already exist within the domain of
-	 * discourse (i.e. was already defined as a Symbol), then a new Symbol is
-	 * created and added to the domain of discourse. The value of this Formula
-	 * is the opposite of the parameter Formula (the Formula it describes). 
-	 * @param name the name of the Formula
-	 * @param formula the Formula this NegatedFormula describes
-	 */
-	public NegatedFormula(String name, Formula formula) {
-		super(name);
-		this.formula = formula; // The Formula this class describes.
-		this.value = !this.formula.getValue(); // This class' value is the opposite of the Formula it describes.
-	}
-	
-	/**
 	 * Constructs a NegatedFormula with the given Symbol, over the given
 	 * Formula. The value of this Formula is the opposite of the parameter
 	 * Formula (the Formula it describes).
-	 * @param symbol the Symbol that represents this NegatedFormula within the
-	 *   domain of discourse
 	 * @param formula the Formula this NegatedFormula describes
 	 */
-	public NegatedFormula(Symbol symbol, Formula formula) {
-		super(symbol);
+	public NegatedFormula(Formula formula) {
+		super(formula.symbol);
 		this.formula = formula;
 		this.value = !this.formula.getValue();
 	}
@@ -50,7 +32,11 @@ public class NegatedFormula extends Formula {
 
 	@Override
 	public Expression replaceVariables(Substitution substitution) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		// Calling replaceVariables on Formulas will return Formula-type 
+		// Expressions. Thus, get the Formula this NegatedFormula describes, 
+		// replace its Variables and create a new NegatedFormula out of it.
+		Formula replacedVariableFormula = (Formula) this.formula.replaceVariables(substitution);
+		return new NegatedFormula(replacedVariableFormula);
 	}
 }
