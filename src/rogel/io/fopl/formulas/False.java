@@ -37,5 +37,15 @@ public class False extends Formula {
 	public Expression replaceVariables(Substitution substitution) {
 		return this; // False can't replace Variables.
 	}
+
+	@Override
+	public boolean isLiteral() {
+		return true;
+	}
+
+	@Override
+	public boolean isAtomic() {
+		return true;
+	}
 	
 }
