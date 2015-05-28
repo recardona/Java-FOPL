@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.lang.UnsupportedOperationException;
+
+import org.apache.commons.lang3.tuple.Pair;
 
 import rogel.io.fopl.Expression;
 import rogel.io.fopl.Substitution;
@@ -18,7 +19,15 @@ import rogel.io.util.VarargsUtils;
  * @author recardona
  */
 public class Function extends Term {
-
+	
+	/**
+	 * The domain of discourse is the set of entities over which variables of 
+	 * interest in some formal language may range. For Functions, this domain
+	 * captures every Function that has been declared during program execution.
+	 */
+	private static HashMap<Pair<Symbol, Integer>, Function> functionDomainOfDiscourse = 
+			new HashMap<Pair<Symbol, Integer>, Function>(100);
+	
 	/** The number of arguments this Function has. */
 	private int arity; 
 	
@@ -27,7 +36,43 @@ public class Function extends Term {
 	
 	/** The underlying relationship between a domain and its co-domain that this Function represents. */
 	private HashMap<List<Term>, Term> relation;
+	
+	/**
+	 * Returns a Function with the given parameters. If no such Function
+	 * exists, this method creates a new Function and adds it to the domain of
+	 * discourse for future retrieval.
+	 * @param name the name of this Function.
+	 * @param numberOfArguments the number of arguments this Function has.
+	 * @return a Function with the given name and number of arguments.
+	 */
+	public static Function get(String name, int numberOfArguments) {
 		
+		// Get the Function Symbol.
+		Symbol functionSymbol = Symbol.get(name);
+		
+		// See if a Function with this Symbol and argument length has been declared before.
+		Pair<Symbol, Integer> functionSignature = Pair.of(functionSymbol, numberOfArguments);
+		if(Function.functionDomainOfDiscourse.containsKey(functionSignature)) {
+			
+			// If it has been declared, return the existing Function.
+			return Function.functionDomainOfDiscourse.get(functionSignature);
+		}
+		
+		// Otherwise create a new Function, add it to the domain, & return it.
+		// First generate Variables for each argument:
+		Variable[] functionArguments = new Variable[numberOfArguments];
+		for(int variableIndex = 0; variableIndex < numberOfArguments; variableIndex++) {
+			Symbol variableSymbol = Symbol.generateSymbol("X"); // I like "X" named variables. :)
+			functionArguments[variableIndex] = new Variable(variableSymbol);
+		}
+		
+		// Next generate the actual Function.
+		Function function = new Function(functionSymbol, functionArguments);
+		Function.functionDomainOfDiscourse.put(functionSignature, function);
+		return function;		
+	}
+	
+	
 	/**
 	 * Constructs an n-ary Function with the given name. If the name is a String
 	 * that did not already exist within the domain of discourse (i.e. was 
@@ -51,7 +96,7 @@ public class Function extends Term {
 	 * @param symbol the Symbol that represents this Function within the domain of discourse
 	 * @param terms the parameters to this Function
 	 */
-	public Function(Symbol symbol, Term... terms) {
+	private Function(Symbol symbol, Term... terms) {
 		super(symbol);
 		this.arity = terms.length;
 
@@ -269,45 +314,25 @@ public class Function extends Term {
 			return Term.containsVariable(this.arguments, variable, substitution);
 		}
 	}
+	
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		throw new CloneNotSupportedException("Function.clone() is not supported.");
+	}
 
 	@Override
 	public boolean equals(Object obj) {
-		//Function equality is composed of type, symbol, arity, argument, and relation equality.
-		if (this == obj) {
+		
+		//Function equality is composed of type, symbol, and arity equality.
+		if (this == obj)
 			return true;
-		}
-		
-		if (!super.equals(obj)) {
+		if (!super.equals(obj))
 			return false;
-		}
-		
-		if (getClass() != obj.getClass()) {
+		if (getClass() != obj.getClass())
 			return false;
-		}
-		
 		Function other = (Function) obj;
-		if (arguments == null) {
-			if (other.arguments != null) {
-				return false;
-			}
-		} 
-		else if (!arguments.equals(other.arguments)) {
+		if (arity != other.arity)
 			return false;
-		}
-		
-		if (arity != other.arity) {
-			return false;
-		}
-		
-		if (relation == null) {
-			if (other.relation != null) {
-				return false;
-			}
-		} 
-		else if (!relation.equals(other.relation)) {
-			return false;
-		}
-		
 		return true;
 	}
 
@@ -315,11 +340,7 @@ public class Function extends Term {
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result
-				+ ((arguments == null) ? 0 : arguments.hashCode());
 		result = prime * result + arity;
-		result = prime * result
-				+ ((relation == null) ? 0 : relation.hashCode());
 		return result;
 	}
 	
