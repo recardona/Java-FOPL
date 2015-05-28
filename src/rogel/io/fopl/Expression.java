@@ -7,7 +7,7 @@ package rogel.io.fopl;
 public interface Expression {
 
 	/**
-	 * Replaces any bound Variable in this Expression with its binding in the
+	 * Replaces any Variable in this Expression with its binding in the 
 	 * Substitution, if it exists.
 	 * @param substitution the Substitution set of Variables
 	 * @return an Expression with substituted Variables.
