@@ -10,14 +10,17 @@ import rogel.io.fopl.terms.Variable;
 
 public class FunctionTest {
 
+	// Functions:
 	private Function father_of;
 	private Function mother_of;
 	
+	// Constants:
 	private Function cAbe;
 	private Function cIsh;
 	private Function cZak;
 	private Function cSally;
 	
+	// Variables:
 	private Variable x;
 	
 	@Before
@@ -72,7 +75,6 @@ public class FunctionTest {
 		assertTrue("The Function should be a constant.", cF.isConstant());
 		assertNotEquals("Despite having the same Symbol, these are different Functions due to arity.", cF, f_of_x);	
 	}
-	
 	
 	
 	@Test
