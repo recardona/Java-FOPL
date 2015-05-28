@@ -29,18 +29,19 @@ public class FunctionTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		cAbe = new Function("Abe");
-		cIsh = new Function("Ish");
-		cZak = new Function("Zak");
-		cSally = new Function("Sally");
+		cAbe = Function.declare("Abe");
+		cIsh = Function.declare("Ish");
+		cZak = Function.declare("Zak");
+		cSally = Function.declare("Sally");
+		
 		x = new Variable("x");
 
-		father_of = new Function("father_of", x);
+		father_of = Function.declare("father_of", x);
 		father_of.map(cAbe, cIsh);
 		father_of.map(cAbe, cZak);
 		father_of.map(cAbe, cSally);
 		
-		mother_of = new Function("mother_of", x);
+		mother_of = Function.declare("mother_of", x);
 		mother_of.map(cAbe, cIsh);
 		mother_of.map(cAbe, cZak);
 		mother_of.map(cAbe, cSally);
@@ -50,14 +51,14 @@ public class FunctionTest {
 	public void testConstructor() throws Exception {
 		try {
 			@SuppressWarnings("unused")
-			Function f = new Function("f", (Term) null);
+			Function f = Function.declare("f", (Variable) null);
 		}
 		catch(NullPointerException e) { }
 		catch(Exception e) { fail("A NullPointerException should have been caught."); }
 		
 		try {
 			@SuppressWarnings("unused")
-			Function f = new Function("f", null, null);
+			Function f = Function.declare("f", null, null);
 		}
 		catch(NullPointerException e) { }
 		catch(Exception e) { fail("A NullPointerException should have been caught."); }
@@ -108,7 +109,7 @@ public class FunctionTest {
 	
 	@Test
 	public void testMap() {
-		Function cBob = new Function("Bob");
+		Function cBob = Function.declare("Bob");
 		father_of.map(cBob, cAbe);
 		assertEquals("Bob is Abe's father", cBob, father_of.evaluate(cAbe));
 	}
