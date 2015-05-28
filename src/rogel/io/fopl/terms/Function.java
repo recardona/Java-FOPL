@@ -28,6 +28,12 @@ public class Function extends Term {
 	private static HashMap<Pair<Symbol, Integer>, Function> functionDomainOfDiscourse = 
 			new HashMap<Pair<Symbol, Integer>, Function>(100);
 	
+	/** 
+	 * The default prefix to use for Variables when generating Functions with 
+	 * arity greater than 0.
+	 */ 
+	private static final String DEFAULT_ARGUMENT_PREFIX = "X"; // I like "X" named variables. :)
+	
 	/** The number of arguments this Function has. */
 	private int arity; 
 	
@@ -65,7 +71,7 @@ public class Function extends Term {
 		// First generate Variables for each argument:
 		Variable[] functionArguments = new Variable[numberOfArguments];
 		for(int variableIndex = 0; variableIndex < numberOfArguments; variableIndex++) {
-			Symbol variableSymbol = Symbol.generateSymbol("X"); // I like "X" named variables. :)
+			Symbol variableSymbol = Symbol.generateSymbol(Function.DEFAULT_ARGUMENT_PREFIX);
 			functionArguments[variableIndex] = new Variable(variableSymbol);
 		}
 		
