@@ -113,8 +113,8 @@ public class Function extends Term {
 	
 	/**
 	 * Defines a relation between the argument(s) and the value. This operation
-	 * expands this Function's domain by the arguments, and the Function's co-
-	 * domain by the value.
+	 * expands this Function's domain by the arguments, and the Function's 
+	 * co-domain by the value.
 	 * <p>
 	 * If <code>x</code> and <code>y</code> are Symbols, and
 	 *    <code>f</code> is a Function object,
