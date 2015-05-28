@@ -9,8 +9,9 @@ import rogel.io.fopl.Unifiable;
 /**
  * Terms name objects or things. As such, Terms require at least one Symbol,
  * to uniquely identify the Term within the domain of discourse.
- * There are two types: Functions and Variables.
  * @author recardona
+ * @see rogel.io.fopl.terms.Function.java
+ * @see rogel.io.fopl.terms.Variable.java
  */
 public abstract class Term implements Unifiable {
 	
