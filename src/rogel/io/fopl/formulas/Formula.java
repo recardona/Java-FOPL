@@ -5,13 +5,13 @@ import rogel.io.fopl.Symbol;
 
 
 /**
- * Formulas state conditions. Like Terms, they require at least one Symbol to 
- * designate what kind of condition they identify as true or false.
+ * The base class for FOPL Formulas. Formulas are Expressions made up of a
+ * Symbol that identifies the Formula and a Boolean value. 
  * @author recardona
- * @see Predicate.java
- * @see NegatedFormula.java
- * @see BinaryConnective.java
- * @see QuantifiedFormula.java
+ * @see rogel.io.fopl.Predicate.java
+ * @see rogel.io.fopl.NegatedFormula.java
+ * @see rogel.io.fopl.BinaryConnective.java
+ * @see rogel.io.fopl.QuantifiedFormula.java
  */
 public abstract class Formula implements Expression {
 		
