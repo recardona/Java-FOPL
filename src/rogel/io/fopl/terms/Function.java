@@ -31,6 +31,9 @@ public class Function extends Term {
 	/** The number of arguments this Function has. */
 	private int arity; 
 	
+	/** The signature of this Function, defined as the pair: (Symbol, arity).*/
+	private Pair<Symbol, Integer> signature;
+	
 	/** The placeholder terms this function applies to; e.g. in "f(x)" the argument would be "x". */
 	private List<Term> arguments; 
 	
@@ -204,6 +207,13 @@ public class Function extends Term {
 	 */
 	public List<Term> getArguments() {
 		return this.arguments;
+	}
+	
+	/**
+	 * @return this Function's signature, defined as a Pair: (Symbol, getArity()). 
+	 */
+	public Pair<Symbol, Integer> getSignature() {
+		return this.signature;
 	}
 	
 	@Override
