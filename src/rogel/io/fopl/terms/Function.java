@@ -160,22 +160,23 @@ public class Function extends Term {
 	 * returns this Function. Otherwise, this method returns the value mapped to
 	 * the parameter arguments.
 	 * 
-	 * @param argument the arguments to this Function.
+	 * @param arguments the arguments to this Function.
 	 * @return the value in this Function's co-domain given the argument, or <code>null</code> if the argument does not form part of this Function's domain.
 	 * @see {@code map(Symbol value, Symbol firstArgument, Symbol... otherArguments)}
 	 */
-	public Term evaluate(Term... argument) {
+	public Term evaluate(Term... arguments) {
 		
 		if(this.isConstant()) {
 			return this;
 		}
 		
 		else {
-			if(argument.length != this.arity) {
-				throw new IllegalArgumentException("Number of arguments (" + (1 + argument.length) + ") does not match this Function's defined arity of "+this.arity);
+			VarargsUtils.throwExceptionOnNull( (Object[]) arguments );
+			if(arguments.length != this.arity) {
+				throw new IllegalArgumentException("Number of arguments (" + (1 + arguments.length) + ") does not match this Function's defined arity of "+this.arity);
 			}
 			
-			List<Term> argumentList = new ArrayList<Term>(Arrays.asList(argument));
+			List<Term> argumentList = new ArrayList<Term>(Arrays.asList(arguments));
 			return this.relation.get(argumentList);
 		}
 	}
