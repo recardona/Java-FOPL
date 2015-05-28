@@ -1,5 +1,6 @@
 package rogel.io.fopl.formulas;
 
+import rogel.io.fopl.Expression;
 import rogel.io.fopl.Symbol;
 
 
@@ -12,7 +13,7 @@ import rogel.io.fopl.Symbol;
  * @see BinaryConnective.java
  * @see QuantifiedFormula.java
  */
-public abstract class Formula {
+public abstract class Formula implements Expression {
 		
 	/** This Formula's truth value. */
 	protected Boolean value;

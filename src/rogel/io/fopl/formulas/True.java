@@ -1,5 +1,8 @@
 package rogel.io.fopl.formulas;
 
+import rogel.io.fopl.Expression;
+import rogel.io.fopl.Substitution;
+
 /**
  * True (or "top") in FOPL is a special kind of Formula, which is unique
  * because its value is always true. 
@@ -28,5 +31,10 @@ public class True extends Formula {
 	@Override
 	public String toString() {
 		return this.symbol.toString();
+	}
+
+	@Override
+	public Expression replaceVariables(Substitution substitution) {
+		return this; // True can't replace Variables.
 	}
 }

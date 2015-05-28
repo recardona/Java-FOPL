@@ -1,5 +1,7 @@
 package rogel.io.fopl.formulas;
 
+import rogel.io.fopl.Expression;
+import rogel.io.fopl.Substitution;
 import rogel.io.fopl.Symbol;
 
 /**
@@ -44,5 +46,11 @@ public class NegatedFormula extends Formula {
 	@Override
 	public String toString() {
 		return "(not " + formula + ")";
+	}
+
+	@Override
+	public Expression replaceVariables(Substitution substitution) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

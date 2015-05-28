@@ -1,5 +1,7 @@
 package rogel.io.fopl.formulas;
 
+import rogel.io.fopl.Expression;
+import rogel.io.fopl.Substitution;
 import rogel.io.fopl.terms.Variable;
 
 /**
@@ -62,6 +64,12 @@ public class QuantifiedFormula extends Formula {
 	 */
 	public Formula getQuantifiedFormula() {
 		return quantifiedFormula;
+	}
+
+	@Override
+	public Expression replaceVariables(Substitution substitution) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

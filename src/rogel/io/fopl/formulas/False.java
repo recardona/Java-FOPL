@@ -1,5 +1,8 @@
 package rogel.io.fopl.formulas;
 
+import rogel.io.fopl.Expression;
+import rogel.io.fopl.Substitution;
+
 /**
  * False (or "bottom") in FOPL is a special kind of Formula, which is unique
  * because its value is always false.
@@ -28,6 +31,11 @@ public class False extends Formula {
 	@Override
 	public String toString() {
 		return this.symbol.toString();
+	}
+
+	@Override
+	public Expression replaceVariables(Substitution substitution) {
+		return this; // False can't replace Variables.
 	}
 	
 }
