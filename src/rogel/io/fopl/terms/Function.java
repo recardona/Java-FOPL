@@ -101,7 +101,8 @@ public class Function extends Term {
 	private Function(Symbol symbol, Term... terms) {
 		super(symbol);
 		this.arity = terms.length;
-
+		this.signature = Pair.of(this.symbol, this.arity);
+				
 		//if the arity is 0, define arguments and the function itself as null
 		if(this.arity == 0) {
 			this.arguments = null;
@@ -109,6 +110,7 @@ public class Function extends Term {
 		}
 		
 		else {
+			VarargsUtils.throwExceptionOnNull( (Object[]) terms);
 			this.arguments = Arrays.asList(terms);
 			this.relation = new HashMap<List<Term>, Term>();
 		}
@@ -190,7 +192,7 @@ public class Function extends Term {
 	public boolean isConstant() {
 		return (this.arity == 0);
 	}
-	
+
 	/**
 	 * Returns the number of arguments this Function has.
 	 * @return this Function's arity.
