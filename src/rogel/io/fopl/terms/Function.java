@@ -116,10 +116,9 @@ public class Function extends Term {
 	 * expands this Function's domain by the arguments, and the Function's 
 	 * co-domain by the value.
 	 * <p>
-	 * If <code>x</code> and <code>y</code> are Symbols, and
-	 *    <code>f</code> is a Function object,
-	 * calling <code>f.map(y, x)</code> implies that subsequently 
-	 * calling <code>f.evaluate(x)</code> will return <code>y</code>.
+	 * For example, if {@code x} and {@code y} are Terms, and {@code f} is a
+	 * Function, calling {@code f.map(y, x)} implies that subsequently calling 
+	 * {@code f.evaluate(x)} will return {@code y}.
 	 * 
 	 * @param value a Symbol that will be in the co-domain of this Function mapped to the argument Symbol(s).
 	 * @param firstArgument a Symbol that will be in the domain of this Function.
@@ -198,8 +197,8 @@ public class Function extends Term {
 	}
 	
 	/**
-	 * Returns a List of placeholder terms this function applies to. For example,
-	 * in the Function <code>f(x)</code> the argument would be <code>x</code>.
+	 * Returns a List of placeholder terms this function applies to. For 
+	 * example, in the Function {@code f(x)} the argument would be {@code x}.
 	 * If this Function is constant, this method returns null.
 	 * @return this Function's arguments.
 	 */
