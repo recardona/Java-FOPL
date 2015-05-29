@@ -36,9 +36,7 @@ public class Predicate extends Formula implements Unifiable {
 	 */
 	public Predicate(String name, Term... terms) {
 		super(name);
-		VarargsUtils.throwExceptionOnNull((Object []) terms);
-		
-		this.value = true; // Predicates are true by default.
+		VarargsUtils.throwExceptionOnNull((Object []) terms);		
 		this.arity = terms.length;
 		
 		// If the arity is 0, define the Terms as null.
