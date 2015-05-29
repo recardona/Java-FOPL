@@ -1,4 +1,4 @@
-package rogel.io.fopl;
+package rogel.io.fopl.syntax;
 
 import java.util.HashMap;
 

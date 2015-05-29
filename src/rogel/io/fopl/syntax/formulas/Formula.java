@@ -1,19 +1,19 @@
-package rogel.io.fopl.formulas;
+package rogel.io.fopl.syntax.formulas;
 
-import rogel.io.fopl.Expression;
-import rogel.io.fopl.Symbol;
+import rogel.io.fopl.syntax.Expression;
+import rogel.io.fopl.syntax.Symbol;
 
 
 /**
  * The base class for FOPL Formulas. Formulas are Expressions made up of a
  * Symbol that identifies the Formula and a Boolean value. 
  * @author recardona
- * @see rogel.io.fopl.True.java
- * @see rogel.io.fopl.False.java
- * @see rogel.io.fopl.Predicate.java
- * @see rogel.io.fopl.NegatedFormula.java
- * @see rogel.io.fopl.BinaryConnective.java
- * @see rogel.io.fopl.QuantifiedFormula.java
+ * @see rogel.io.fopl.syntax.syntax.formulas.True.java
+ * @see rogel.io.fopl.syntax.syntax.formulas.False.java
+ * @see rogel.io.fopl.syntax.syntax.formulas.Predicate.java
+ * @see rogel.io.fopl.syntax.syntax.formulas.NegatedFormula.java
+ * @see rogel.io.fopl.syntax.syntax.formulas.BinaryConnective.java
+ * @see rogel.io.fopl.syntax.syntax.formulas.QuantifiedFormula.java
  */
 public abstract class Formula implements Expression {
 		

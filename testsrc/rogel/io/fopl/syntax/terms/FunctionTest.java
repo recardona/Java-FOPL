@@ -1,4 +1,4 @@
-package rogel.io.fopl.terms;
+package rogel.io.fopl.syntax.terms;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -11,6 +11,10 @@ import static org.junit.Assert.fail;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import rogel.io.fopl.syntax.terms.Function;
+import rogel.io.fopl.syntax.terms.Term;
+import rogel.io.fopl.syntax.terms.Variable;
 
 public class FunctionTest {
 

@@ -1,8 +1,8 @@
-package rogel.io.fopl;
+package rogel.io.fopl.syntax;
 
 import java.util.HashMap;
 
-import rogel.io.fopl.terms.Variable;
+import rogel.io.fopl.syntax.terms.Variable;
 import rogel.io.util.VarargsUtils;
 
 /**

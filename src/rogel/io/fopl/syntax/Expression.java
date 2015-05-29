@@ -1,4 +1,4 @@
-package rogel.io.fopl;
+package rogel.io.fopl.syntax;
 
 /**
  * An Expression represents anything that can be expressed in FOPL.	

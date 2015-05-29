@@ -1,4 +1,4 @@
-package rogel.io.fopl.terms;
+package rogel.io.fopl.syntax.terms;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -7,10 +7,10 @@ import java.util.List;
 
 import org.apache.commons.lang3.tuple.Pair;
 
-import rogel.io.fopl.Expression;
-import rogel.io.fopl.Substitution;
-import rogel.io.fopl.Symbol;
-import rogel.io.fopl.Unifiable;
+import rogel.io.fopl.syntax.Expression;
+import rogel.io.fopl.syntax.Substitution;
+import rogel.io.fopl.syntax.Symbol;
+import rogel.io.fopl.syntax.Unifiable;
 import rogel.io.util.VarargsUtils;
 
 /**

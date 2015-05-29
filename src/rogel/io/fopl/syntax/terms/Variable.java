@@ -1,9 +1,9 @@
-package rogel.io.fopl.terms;
+package rogel.io.fopl.syntax.terms;
 
-import rogel.io.fopl.Expression;
-import rogel.io.fopl.Substitution;
-import rogel.io.fopl.Symbol;
-import rogel.io.fopl.Unifiable;
+import rogel.io.fopl.syntax.Expression;
+import rogel.io.fopl.syntax.Substitution;
+import rogel.io.fopl.syntax.Symbol;
+import rogel.io.fopl.syntax.Unifiable;
 
 /**
  * A Variable is a "placeholder" Term, which can be assigned values through a

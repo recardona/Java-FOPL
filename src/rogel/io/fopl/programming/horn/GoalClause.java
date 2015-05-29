@@ -1,6 +1,6 @@
 package rogel.io.fopl.programming.horn;
 
-import rogel.io.fopl.Expression;
+import rogel.io.fopl.syntax.Expression;
 
 /**
  * A GoalClause is a special kind of Horn Clause that contains no positive

@@ -1,7 +1,7 @@
-package rogel.io.fopl.formulas;
+package rogel.io.fopl.syntax.formulas;
 
-import rogel.io.fopl.Expression;
-import rogel.io.fopl.Substitution;
+import rogel.io.fopl.syntax.Expression;
+import rogel.io.fopl.syntax.Substitution;
 
 /**
  * A NegatedFormula is a Formula whose value is the opposite of the

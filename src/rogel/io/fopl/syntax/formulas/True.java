@@ -1,7 +1,7 @@
-package rogel.io.fopl.formulas;
+package rogel.io.fopl.syntax.formulas;
 
-import rogel.io.fopl.Expression;
-import rogel.io.fopl.Substitution;
+import rogel.io.fopl.syntax.Expression;
+import rogel.io.fopl.syntax.Substitution;
 
 /**
  * True (or "top") in FOPL is a special kind of Formula, which is unique

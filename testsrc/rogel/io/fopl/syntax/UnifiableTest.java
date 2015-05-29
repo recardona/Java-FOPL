@@ -1,4 +1,4 @@
-package rogel.io.fopl;
+package rogel.io.fopl.syntax;
 
 import static org.junit.Assert.*;
 
@@ -7,9 +7,11 @@ import java.util.HashMap;
 import org.junit.Before;
 import org.junit.Test;
 
-import rogel.io.fopl.formulas.Predicate;
-import rogel.io.fopl.terms.Function;
-import rogel.io.fopl.terms.Variable;
+import rogel.io.fopl.syntax.Substitution;
+import rogel.io.fopl.syntax.Unifiable;
+import rogel.io.fopl.syntax.formulas.Predicate;
+import rogel.io.fopl.syntax.terms.Function;
+import rogel.io.fopl.syntax.terms.Variable;
 
 public class UnifiableTest {
 

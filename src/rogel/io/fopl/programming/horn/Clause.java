@@ -3,10 +3,10 @@ package rogel.io.fopl.programming.horn;
 import java.util.Arrays;
 import java.util.List;
 
-import rogel.io.fopl.Expression;
-import rogel.io.fopl.Substitution;
-import rogel.io.fopl.formulas.Formula;
-import rogel.io.fopl.formulas.connectives.Disjunction;
+import rogel.io.fopl.syntax.Expression;
+import rogel.io.fopl.syntax.Substitution;
+import rogel.io.fopl.syntax.formulas.Formula;
+import rogel.io.fopl.syntax.formulas.connectives.Disjunction;
 import rogel.io.util.VarargsUtils;
 
 /**

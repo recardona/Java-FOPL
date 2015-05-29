@@ -4,4 +4,4 @@
  * kind of condition they identify as true or false.
  * @author recardona
  */
-package rogel.io.fopl.formulas;
+package rogel.io.fopl.syntax.formulas;

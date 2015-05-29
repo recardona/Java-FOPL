@@ -1,14 +1,14 @@
-package rogel.io.fopl.formulas;
+package rogel.io.fopl.syntax.formulas;
 
 import java.util.Arrays;
 import java.util.List;
 
-import rogel.io.fopl.Expression;
-import rogel.io.fopl.Substitution;
-import rogel.io.fopl.Symbol;
-import rogel.io.fopl.Unifiable;
-import rogel.io.fopl.terms.Term;
-import rogel.io.fopl.terms.Variable;
+import rogel.io.fopl.syntax.Expression;
+import rogel.io.fopl.syntax.Substitution;
+import rogel.io.fopl.syntax.Symbol;
+import rogel.io.fopl.syntax.Unifiable;
+import rogel.io.fopl.syntax.terms.Term;
+import rogel.io.fopl.syntax.terms.Variable;
 import rogel.io.util.VarargsUtils;
 
 /**

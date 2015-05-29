@@ -1,8 +1,8 @@
-package rogel.io.fopl.formulas;
+package rogel.io.fopl.syntax.formulas;
 
-import rogel.io.fopl.Expression;
-import rogel.io.fopl.Substitution;
-import rogel.io.fopl.terms.Variable;
+import rogel.io.fopl.syntax.Expression;
+import rogel.io.fopl.syntax.Substitution;
+import rogel.io.fopl.syntax.terms.Variable;
 
 /**
  * A QuantifiedFormula is a Formula that provides additional meaning over the

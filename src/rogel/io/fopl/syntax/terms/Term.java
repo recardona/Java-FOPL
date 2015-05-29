@@ -1,17 +1,17 @@
-package rogel.io.fopl.terms;
+package rogel.io.fopl.syntax.terms;
 
 import java.util.List;
 
-import rogel.io.fopl.Substitution;
-import rogel.io.fopl.Symbol;
-import rogel.io.fopl.Unifiable;
+import rogel.io.fopl.syntax.Substitution;
+import rogel.io.fopl.syntax.Symbol;
+import rogel.io.fopl.syntax.Unifiable;
 
 /**
  * Terms name objects or things. As such, Terms require at least one Symbol,
  * to uniquely identify the Term within the domain of discourse.
  * @author recardona
- * @see rogel.io.fopl.terms.Function.java
- * @see rogel.io.fopl.terms.Variable.java
+ * @see rogel.io.fopl.syntax.syntax.terms.Function.java
+ * @see rogel.io.fopl.syntax.syntax.terms.Variable.java
  */
 public abstract class Term implements Unifiable {
 	

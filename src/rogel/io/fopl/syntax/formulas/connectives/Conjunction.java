@@ -1,9 +1,9 @@
-package rogel.io.fopl.formulas.connectives;
+package rogel.io.fopl.syntax.formulas.connectives;
 
-import rogel.io.fopl.Expression;
-import rogel.io.fopl.Substitution;
-import rogel.io.fopl.formulas.BinaryConnective;
-import rogel.io.fopl.formulas.Formula;
+import rogel.io.fopl.syntax.Expression;
+import rogel.io.fopl.syntax.Substitution;
+import rogel.io.fopl.syntax.formulas.BinaryConnective;
+import rogel.io.fopl.syntax.formulas.Formula;
 
 /**
  * A Conjunction is a BinaryConnective Formula that computes the logical

@@ -1,6 +1,6 @@
-package rogel.io.fopl;
+package rogel.io.fopl.syntax;
 
-import rogel.io.fopl.terms.Variable;
+import rogel.io.fopl.syntax.terms.Variable;
 
 /**
  * A Unifiable Object is a logical expression that can be used in unification.

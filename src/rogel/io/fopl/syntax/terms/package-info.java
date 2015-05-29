@@ -4,4 +4,4 @@
  * Term within the domain of discourse.
  * @author recardona
  */
-package rogel.io.fopl.terms;
+package rogel.io.fopl.syntax.terms;
