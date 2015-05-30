@@ -38,11 +38,6 @@ public class Function extends Term {
 	private static HashMap< Pair<Symbol, Integer>, HashMap<List<Term>, Term>> functionSpace = 
 			new HashMap< Pair<Symbol, Integer>, HashMap<List<Term>, Term> >(100);
 	
-	/** 
-	 * The default prefix to use for Variables when generating Functions with 
-	 * arity greater than 0.
-	 */ 
-	private static final String DEFAULT_ARGUMENT_PREFIX = "X"; // I like "X" named variables. :)
 	
 	/** The number of arguments this Function has. */
 	private int arity; 
@@ -52,80 +47,6 @@ public class Function extends Term {
 	
 	/** The placeholder terms this function applies to; e.g. in "f(x)" the argument would be "x". */
 	private List<Term> arguments; 
-	
-	/**
-	 * Declares a Function identified by the Symbol that represents the String
-	 * {@code name}. This Function's signature is defined to be the Pair:
-	 * {@code ({@link Symbol#get(name)}, variables.length)}. Like 
-	 * {@link Function#get(name, numberOfArguments)}, if no Function with equal
-	 * signature exists within the domain of discourse, this method creates a 
-	 * new Function and adds it to the domain for future retrieval. 
-	 * <p>
-	 * However, if a Function with the same signature already exists within the
-	 * domain of discourse, then the returned Function is equivalent (as per
-	 * {@link Object#equals(Object)}) but not the same (i.e. different Object)
-	 * as the existing one. The returned Function Object then replaces the 
-	 * existing one in the domain of discourse.
-	 * <p>
-	 * The Function's underlying relation (as defined by calls to 
-	 * {@link Function#map(Term, Term, Term...)}) is preserved across all
-	 * Function Objects that share the same signature.
-	 * @param name the name of this Function.
-	 * @param variables the variables of this Function.
-	 * @return a Function whose arguments are the parameter Variables.
-	 */
-	public static Function declare(String name, Variable... variables) {
-		
-		// Get the Function Symbol.
-		Symbol functionSymbol = Symbol.get(name);
-		
-		// Create the method signature for recording within the domain of discourse.
-		Pair<Symbol, Integer> functionSignature = Pair.of(functionSymbol, variables.length);
-
-		// Create the new Function.
-		Function function = new Function(functionSymbol, variables);
-		
-		// Put/replace the entry of the previous Function.
-		Function.functionDomainOfDiscourse.put(functionSignature, function);
-		return function;
-	}
-	
-	/**
-	 * Returns a Function identified by the Symbol that represents the String 
-	 * {@code name}. This Function's signature is defined to be the Pair:
-	 * {@code (Symbol.get(name), numberOfArguments)}. If no Function with equal
-	 * signature exists within the domain of discourse, this method creates a 
-	 * new Function and adds it to the domain for future retrieval.
-	 * @param name the name of this Function.
-	 * @param numberOfArguments the number of arguments this Function has.
-	 * @return a Function with the given name and number of arguments.
-	 */
-	public static Function get(String name, int numberOfArguments) {
-		
-		// Get the Function Symbol.
-		Symbol functionSymbol = Symbol.get(name);
-		
-		// See if a Function with this Symbol and argument length has been declared before.
-		Pair<Symbol, Integer> functionSignature = Pair.of(functionSymbol, numberOfArguments);
-		if(Function.functionDomainOfDiscourse.containsKey(functionSignature)) {
-			
-			// If it has been declared, return the existing Function.
-			return Function.functionDomainOfDiscourse.get(functionSignature);
-		}
-		
-		// Otherwise create a new Function, add it to the domain, & return it.
-		// First generate Variables for each argument:
-		Variable[] functionArguments = new Variable[numberOfArguments];
-		for(int variableIndex = 0; variableIndex < numberOfArguments; variableIndex++) {
-			Symbol variableSymbol = Symbol.generateSymbol(Function.DEFAULT_ARGUMENT_PREFIX);
-			functionArguments[variableIndex] = new Variable(variableSymbol);
-		}
-		
-		// Next generate the actual Function.
-		Function function = new Function(functionSymbol, functionArguments);
-		Function.functionDomainOfDiscourse.put(functionSignature, function);
-		return function;		
-	}
 	
 	/**
 	 * Constructs an n-ary Function with the given name. If the name is a String
@@ -166,6 +87,9 @@ public class Function extends Term {
 			
 			// Declare a new relation for this signature within the Function space.
 			Function.functionSpace.put(this.signature,  new HashMap<List<Term>, Term>());
+			
+			// Add the Function to the Function domain of discourse.
+			Function.functionDomainOfDiscourse.put(this.signature, this);
 		}
 	}
 	
