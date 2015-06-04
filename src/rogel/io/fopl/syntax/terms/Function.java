@@ -1,7 +1,6 @@
 package rogel.io.fopl.syntax.terms;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
 import org.apache.commons.lang3.tuple.Pair;
@@ -18,25 +17,6 @@ import rogel.io.util.VarargsUtils;
  * @author recardona
  */
 public class Function extends Term {
-	
-	/**
-	 * The domain of discourse is the set of entities over which variables of 
-	 * interest in some formal language may range. For Functions, this domain
-	 * captures every Function that has been declared during program execution.
-	 */
-	private static HashMap<Pair<Symbol, Integer>, Function> functionDomainOfDiscourse = 
-			new HashMap<Pair<Symbol, Integer>, Function>(100);
-	
-	/** 
-	 * The Function space is a mapping of Function signatures to Function 
-	 * relations. This Map allows distinct Function Objects with equal Function
-	 * signatures to perform {@link Function#map(Term, Term, Term...)} and 
-	 * {@link Function#evaluate(Term...)} operations over the same domain and
-	 * co-domain sets.
-	 */
-	private static HashMap< Pair<Symbol, Integer>, HashMap<List<Term>, Term>> functionSpace = 
-			new HashMap< Pair<Symbol, Integer>, HashMap<List<Term>, Term> >(100);
-	
 	
 	/** The number of arguments this Function has. */
 	private int arity; 
@@ -83,12 +63,6 @@ public class Function extends Term {
 		else {
 			VarargsUtils.throwExceptionOnNull( (Object[]) terms);
 			this.arguments = Arrays.asList(terms);
-			
-			// Declare a new relation for this signature within the Function space.
-			Function.functionSpace.put(this.signature,  new HashMap<List<Term>, Term>());
-			
-			// Add the Function to the Function domain of discourse.
-			Function.functionDomainOfDiscourse.put(this.signature, this);
 		}
 	}
 	
