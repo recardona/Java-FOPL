@@ -14,7 +14,7 @@ import rogel.io.util.VarargsUtils;
  * between a set of inputs and a set of outputs, with each input related to exactly one output. 
  * @author recardona
  */
-public class FunctionInterpretation {
+public final class FunctionInterpretation {
 	
 	/** The collection of all input-output pairs for this FunctionInterpreation. */
 	private HashMap<List<Term>, Term> graph;
@@ -32,7 +32,7 @@ public class FunctionInterpretation {
 	public FunctionInterpretation(Function function) {
 		
 		if(function == null) {
-			throw new IllegalArgumentException("Cannot construct FunctionInterpretation for null "
+			throw new NullPointerException("Cannot construct FunctionInterpretation for null "
 					+ "Function.");
 		}
 		
@@ -53,11 +53,12 @@ public class FunctionInterpretation {
 	 * @param firstArgument a Term that will be in the domain of this FunctionInterpretation.
 	 * @param otherArguments a varargs of Terms that will serve as additional arguments to this 
 	 * 	Function.
+	 * @throws UnsupportedOperationException if the underlying Function is constant (i.e. a 0-ary
+	 * 	Function).
 	 * @throws IllegalArgumentException if the number of arguments does not match the arity of this
 	 * 	FunctionInterpretation.
-	 * @throws UnsupportedOperationException if the underlying Function is a constant (i.e. a 0-ary
-	 * 	Function).
-	 * @see {@code FunctionInterpretation#evaluate(Term...)}
+	 * @throws NullPointerException if any of the parameters to this method are null.
+	 * @see FunctionInterpretation#evaluate(Term...)
 	 */
 	public void map(Term value, Term firstArgument, Term... otherArguments) {
 		
@@ -73,12 +74,12 @@ public class FunctionInterpretation {
 		}
 		
 		if(value == null) {
-			throw new IllegalArgumentException("Attempted to map to a null value in "
+			throw new NullPointerException("Attempted to map to a null value in "
 					+ "FunctionInterpretation's co-domain.");
 		}
 		
 		if(firstArgument == null || VarargsUtils.containsNull( (Object[]) otherArguments)) {
-			throw new IllegalArgumentException("Arguments in FunctionInterpretation's domain cannot"
+			throw new NullPointerException("Arguments in FunctionInterpretation's domain cannot"
 					+ "be null.");
 		}
 		
@@ -97,13 +98,81 @@ public class FunctionInterpretation {
 	 * If the underlying Function is constant, the parameters are ignored, and the method returns
 	 * the Function itself. Otherwise, this method returns the value mapped to the parameter
 	 * arguments.
-	 * @param arguments
-	 * @return
+	 * @param arguments the arguments to evaluate.
+	 * @return the value in this FunctionInterpretation's co-domain given the arguments, or null
+	 * 	if the arguments do not form a part of this FunctionInterpretation's domain.
+	 * @see FunctionInterpretation#map(Term, Term, Term...)
 	 */
 	public Term evaluate(Term... arguments) {
-		return null;
+
+		if(this.function.isConstant()) {
+			return this.function;
+		}
+		
+		else {
+			
+			VarargsUtils.throwExceptionOnNull( (Object[]) arguments);
+			if( arguments.length != this.arity ) {
+				throw new IllegalArgumentException("Number of arguments (" + arguments.length 
+						+ ") does not match this FunctionInterpretation's defined arity of " 
+						+ this.arity);
+			}
+			
+			// Prepare the argument List.
+			List<Term> argumentList = new ArrayList<Term>(Arrays.asList(arguments));
+			
+			// Return the mapping you find given the argument List.
+			return this.graph.get(argumentList);
+		}
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + arity;
+		result = prime * result
+				+ ((function == null) ? 0 : function.hashCode());
+		result = prime * result + ((graph == null) ? 0 : graph.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		FunctionInterpretation other = (FunctionInterpretation) obj;
+		if (arity != other.arity) {
+			return false;
+		}
+		if (function == null) {
+			if (other.function != null) {
+				return false;
+			}
+		} else if (!function.equals(other.function)) {
+			return false;
+		}
+		if (graph == null) {
+			if (other.graph != null) {
+				return false;
+			}
+		} else if (!graph.equals(other.graph)) {
+			return false;
+		}
+		return true;
 	}
 	
-	
-	
+	/**
+	 * @return the Function this FunctionInterpretation interprets.
+	 */
+	public Function getFunction() {
+		return this.function;
+	}
 }

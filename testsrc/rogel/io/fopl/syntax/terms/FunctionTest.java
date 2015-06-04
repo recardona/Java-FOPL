@@ -34,14 +34,7 @@ public class FunctionTest {
 		x = new Variable("x");
 
 		father_of = new Function("father_of", x);
-		father_of.map(cAbe, cIsh);
-		father_of.map(cAbe, cZak);
-		father_of.map(cAbe, cSally);
-		
 		mother_of = new Function("mother_of", x);
-		mother_of.map(cAbe, cIsh);
-		mother_of.map(cAbe, cZak);
-		mother_of.map(cAbe, cSally);
 	}
 	
 	@Test
@@ -62,28 +55,9 @@ public class FunctionTest {
 	}
 	
 	@Test
-	public void testMap() {
-		Function cBob = new Function("Bob");
-		father_of.map(cBob, cAbe);
-		assertEquals("Bob is Abe's father", cBob, father_of.evaluate(cAbe));
-	}
-	
-	@Test
 	public void testIsConstant() {
 		assertTrue("cAbe is a 0-ary Function, and thus a constant.", cAbe.isConstant());
 		assertFalse("father_of is a 1-ary Function, and thus not a constant.", father_of.isConstant());
-	}
-
-	@Test
-	public void testEvaluate() {
-		Term fatherOfIsh = father_of.evaluate(cIsh);
-		assertTrue("Abe is Ish's father", (fatherOfIsh.equals(cAbe)));
-		
-		Term fatherOfZak = father_of.evaluate(cZak);
-		assertTrue("Abe is Zak's father", (fatherOfZak.equals(cAbe)));
-		
-		Term fatherOfSally = father_of.evaluate(cSally);
-		assertTrue("Abe is Sally's father", (fatherOfSally.equals(cAbe)));
 	}
 	
 	@Test
