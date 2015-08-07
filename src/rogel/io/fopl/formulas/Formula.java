@@ -11,7 +11,7 @@ import rogel.io.fopl.Symbol;
  * @see rogel.io.fopl.True.java
  * @see rogel.io.fopl.False.java
  * @see rogel.io.fopl.Predicate.java
- * @see rogel.io.fopl.NegatedFormula.java
+ * @see rogel.rogel.io.fopl.formulas.connectives.NegatedFormula.java
  * @see rogel.io.fopl.BinaryConnective.java
  * @see rogel.io.fopl.QuantifiedFormula.java
  */
