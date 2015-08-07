@@ -11,7 +11,6 @@ import rogel.io.fopl.Expression;
 import rogel.io.fopl.Substitution;
 import rogel.io.fopl.Symbol;
 import rogel.io.fopl.Unifiable;
-import rogel.io.fopl.programming.Goal;
 import rogel.io.util.VarargsUtils;
 
 /**

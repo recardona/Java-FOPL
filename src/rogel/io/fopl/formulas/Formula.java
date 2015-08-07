@@ -11,8 +11,8 @@ import rogel.io.fopl.Symbol;
  * @see rogel.io.fopl.True.java
  * @see rogel.io.fopl.False.java
  * @see rogel.io.fopl.Predicate.java
- * @see rogel.rogel.io.fopl.formulas.connectives.NegatedFormula.java
- * @see rogel.io.fopl.formulas.connectives.BinaryConnective.java
+ * @see rogel.NotOperator.io.fopl.formulas.connectives.NegatedFormula.java
+ * @see rogel.io.fopl.formulas.operators.AbstractOperator.java
  * @see rogel.io.fopl.QuantifiedFormula.java
  */
 public abstract class Formula implements Expression {
@@ -30,8 +30,7 @@ public abstract class Formula implements Expression {
 	 * @param the name of this Formula
 	 */
 	protected Formula(String name) {
-		this.value = null;
-		this.symbol = Symbol.get(name);
+		this(Symbol.get(name));
 	}
 	
 	/**
@@ -64,14 +63,14 @@ public abstract class Formula implements Expression {
 	}
 	
 	/**
-	 * @return the symbol
+	 * @return the symbol.
 	 */
 	public final Symbol getSymbol() {
 		return this.symbol;
 	}
-	
+		
 	/**
-	 * @return the truth value of this Formula.
+	 * @return the value of this Formula.
 	 */
 	public boolean getValue() {
 		return this.value;
