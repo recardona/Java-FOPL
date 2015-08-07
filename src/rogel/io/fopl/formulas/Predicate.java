@@ -7,7 +7,7 @@ import rogel.io.fopl.Expression;
 import rogel.io.fopl.Substitution;
 import rogel.io.fopl.Symbol;
 import rogel.io.fopl.Unifiable;
-import rogel.io.fopl.programming.horn.GoalClause;
+import rogel.io.fopl.programming.GoalClause;
 import rogel.io.fopl.terms.Term;
 import rogel.io.fopl.terms.Variable;
 import rogel.io.util.VarargsUtils;

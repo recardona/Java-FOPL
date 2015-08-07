@@ -11,7 +11,7 @@ import rogel.io.fopl.Expression;
 import rogel.io.fopl.Substitution;
 import rogel.io.fopl.Symbol;
 import rogel.io.fopl.Unifiable;
-import rogel.io.fopl.programming.horn.GoalClause;
+import rogel.io.fopl.programming.GoalClause;
 import rogel.io.util.VarargsUtils;
 
 /**
@@ -19,7 +19,7 @@ import rogel.io.util.VarargsUtils;
  * FOPL, the inputs and outputs are all Symbols. 
  * @author recardona
  */
-public class Function extends Term implements GoalClause {
+public class Function extends Term {
 		
 	/** The number of arguments this Function has. */
 	private int arity; 

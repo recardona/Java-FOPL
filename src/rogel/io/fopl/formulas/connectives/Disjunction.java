@@ -13,7 +13,7 @@ public class Disjunction extends BinaryConnective {
 
 	/**
 	 * Constructs a Disjunction over the two Formulas. The value of this
-	 * Disjunction is <code>left.getValue() || right.getValue()</code>.
+	 * Disjunction is {@code left.getValue() || right.getValue()}.
 	 * @param left the left operand of this Disjunction.
 	 * @param right the right operand of this Disjunction.
 	 */

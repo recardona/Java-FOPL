@@ -2,7 +2,7 @@ package rogel.io.fopl.formulas.connectives;
 
 import rogel.io.fopl.Symbol;
 import rogel.io.fopl.formulas.Formula;
-import rogel.io.fopl.programming.horn.GoalClause;
+import rogel.io.fopl.programming.GoalClause;
 
 /**
  * A BinaryConnective is a Formula whose value is defined by the type of 

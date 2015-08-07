@@ -13,7 +13,7 @@ public class Implication extends BinaryConnective {
 
 	/**
 	 * Constructs an Implication over the two Formulas. The value of this
-	 * Implication is <code>!left.getValue() || right.getValue()</code>.
+	 * Implication is {@code !left.getValue() || right.getValue()}.
 	 * @param left the left operand of this Implication.
 	 * @param right the right operand of this Implication.
 	 */
