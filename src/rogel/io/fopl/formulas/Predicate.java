@@ -35,20 +35,7 @@ public class Predicate extends Formula implements Unifiable {
 	 * @param terms the terms this Predicate describes
 	 */
 	public Predicate(String name, Term... terms) {
-		super(name);
-		VarargsUtils.throwExceptionOnNull((Object []) terms);
-		
-		this.value = true; // Predicates are true by default.
-		this.arity = terms.length;
-		
-		// If the arity is 0, define the Terms as null.
-		if(this.arity == 0) {
-			this.terms = null;
-		}
-		
-		else {
-			this.terms = Arrays.asList(terms);
-		}
+		this(Symbol.get(name), terms);
 	}
 	
 	/**
@@ -60,7 +47,7 @@ public class Predicate extends Formula implements Unifiable {
 	 * domain of discourse
 	 * @param terms the terms this Predicate describes
 	 */
-	public Predicate(Symbol symbol, Term... terms) {
+	private Predicate(Symbol symbol, Term... terms) {
 		super(symbol);
 		VarargsUtils.throwExceptionOnNull((Object[]) terms);
 		
