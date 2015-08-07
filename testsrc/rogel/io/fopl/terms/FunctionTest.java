@@ -64,24 +64,6 @@ public class FunctionTest {
 	}
 	
 	@Test
-	public void testGet() throws Exception {
-		
-		Function f_of_x = Function.get("f", 1);
-		assertNotNull("The Function should have been generated.", f_of_x);
-		assertFalse("The Function should not be a constant.", f_of_x.isConstant());
-		
-		Function f_of_y = Function.get("f", 1);
-		assertEquals("These two objects should be equal.", f_of_x, f_of_y);
-		assertSame("These two objects should be the exact same Function.", f_of_x, f_of_y);
-		
-		Function cF = Function.get("f", 0);
-		assertNotNull("The Function should have been generated.", cF);
-		assertTrue("The Function should be a constant.", cF.isConstant());
-		assertNotEquals("Despite having the same Symbol, these are different Functions due to arity.", cF, f_of_x);	
-	}
-	
-	
-	@Test
 	public void testMap() {
 		Function cBob = new Function("Bob");
 		father_of.map(cBob, cAbe);

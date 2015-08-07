@@ -19,76 +19,18 @@ import rogel.io.util.VarargsUtils;
  * @author recardona
  */
 public class Function extends Term {
-	
-	/**
-	 * The domain of discourse is the set of entities over which variables of 
-	 * interest in some formal language may range. For Functions, this domain
-	 * captures every Function that has been declared during program execution.
-	 */
-	private static HashMap<Pair<Symbol, Integer>, Function> functionDomainOfDiscourse = 
-			new HashMap<Pair<Symbol, Integer>, Function>(100);
-	
-	/** 
-	 * The Function space is a mapping of Function signatures to Function 
-	 * relations. This Map allows distinct Function Objects with equal Function
-	 * signatures to perform {@link Function#map(Term, Term, Term...)} and 
-	 * {@link Function#evaluate(Term...)} operations over the same domain and
-	 * co-domain sets.
-	 */
-	private static HashMap< Pair<Symbol, Integer>, HashMap<List<Term>, Term>> functionSpace = 
-			new HashMap< Pair<Symbol, Integer>, HashMap<List<Term>, Term> >(100);
-	
-	/** 
-	 * The default prefix to use for Variables when generating Functions with 
-	 * arity greater than 0.
-	 */ 
-	private static final String DEFAULT_ARGUMENT_PREFIX = "X"; // I like "X" named variables. :)
-	
+		
 	/** The number of arguments this Function has. */
 	private int arity; 
 	
 	/** The signature of this Function, defined as the pair: (Symbol, arity).*/
 	private Pair<Symbol, Integer> signature;
 	
-	/** The placeholder terms this function applies to; e.g. in "f(x)" the argument would be "x". */
+	/** The placeholder terms this Function applies to; e.g. in "f(x)" the argument would be "x". */
 	private List<Term> arguments; 
 	
-	/**
-	 * Returns a Function identified by the Symbol that represents the String 
-	 * {@code name}. This Function's signature is defined to be the Pair:
-	 * {@code (Symbol.get(name), numberOfArguments)}. If no Function with equal
-	 * signature exists within the domain of discourse, this method creates a 
-	 * new Function and adds it to the domain for future retrieval.
-	 * @param name the name of this Function.
-	 * @param numberOfArguments the number of arguments this Function has.
-	 * @return a Function with the given name and number of arguments.
-	 */
-	public static Function get(String name, int numberOfArguments) {
-		
-		// Get the Function Symbol.
-		Symbol functionSymbol = Symbol.get(name);
-		
-		// See if a Function with this Symbol and argument length has been declared before.
-		Pair<Symbol, Integer> functionSignature = Pair.of(functionSymbol, numberOfArguments);
-		if(Function.functionDomainOfDiscourse.containsKey(functionSignature)) {
-			
-			// If it has been declared, return the existing Function.
-			return Function.functionDomainOfDiscourse.get(functionSignature);
-		}
-		
-		// Otherwise create a new Function, add it to the domain, & return it.
-		// First generate Variables for each argument:
-		Variable[] functionArguments = new Variable[numberOfArguments];
-		for(int variableIndex = 0; variableIndex < numberOfArguments; variableIndex++) {
-			Symbol variableSymbol = Symbol.generateSymbol(Function.DEFAULT_ARGUMENT_PREFIX);
-			functionArguments[variableIndex] = new Variable(variableSymbol);
-		}
-		
-		// Next generate the actual Function.
-		Function function = new Function(functionSymbol, functionArguments);
-		Function.functionDomainOfDiscourse.put(functionSignature, function);
-		return function;		
-	}
+	/** The underlying relation of this Function object. */
+	private HashMap<List<Term>, Term> relation;
 	
 	/**
 	 * Constructs an n-ary Function with the given name. If the name is a String
@@ -126,9 +68,7 @@ public class Function extends Term {
 		else {
 			VarargsUtils.throwExceptionOnNull( (Object[]) terms);
 			this.arguments = Arrays.asList(terms);
-			
-			// Declare a new relation for this signature within the Function space.
-			Function.functionSpace.put(this.signature,  new HashMap<List<Term>, Term>());
+			this.relation = new HashMap<List<Term>, Term>();	// Declare a new relation.	
 		}
 	}
 	
@@ -171,12 +111,9 @@ public class Function extends Term {
 		List<Term> argumentList= new ArrayList<Term>(this.arity); //arity should be 1 + otherArguments.length
 		argumentList.add(firstArgument);
 		argumentList.addAll(Arrays.asList(otherArguments));
-		
-		// Find the relation that corresponds to this Function signature.
-		HashMap<List<Term>, Term> relation = Function.functionSpace.get(this.getSignature());
-		
+				
 		// Place the mapping in this relation.
-		relation.put(argumentList, value);		
+		this.relation.put(argumentList, value);		
 	}
 	
 	/**
@@ -204,12 +141,9 @@ public class Function extends Term {
 			
 			// Prepare the argument List.
 			List<Term> argumentList = new ArrayList<Term>(Arrays.asList(arguments));
-			
-			// Find the relation that corresponds to this Function signature.
-			HashMap<List<Term>, Term> relation = Function.functionSpace.get(this.getSignature());
-			
+						
 			// Return the mapping you find there given the argument List.
-			return relation.get(argumentList);
+			return this.relation.get(argumentList);
 		}
 	}
 	
