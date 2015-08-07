@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -29,19 +28,19 @@ public class FunctionTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		cAbe = Function.declare("Abe");
-		cIsh = Function.declare("Ish");
-		cZak = Function.declare("Zak");
-		cSally = Function.declare("Sally");
+		cAbe = new Function("Abe");
+		cIsh = new Function("Ish");
+		cZak = new Function("Zak");
+		cSally = new Function("Sally");
 		
 		x = new Variable("x");
 
-		father_of = Function.declare("father_of", x);
+		father_of = new Function("father_of", x);
 		father_of.map(cAbe, cIsh);
 		father_of.map(cAbe, cZak);
 		father_of.map(cAbe, cSally);
 		
-		mother_of = Function.declare("mother_of", x);
+		mother_of = new Function("mother_of", x);
 		mother_of.map(cAbe, cIsh);
 		mother_of.map(cAbe, cZak);
 		mother_of.map(cAbe, cSally);
@@ -51,42 +50,17 @@ public class FunctionTest {
 	public void testConstructor() throws Exception {
 		try {
 			@SuppressWarnings("unused")
-			Function f = Function.declare("f", (Variable) null);
+			Function f = new Function("f", (Variable) null);
 		}
 		catch(NullPointerException e) { }
 		catch(Exception e) { fail("A NullPointerException should have been caught."); }
 		
 		try {
 			@SuppressWarnings("unused")
-			Function f = Function.declare("f", null, null);
+			Function f = new Function("f", null, null);
 		}
 		catch(NullPointerException e) { }
 		catch(Exception e) { fail("A NullPointerException should have been caught."); }
-	}
-	
-	@Test
-	public void testDeclare() throws Exception {
-		
-		Function f_of_x = Function.declare("f", x);
-		assertNotNull("The Function should have been generated.", f_of_x);
-		
-		Function other_f_of_x = Function.get("f", 1);
-		assertSame("Using declare() and then get() should yield the same Function.", f_of_x, other_f_of_x);
-		
-		// Map one things for f(x):
-		f_of_x.map(cAbe, cIsh);
-		
-		Variable y = new Variable("y");
-		f_of_x = Function.declare("f", y);
-		assertNotSame("By declaring another Function with the same method signature and different Variables, we've created two distinct Objects.", f_of_x, other_f_of_x);
-		assertEquals("However, if two Functions over different Variables share the same method signature, they should be equal.", f_of_x, other_f_of_x);
-
-		// Even if you add things to the mapping, you should get equal Functions.
-		f_of_x.map(cAbe, cZak);
-		assertEquals("Even if you map new things to just one of the distinct Function Objects, you should get equal Functions.", f_of_x, other_f_of_x);
-		
-		Function f_of_y = Function.get("f", 1);
-		assertSame("When we redeclare another Function with the same method signature, the last declaration is what persists in the domain of discourse.", f_of_y, f_of_x);
 	}
 	
 	@Test
@@ -109,7 +83,7 @@ public class FunctionTest {
 	
 	@Test
 	public void testMap() {
-		Function cBob = Function.declare("Bob");
+		Function cBob = new Function("Bob");
 		father_of.map(cBob, cAbe);
 		assertEquals("Bob is Abe's father", cBob, father_of.evaluate(cAbe));
 	}

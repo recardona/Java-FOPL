@@ -54,43 +54,6 @@ public class Function extends Term {
 	private List<Term> arguments; 
 	
 	/**
-	 * Declares a Function identified by the Symbol that represents the String
-	 * {@code name}. This Function's signature is defined to be the Pair:
-	 * {@code ({@link Symbol#get(name)}, variables.length)}. Like 
-	 * {@link Function#get(name, numberOfArguments)}, if no Function with equal
-	 * signature exists within the domain of discourse, this method creates a 
-	 * new Function and adds it to the domain for future retrieval. 
-	 * <p>
-	 * However, if a Function with the same signature already exists within the
-	 * domain of discourse, then the returned Function is equivalent (as per
-	 * {@link Object#equals(Object)}) but not the same (i.e. different Object)
-	 * as the existing one. The returned Function Object then replaces the 
-	 * existing one in the domain of discourse.
-	 * <p>
-	 * The Function's underlying relation (as defined by calls to 
-	 * {@link Function#map(Term, Term, Term...)}) is preserved across all
-	 * Function Objects that share the same signature.
-	 * @param name the name of this Function.
-	 * @param variables the variables of this Function.
-	 * @return a Function whose arguments are the parameter Variables.
-	 */
-	public static Function declare(String name, Variable... variables) {
-		
-		// Get the Function Symbol.
-		Symbol functionSymbol = Symbol.get(name);
-		
-		// Create the method signature for recording within the domain of discourse.
-		Pair<Symbol, Integer> functionSignature = Pair.of(functionSymbol, variables.length);
-
-		// Create the new Function.
-		Function function = new Function(functionSymbol, variables);
-		
-		// Put/replace the entry of the previous Function.
-		Function.functionDomainOfDiscourse.put(functionSignature, function);
-		return function;
-	}
-	
-	/**
 	 * Returns a Function identified by the Symbol that represents the String 
 	 * {@code name}. This Function's signature is defined to be the Pair:
 	 * {@code (Symbol.get(name), numberOfArguments)}. If no Function with equal
