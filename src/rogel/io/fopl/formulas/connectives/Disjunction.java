@@ -2,7 +2,6 @@ package rogel.io.fopl.formulas.connectives;
 
 import rogel.io.fopl.Expression;
 import rogel.io.fopl.Substitution;
-import rogel.io.fopl.formulas.BinaryConnective;
 import rogel.io.fopl.formulas.Formula;
 
 /**

@@ -1,6 +1,7 @@
-package rogel.io.fopl.formulas;
+package rogel.io.fopl.formulas.connectives;
 
 import rogel.io.fopl.Symbol;
+import rogel.io.fopl.formulas.Formula;
 
 /**
  * A BinaryConnective is a Formula whose value is defined by the type of 
