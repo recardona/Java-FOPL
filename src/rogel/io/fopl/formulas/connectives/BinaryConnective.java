@@ -2,7 +2,7 @@ package rogel.io.fopl.formulas.connectives;
 
 import rogel.io.fopl.Symbol;
 import rogel.io.fopl.formulas.Formula;
-import rogel.io.fopl.programming.GoalClause;
+import rogel.io.fopl.programming.Goal;
 
 /**
  * A BinaryConnective is a Formula whose value is defined by the type of 
@@ -12,7 +12,7 @@ import rogel.io.fopl.programming.GoalClause;
  * 3) implication (the 'implies' connective).
  * @author recardona
  */
-public abstract class BinaryConnective extends Formula implements GoalClause {
+public abstract class BinaryConnective extends Formula implements Goal {
 
 	/** The left-hand side of this BinaryConnective. */
 	private Formula left;

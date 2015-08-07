@@ -7,7 +7,7 @@ import rogel.io.fopl.Expression;
 import rogel.io.fopl.Substitution;
 import rogel.io.fopl.Symbol;
 import rogel.io.fopl.Unifiable;
-import rogel.io.fopl.programming.GoalClause;
+import rogel.io.fopl.programming.Goal;
 import rogel.io.fopl.terms.Term;
 import rogel.io.fopl.terms.Variable;
 import rogel.io.util.VarargsUtils;
@@ -16,7 +16,7 @@ import rogel.io.util.VarargsUtils;
  * A Predicate names a relation between Terms in a domain of discourse.
  * @author recardona
  */
-public class Predicate extends Formula implements Unifiable, GoalClause {
+public class Predicate extends Formula implements Unifiable, Goal {
 	
 	/** The number of terms this Predicate describes. */
 	private int arity;
