@@ -1,6 +1,7 @@
 package rogel.io.fopl.formulas;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import rogel.io.fopl.Expression;
@@ -99,32 +100,11 @@ public class Predicate extends Formula implements Unifiable {
 	public boolean isAtomic() {
 		return true;
 	}
-	
-	@Override
-	public Expression replaceVariables(Substitution substitution) {
-		
-		if(this.isPropositional()) {
-			// A propositional Predicate can't replace variables, because it
-			// does not have any Variable Terms. We thus return the Predicate
-			// itself (unchanged).
-			return this;
-		}
-		
-		else {
-			// We must return a new Predicate with replaced Terms.
-			Term[] newTerms = new Term[this.terms.size()];
-			
-			// For each Term, replace variables with the given substitution.
-			for(int termIndex = 0; termIndex < this.terms.size(); termIndex++) {
-				newTerms[termIndex] = (Term) this.terms.get(termIndex).replaceVariables(substitution);
-			}
-			
-			// Create and return the new Function with the same Symbol and new arguments.
-			Predicate substitutedVariablePredicate = new Predicate(this.symbol, newTerms);
-			return substitutedVariablePredicate;
-		}
-	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see rogel.io.fopl.Unifiable#unify(rogel.io.fopl.Unifiable, rogel.io.fopl.Substitution)
+	 */
 	@Override
 	public Substitution unify(Unifiable unifiable, Substitution substitution) {
 
@@ -192,7 +172,11 @@ public class Predicate extends Formula implements Unifiable {
 		// No luck in finding Substitutions! Thus, none are possible.
 		return null;
 	}
-
+	
+	/*
+	 * (non-Javadoc)
+	 * @see rogel.io.fopl.Unifiable#containsVariable(rogel.io.fopl.terms.Variable, rogel.io.fopl.Substitution)
+	 */
 	@Override
 	public boolean containsVariable(Variable variable, Substitution substitution) {
 		
@@ -207,6 +191,45 @@ public class Predicate extends Formula implements Unifiable {
 		}
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see rogel.io.fopl.Expression#replaceVariables(rogel.io.fopl.Substitution)
+	 */
+	@Override
+	public Expression replaceVariables(Substitution substitution) {
+		
+		if(this.isPropositional()) {
+			// A propositional Predicate can't replace variables, because it
+			// does not have any Variable Terms. We thus return the Predicate
+			// itself (unchanged).
+			return this;
+		}
+		
+		else {
+			// We must return a new Predicate with replaced Terms.
+			Term[] newTerms = new Term[this.terms.size()];
+			
+			// For each Term, replace variables with the given substitution.
+			for(int termIndex = 0; termIndex < this.terms.size(); termIndex++) {
+				newTerms[termIndex] = (Term) this.terms.get(termIndex).replaceVariables(substitution);
+			}
+			
+			// Create and return the new Function with the same Symbol and new arguments.
+			Predicate substitutedVariablePredicate = new Predicate(this.symbol, newTerms);
+			return substitutedVariablePredicate;
+		}
+	}
+	
+	@Override
+	public Expression standardizeVariablesApart(HashMap<Variable, Variable> newVariables) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see rogel.io.fopl.formulas.Formula#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -232,6 +255,10 @@ public class Predicate extends Formula implements Unifiable {
 		return true;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see rogel.io.fopl.formulas.Formula#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -241,6 +268,10 @@ public class Predicate extends Formula implements Unifiable {
 		return result;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
