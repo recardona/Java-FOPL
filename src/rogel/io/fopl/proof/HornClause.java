@@ -1,9 +1,12 @@
 package rogel.io.fopl.proof;
 
+import java.util.HashMap;
+
 import rogel.io.fopl.Expression;
 import rogel.io.fopl.Substitution;
 import rogel.io.fopl.formulas.Formula;
 import rogel.io.fopl.formulas.Predicate;
+import rogel.io.fopl.terms.Variable;
 
 /**
  * A HornClause is a clause with at most one positive (i.e. unnegated) literal. A HornClause has 
@@ -109,6 +112,28 @@ public class HornClause implements Expression {
 		
 		return new HornClause(newConsequent, newAntecedent);
 	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see rogel.io.fopl.Expression#standardizeVariablesApart(java.util.HashMap)
+	 */
+	@Override
+	public Expression standardizeVariablesApart(HashMap<Variable, Variable> newVariables) {
+		
+		// Standardize the Variables in each of these Expressions.
+		Predicate newConsequent = null;
+		Formula newAntecedent = null;
+		
+		if(this.consequent != null) {
+			newConsequent = (Predicate) this.consequent.standardizeVariablesApart(newVariables);
+		}
+		
+		if(this.antecedent != null) {
+			newAntecedent = (Formula) this.antecedent.standardizeVariablesApart(newVariables);
+		}
+		
+		return new HornClause(newConsequent, newAntecedent);
+	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
@@ -123,9 +148,5 @@ public class HornClause implements Expression {
 			return consequent.toString() + " :- " + antecedent.toString();
 		}		
 	}
-
-	
-	
-	
 
 }
