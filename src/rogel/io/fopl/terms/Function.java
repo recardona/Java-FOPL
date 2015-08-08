@@ -180,31 +180,10 @@ public class Function extends Term {
 		return this.signature;
 	}
 	
-	@Override
-	public Expression replaceVariables(Substitution substitution) {
-		
-		if(this.isConstant()) {
-			// A constant Function can't replace variables, because it does not
-			// have any Variable Terms. We thus return the Function itself
-			// (unchanged).
-			return this;
-		}
-		
-		else {
-			// We must return a new Function with replaced Terms.
-			Term[] newArguments = new Term[this.arguments.size()];
-			
-			// For each argument Term, replace variables with the given substitution.
-			for(int argumentIndex = 0; argumentIndex < this.arguments.size(); argumentIndex++) {
-				newArguments[argumentIndex] = (Term) this.arguments.get(argumentIndex).replaceVariables(substitution);
-			}
-			
-			// Create and return the new Function with the same Symbol and new arguments.
-			Function substitutedVariableFunction = new Function(this.symbol, newArguments);
-			return substitutedVariableFunction;
-		}
-	}
-	
+	/*
+	 * (non-Javadoc)
+	 * @see rogel.io.fopl.Unifiable#unify(rogel.io.fopl.Unifiable, rogel.io.fopl.Substitution)
+	 */
 	@Override
 	public Substitution unify(Unifiable unifiable, Substitution substitution) {
 		
@@ -274,6 +253,10 @@ public class Function extends Term {
 		return null;
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see rogel.io.fopl.Unifiable#containsVariable(rogel.io.fopl.terms.Variable, rogel.io.fopl.Substitution)
+	 */
 	@Override
 	public boolean containsVariable(Variable variable, Substitution substitution) {
 		
@@ -288,11 +271,80 @@ public class Function extends Term {
 		}
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see rogel.io.fopl.Expression#replaceVariables(rogel.io.fopl.Substitution)
+	 */
+	@Override
+	public Expression replaceVariables(Substitution substitution) {
+		
+		if(this.isConstant()) {
+			// A constant Function can't replace variables, because it does not
+			// have any Variable Terms. We thus return the Function itself
+			// (unchanged).
+			return this;
+		}
+		
+		else {
+			// We must return a new Function with replaced Terms.
+			Term[] newArguments = new Term[this.arguments.size()];
+			
+			// For each argument Term, replace variables with the given substitution.
+			for(int argumentIndex = 0; argumentIndex < this.arguments.size(); argumentIndex++) {
+				newArguments[argumentIndex] = (Term) this.arguments.get(argumentIndex).replaceVariables(substitution);
+			}
+			
+			// Create and return the new Function with the same Symbol and new arguments.
+			Function substitutedVariableFunction = new Function(this.symbol, newArguments);
+			return substitutedVariableFunction;
+		}
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see rogel.io.fopl.Expression#standardizeVariablesApart(java.util.HashMap)
+	 */
+	@Override
+	public Expression standardizeVariablesApart(HashMap<Variable, Variable> newVariables) {
+		
+		// This method does one of two things, depending 
+		// on whether this is a constant Function or not.
+		
+		if(this.isConstant()) {
+			// Each constant returns itself.
+			return this;
+		}
+		
+		else {
+			// We must return a new Function with standardized variables in the Terms.
+			Term[] newArguments = new Term[this.arguments.size()];
+			
+			// For each argument Term, standardized its variables.
+			for(int argumentIndex = 0; argumentIndex < this.arguments.size(); argumentIndex++) {
+				Term argument = this.arguments.get(argumentIndex);
+				Expression standardizedVariableExpression = argument.standardizeVariablesApart(newVariables);
+				newArguments[argumentIndex] = (Term) standardizedVariableExpression;
+			}
+			
+			// Create and return the new Function with the same Symbol and new arguments.
+			Function standardizedVariableFunction = new Function(this.symbol, newArguments);
+			return standardizedVariableFunction;
+		}
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#clone()
+	 */
 	@Override
 	protected Object clone() throws CloneNotSupportedException {
 		throw new CloneNotSupportedException("Function.clone() is not supported.");
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see rogel.io.fopl.terms.Term#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		
@@ -312,6 +364,10 @@ public class Function extends Term {
 		return true;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see rogel.io.fopl.terms.Term#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -321,6 +377,10 @@ public class Function extends Term {
 		return result;
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see rogel.io.fopl.terms.Term#toString()
+	 */
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
