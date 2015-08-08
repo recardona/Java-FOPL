@@ -220,10 +220,26 @@ public class Predicate extends Formula implements Unifiable {
 		}
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see rogel.io.fopl.Expression#standardizeVariablesApart(java.util.HashMap)
+	 */
 	@Override
 	public Expression standardizeVariablesApart(HashMap<Variable, Variable> newVariables) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		// We must return a new Predicate with standardized variables in the Terms.
+		Term[] newArguments = new Term[this.terms.size()];
+		
+		// For each argument Term, standardized its variables.
+		for(int termIndex = 0; termIndex < this.terms.size(); termIndex++) {
+			Term term = this.terms.get(termIndex);
+			Expression standardizedVariableExpression = term.standardizeVariablesApart(newVariables);
+			newArguments[termIndex] = (Term) standardizedVariableExpression;
+		}
+		
+		// Create and return the new Predicate with the same Symbol and new arguments.
+		Predicate standardizedVariablePredicate = new Predicate(this.symbol, newArguments);
+		return standardizedVariablePredicate;
 	}
 	
 	/*
