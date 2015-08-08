@@ -1,5 +1,7 @@
 package rogel.io.fopl.terms;
 
+import java.util.HashMap;
+
 import rogel.io.fopl.Expression;
 import rogel.io.fopl.Substitution;
 import rogel.io.fopl.Symbol;
@@ -33,6 +35,10 @@ public class Variable extends Term {
 		super(symbol);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see rogel.io.fopl.Unifiable#unify(rogel.io.fopl.Unifiable, rogel.io.fopl.Substitution)
+	 */
 	@Override
 	public Substitution unify(Unifiable unifiable, Substitution substitution) {
 		
@@ -63,6 +69,10 @@ public class Variable extends Term {
 		return sigma;
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see rogel.io.fopl.Unifiable#containsVariable(rogel.io.fopl.terms.Variable, rogel.io.fopl.Substitution)
+	 */
 	@Override
 	public boolean containsVariable(Variable variable, Substitution substitution) {
 		
@@ -80,6 +90,10 @@ public class Variable extends Term {
 		return false;
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see rogel.io.fopl.Expression#replaceVariables(rogel.io.fopl.Substitution)
+	 */
 	@Override
 	public Expression replaceVariables(Substitution substitution) {
 		
@@ -95,6 +109,30 @@ public class Variable extends Term {
 		}
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see rogel.io.fopl.Expression#standardizeVariablesApart(java.util.HashMap)
+	 */
+	@Override
+	public Expression standardizeVariablesApart(HashMap<Variable, Variable> newVariables) {
+		
+		// Check if the Expression already has a substitute Variable.
+		Variable standardizedVariable = newVariables.get(this);
+		
+		// If not, create one.
+		if(standardizedVariable == null) {
+			standardizedVariable = new Variable(this.symbol);
+			newVariables.put(this, standardizedVariable);
+		}
+		
+		// Return the substitute Variable.
+		return standardizedVariable;
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see rogel.io.fopl.terms.Term#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 
@@ -116,11 +154,19 @@ public class Variable extends Term {
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see rogel.io.fopl.terms.Term#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		return super.hashCode();
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see rogel.io.fopl.terms.Term#toString()
+	 */
 	@Override
 	public String toString() {
 		return "[Variable: "+this.symbol.toString()+"]";
