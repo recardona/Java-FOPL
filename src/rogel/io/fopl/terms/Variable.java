@@ -59,7 +59,6 @@ public class Variable extends Term {
 			return null; // Fail!
 		}
 		
-		
 		// At this point, we're attempting to add a new binding. First,
 		// initialize a new Substitution with the parameter Substitution.
 		Substitution sigma = new Substitution(substitution);
@@ -137,7 +136,6 @@ public class Variable extends Term {
 	public boolean equals(Object obj) {
 
 		//Variable equality is composed of type and symbol equality.
-
 		if (this == obj) {
 			return true;
 		}
@@ -151,7 +149,6 @@ public class Variable extends Term {
 		}
 		
 		return true;
-
 	}
 
 	/*
