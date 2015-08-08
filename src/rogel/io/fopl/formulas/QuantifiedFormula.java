@@ -1,5 +1,7 @@
 package rogel.io.fopl.formulas;
 
+import java.util.HashMap;
+
 import rogel.io.fopl.Expression;
 import rogel.io.fopl.Substitution;
 import rogel.io.fopl.terms.Variable;
@@ -72,6 +74,10 @@ public class QuantifiedFormula extends Formula {
 		return null;
 	}
 	
-	
+	@Override
+	public Expression standardizeVariablesApart(HashMap<Variable, Variable> newVariables) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
