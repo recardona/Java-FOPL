@@ -88,11 +88,26 @@ public class HornClause implements Expression {
 		return consequent;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see rogel.io.fopl.Expression#replaceVariables(rogel.io.fopl.Substitution)
+	 */
 	@Override
 	public Expression replaceVariables(Substitution substitution) {
-		// TODO
 		
-		return null;
+		// Replace the Variables in each of these Expressions.
+		Predicate newConsequent = null;
+		Formula newAntecedent = null;
+		
+		if(this.consequent != null) {
+			newConsequent = (Predicate) this.consequent.replaceVariables(substitution);
+		}
+		
+		if(this.antecedent != null) {
+			newAntecedent = (Formula) this.antecedent.replaceVariables(substitution);
+		}
+		
+		return new HornClause(newConsequent, newAntecedent);
 	}
 
 	/* (non-Javadoc)
