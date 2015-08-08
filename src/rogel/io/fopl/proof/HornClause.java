@@ -1,4 +1,4 @@
-package rogel.io.fopl.programming;
+package rogel.io.fopl.proof;
 
 import rogel.io.fopl.Expression;
 import rogel.io.fopl.Substitution;
