@@ -49,8 +49,8 @@ public class HornClause implements Expression {
 	 * @param goal the GoalClause portion of this HornClause.
 	 */
 	public HornClause(Predicate fact, Formula goal) {
-		this.consequent = fact;
-		this.antecedent = goal;
+		this.consequent = fact; // head
+		this.antecedent = goal; // body
 	}
 	
 	/**
