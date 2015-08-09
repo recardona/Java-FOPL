@@ -55,7 +55,8 @@ public abstract class AbstractSolutionNode {
 	public abstract Substitution nextSolution();
 	
 	/**
-	 * @return the next rule in the RuleSet, with variables standardized apart.
+	 * Gets the next rule in the RuleSet, with variables standardized apart.
+	 * @return the next rule in the RuleSet.
 	 */
 	public HornClause nextRule() {
 		if(this.hasNextRule()) {
