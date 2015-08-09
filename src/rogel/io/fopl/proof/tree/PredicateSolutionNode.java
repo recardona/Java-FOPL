@@ -90,30 +90,26 @@ public class PredicateSolutionNode extends AbstractSolutionNode {
 				// rule tail, which is only the case if the HornClause is not a fact.
 				if(! rule.isFact()) {
 					
-					// We need to continue solving recursively for the child, whose
-					// Substitution solution must be consistent with what we have
-					// thus far.
+					// We need to continue solving recursively for the child, whose Substitution 
+					// solution must be consistent with what we have thus far.
 					
 					Formula tail = rule.getAntecedent();
-//					this.child = tail.getSolver(super.rules, solution);
+					this.child = SolutionNodeFactory.getSolver(tail, super.rules, solution);
 					Substitution childSolution = this.child.nextSolution();
 					
+					// If the child's solution is not null, return it.
 					if(childSolution != null) {
 						return childSolution;
 					}
-					
 				}
 				
 				else {
 					// If there's nothing else to solve for, return the solution.
 					return solution;
 				}
-				
 			}
-			
 		}
 		
-		return null; // no solution!
+		return null; // There is no next solution for the resolution problem!
 	}
-	
 }
