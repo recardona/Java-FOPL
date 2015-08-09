@@ -1,7 +1,6 @@
 package rogel.io.fopl.proof.tree;
 
 import rogel.io.fopl.Substitution;
-import rogel.io.fopl.formulas.Formula;
 import rogel.io.fopl.proof.HornClause;
 import rogel.io.fopl.proof.RuleSet;
 
@@ -23,29 +22,24 @@ public abstract class AbstractSolutionNode {
 	private int ruleNumber;
 	
 	/** The HornClauses used by all nodes in the proof tree. */
-	private RuleSet rules;
+	protected RuleSet rules;
 
 	/** The Substitution as it existed when this node was created. */
-	private Substitution parentSolution;
+	protected Substitution parentSolution;
 	
 	/** The current rule under consideration for the proof. */
 	private HornClause currentRule;
 	
-	/** The goal to solve in this node. */
-	private Formula goal;
-	
 	/**
 	 * Constructs an AbstractSolutionNode.
-	 * @param goal the goal to match for this node.
-	 * @param rules the logical basis used for theorem proving.
-	 * @param parentSolution the solution to this node's parent.
+	 * @param rules the logical basis used for resolution.
+	 * @param parentSolution the solution that exists prior to the creation of this node.
 	 */
-	protected AbstractSolutionNode(Formula goal, RuleSet rules, Substitution parentSolution) {
+	protected AbstractSolutionNode(RuleSet rules, Substitution parentSolution) {
 		this.ruleNumber = 0;
 		this.rules = rules;
 		this.parentSolution = parentSolution;
 		this.currentRule = null;
-		this.goal = goal;
 	}
 	
 	/**
@@ -90,13 +84,6 @@ public abstract class AbstractSolutionNode {
 	 */
 	public HornClause getCurrentRule() {
 		return currentRule;
-	}
-
-	/**
-	 * @return the goal
-	 */
-	public Formula getGoal() {
-		return goal;
 	}
 
 	/**
