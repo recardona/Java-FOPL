@@ -1,7 +1,7 @@
 package rogel.io.fopl.formulas.operators;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import rogel.io.fopl.Symbol;
 import rogel.io.fopl.formulas.Formula;
@@ -20,7 +20,7 @@ import rogel.io.util.VarargsUtils;
 public abstract class AbstractOperator extends Formula {
 
 	/** The underlying objects this operator applies to. */
-	protected ArrayList<Formula> operands;
+	protected List<Formula> operands;
 	
 	/**
 	 * Constructs an AbstractOperator with the given name, over the given operands. If the name is
@@ -43,7 +43,7 @@ public abstract class AbstractOperator extends Formula {
 	protected AbstractOperator(Symbol symbol, Formula... operands) {
 		super(symbol);
 		VarargsUtils.throwExceptionOnNull((Object[]) operands);
-		this.operands = (ArrayList<Formula>) Arrays.asList(operands);
+		this.operands = Arrays.asList(operands);
 	}
 	
 	/**

@@ -44,8 +44,8 @@ public class AndOperator extends AbstractOperator {
 		Formula[] tailOperands = new Formula[this.operands.size()-1];
 		
 		// Copy all but the first Formula into this array.
-		for(int operandIndex = 1; operandIndex < this.operands.size(); operandIndex++) {
-			tailOperands[operandIndex] = this.operands.get(operandIndex);
+		for(int operandIndex = 0; operandIndex < this.operands.size()-1; operandIndex++) {
+			tailOperands[operandIndex] = this.operands.get(operandIndex+1);
 		}
 		
 		// Create a new AndOperator with this array.
