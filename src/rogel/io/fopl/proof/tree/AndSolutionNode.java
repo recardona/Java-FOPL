@@ -14,10 +14,14 @@ import rogel.io.fopl.proof.RuleSet;
  */
 public class AndSolutionNode extends AbstractSolutionNode {
 
-	// TODO: DOCUMENTATION NEEDED.
+	/** The solution node for the first argument of the AndOperator this node represents. */
 	private AbstractSolutionNode headSolutionNode = null;
-	private AbstractSolutionNode tailSolutionNode = null;
+	
+	/** The tail arguments of the AndOperator this node represents.*/
 	private AbstractOperator operatorTail = null;
+	
+	/** The solution node for the tail arguments of the AndOperator this node represents. */
+	private AbstractSolutionNode tailSolutionNode = null;
 	
 	/**
 	 * Constructor for the AndSolutionNode.
@@ -28,8 +32,8 @@ public class AndSolutionNode extends AbstractSolutionNode {
 	protected AndSolutionNode(AndOperator goal, RuleSet rules, Substitution parentSolution) {
 		super(rules, parentSolution);
 		this.headSolutionNode = SolutionNodeFactory.getSolver(goal.getOperatorHead(), rules, parentSolution);
+		this.operatorTail = goal.getOperatorTail(); // store the operator tail to create the tailSolutionNode lazily.
 		this.tailSolutionNode = null;
-		this.operatorTail = goal.getOperatorTail();
 	}
 
 	/**
@@ -53,24 +57,32 @@ public class AndSolutionNode extends AbstractSolutionNode {
 	@Override
 	public Substitution nextSolution() {
 		
-		// TODO: DOCUMENTATION NEEDED
-
 		Substitution solution;
 		
+		// First check if the child is not null (which could
+		// be the case if we are resuming a previous search).
 		if(this.tailSolutionNode != null) {
+			
+			// See if there are any more solutions
+			// in this branch of the search space.
 			solution = this.tailSolutionNode.nextSolution();
 			
+			// If the solution in this branch is not null, 
+			// return it.
 			if(solution != null) {
 				return solution;
 			}
 		}
 		
+		// We must test for further solutions to the head goal.
 		while( (solution = this.headSolutionNode.nextSolution()) != null) {
 			
+			// If there isn't a tail to the head, we can return the solution we find.
 			if(this.operatorTail == null || this.operatorTail.isEmpty()) {
 				return solution;
 			}
 			
+			// Otherwise, we need to find the solution to the tail as well.
 			else {
 				this.tailSolutionNode = SolutionNodeFactory.getSolver(this.operatorTail, rules, solution);
 				Substitution tailSolution = this.tailSolutionNode.nextSolution();
@@ -81,7 +93,7 @@ public class AndSolutionNode extends AbstractSolutionNode {
 			}
 		}
 		
-		return null;
+		return null; // There is no next solution for the resolution problem!
 	}
 
 }

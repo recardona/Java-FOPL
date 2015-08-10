@@ -4,6 +4,8 @@ import rogel.io.fopl.Substitution;
 import rogel.io.fopl.formulas.Formula;
 import rogel.io.fopl.formulas.Predicate;
 import rogel.io.fopl.formulas.operators.AndOperator;
+import rogel.io.fopl.formulas.operators.NotOperator;
+import rogel.io.fopl.formulas.operators.OrOperator;
 import rogel.io.fopl.proof.RuleSet;
 
 /**
@@ -38,8 +40,16 @@ public class SolutionNodeFactory {
 			return new AndSolutionNode((AndOperator) goal, rules, parentSolution);
 		}
 		
-		// ERROR
-		return null;
+		if(goal instanceof OrOperator) {
+			// return new OrSolutionNode((OrOperator) goal, rules, parentSolution);
+		}
+		
+		if(goal instanceof NotOperator) {
+			// return new NotSolutionNode((NotOperator) goal, rules, parentSolution);
+		}
+		
+		// ERROR:
+		throw new IllegalArgumentException("Goal " +goal.toString()+ " is of unrecognized type for the solver.");		
 	}
 	
 }

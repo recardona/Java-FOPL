@@ -53,8 +53,8 @@ public class PredicateSolutionNode extends AbstractSolutionNode {
 		
 		Substitution solution;
 		
-		// First check if the child is null (which could be  
-		// the case if we are resuming a previous search).
+		// First check if the child is not null (which could 
+		// be the case if we are resuming a previous search).
 		if(this.child != null) {
 			
 			// See if there are any more solutions  
@@ -91,8 +91,7 @@ public class PredicateSolutionNode extends AbstractSolutionNode {
 				if(! rule.isFact()) {
 					
 					// We need to continue solving recursively for the child, whose Substitution 
-					// solution must be consistent with what we have thus far.
-					
+					// solution must be consistent with what we have thus far.	
 					Formula tail = rule.getAntecedent();
 					this.child = SolutionNodeFactory.getSolver(tail, super.rules, solution);
 					Substitution childSolution = this.child.nextSolution();
