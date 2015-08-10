@@ -10,9 +10,11 @@ import rogel.io.util.VarargsUtils;
 /**
  * An AbstractOperator is a Formula whose value is defined by the type of operator the class describes. 
  * There are three types of operators:
- * 1) conjunction (the 'and' connective),
- * 2) disjunction (the 'or' connective),
- * 3) negation (the 'not' connective).
+ * <ol>
+ * 	<li> conjunction (the 'and' connective)
+ * 	<li> disjunction (the 'or' connective)
+ * 	<li> negation (the 'not' connective)
+ * </ol>
  * @author recardona
  */
 public abstract class AbstractOperator extends Formula {
@@ -43,4 +45,44 @@ public abstract class AbstractOperator extends Formula {
 		VarargsUtils.throwExceptionOnNull((Object[]) operands);
 		this.operands = (ArrayList<Formula>) Arrays.asList(operands);
 	}
+	
+	/**
+	 * @return the number of operands this operator is applied to.
+	 */
+	public int operandCount() {
+		return this.operands.size();
+	}
+	
+	/**
+	 * @return true if there are no operands this operator is being applied to.
+	 */
+	public boolean isEmpty() {
+		return this.operands.isEmpty();
+	}
+	
+	/**
+	 * Gets the Formula that is at the given index in the list of operands.
+	 * @param index the index of the operand Formula to get.
+	 * @return the operand Formula at the given index.
+	 */
+	public Formula getOperand(int index) {
+		return this.operands.get(index);
+	}
+	
+	/**
+	 * Gets the operand Formula at the head of the list of operands. This method is equivalent to
+	 * calling {@code this.getOperand(0)}.
+	 * @return the operand Formula at index 0.
+	 */
+	public Formula getOperatorHead() {
+		return this.operands.get(0);
+	}
+	
+	/**
+	 * Constructs a new operator applied to {@code this.operandCount() - 1} operands: the operands
+	 * obtained by removing the operand Formula returned by {@code this.getOperatorHead()}.
+	 * @return a new operator applied to the tail of this operator.
+	 */
+	public abstract AbstractOperator getOperatorTail();
+	
 }

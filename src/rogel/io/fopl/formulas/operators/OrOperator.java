@@ -30,21 +30,24 @@ public class OrOperator extends AbstractOperator {
 			}
 		}
 	}
-
+	
 	/*
 	 * (non-Javadoc)
-	 * @see java.lang.Object#toString()
+	 * @see rogel.io.fopl.formulas.operators.AbstractOperator#getOperatorTail()
 	 */
 	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("(or");
-		for(Formula operand : this.operands) {
-			builder.append(" ");
-			builder.append(operand.toString());
+	public AbstractOperator getOperatorTail() {
+		
+		// Create the tail operands array, of size-1.
+		Formula[] tailOperands = new Formula[this.operands.size()-1];
+		
+		// Copy all but the first Formula into this array.
+		for(int operandIndex = 1; operandIndex < this.operands.size(); operandIndex++) {
+			tailOperands[operandIndex] = this.operands.get(operandIndex);
 		}
-		builder.append(")");
-		return builder.toString();
+		
+		// Create a new OrOperator with this array.
+		return new OrOperator(tailOperands);
 	}
 	
 	/*
@@ -87,5 +90,21 @@ public class OrOperator extends AbstractOperator {
 		}
 		
 		return new OrOperator(newOperands);
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("(or");
+		for(Formula operand : this.operands) {
+			builder.append(" ");
+			builder.append(operand.toString());
+		}
+		builder.append(")");
+		return builder.toString();
 	}
 }

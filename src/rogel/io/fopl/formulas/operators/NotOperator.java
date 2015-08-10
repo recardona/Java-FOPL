@@ -47,6 +47,15 @@ public class NotOperator extends AbstractOperator {
 			this.value = !this.operand.getValue();
 		}
 	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see rogel.io.fopl.formulas.operators.AbstractOperator#getOperatorTail()
+	 */
+	@Override
+	public AbstractOperator getOperatorTail() {
+		return null; // the NotOperator only ever applies to one Formula, so there is never a tail.
+	}
 
 	/*
 	 * (non-Javadoc)
