@@ -13,7 +13,16 @@ import rogel.io.fopl.terms.Variable;
 import rogel.io.util.VarargsUtils;
 
 /**
- * A Predicate names a relation between Terms in a domain of discourse.
+ * A Predicate names a relation between Terms in a domain of discourse. 
+ * <p>
+ * A Predicate may be thought of as an Expression that may be true or false depending on the values
+ * of the terms it describes. It can also be thought of as an operator or function that returns a 
+ * boolean value. 
+ * <p>
+ * {@code Predicate: X -> [true, false] }
+ * <p>
+ * In this implementation, each Predicate that is declared (i.e. constructed) is true by virtue of 
+ * its construction. 
  * @author recardona
  */
 public final class Predicate extends Formula implements Unifiable {
@@ -88,18 +97,20 @@ public final class Predicate extends Formula implements Unifiable {
 		return this.terms;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see rogel.io.fopl.formulas.Formula#isLiteral()
+	/**
+	 * Returns true if and only if this Formula is a literal. Because Predicates are always
+	 * literals, this method always returns true.
+	 * @return true, always.
 	 */
 	@Override
 	public boolean isLiteral() {
 		return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see rogel.io.fopl.formulas.Formula#isAtomic()
+	/**
+	 * Returns true if and only if this Formula is atomic. Because Predicates are always atomic,
+	 * this method always returns true.
+	 * @return true, always.
 	 */
 	@Override
 	public boolean isAtomic() {
@@ -296,21 +307,21 @@ public final class Predicate extends Formula implements Unifiable {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("[Predicate: ");
+		builder.append("(");
 		builder.append(this.symbol.toString());
 		
 		if(this.isPropositional()) {
-			builder.append(" (propositional)]");
+			builder.append(")");
 		}
 		
 		else {
-			builder.append("(");
+			builder.append(" ");
 			for(int termIndex = 0; termIndex < this.terms.size(); termIndex++)
 			{
 				builder.append(this.terms.get(termIndex));
-				builder.append(", ");
+				builder.append(" ");
 			}
-			builder.replace(builder.length()-2, builder.length(), ")]"); //replace last comma+space for closing parenthesis
+			builder.replace(builder.length()-1, builder.length(), ")"); //replace last comma+space for closing parenthesis
 		}
 		
 		return builder.toString();
