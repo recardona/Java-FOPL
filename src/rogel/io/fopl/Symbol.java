@@ -4,8 +4,7 @@ import java.util.HashMap;
 
 /**
  * A Symbol follows the Herbrand interpretation and is merely a (Java) String 
- * that represents itself. There is only <b>one</b> Symbol with any given name
- * (they are memory-unique objects). 
+ * that represents itself. There is only <b>one</b> Symbol with any given name. 
  * 
  * @author recardona
  * @see http://en.wikipedia.org/wiki/Herbrand_interpretation
