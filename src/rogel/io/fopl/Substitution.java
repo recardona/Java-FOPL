@@ -8,6 +8,7 @@ import rogel.io.util.VarargsUtils;
 /**
  * A Substitution is a mapping of a set of Variables to a set of Unifiable Objects. It 
  * serves as a solution of a unification/resolution problem.
+ * 
  * @author recardona
  */
 public final class Substitution {

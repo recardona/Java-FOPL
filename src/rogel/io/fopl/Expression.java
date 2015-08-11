@@ -6,6 +6,7 @@ import rogel.io.fopl.terms.Variable;
 
 /**
  * An Expression represents anything that can be expressed in FOPL.	
+ * 
  * @author recardona
  */
 public interface Expression {

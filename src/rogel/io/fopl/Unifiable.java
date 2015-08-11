@@ -15,6 +15,7 @@ public interface Unifiable extends Expression {
 	 * <p>
 	 * This method is commutative: calling {@code u1.unify(u2, s)} is equivalent to calling 
 	 * {@code u2.unify(u1, s)}.
+	 * 
 	 * @param unifiable the Object to attempt to unify with, not null.
 	 * @param substitution the existing set of Substitutions to work with, not null.
 	 * @return a Substitution that unifies this Object with the parameter Unifiable, or null if no 
@@ -26,6 +27,7 @@ public interface Unifiable extends Expression {
 	 * Checks to see if this Unifiable expression contains the parameter Variable, given an 
 	 * existing set of Substitutions (which may involve the Variable to check for). This method
 	 * accomplishes what is colloquially referred to as the "occurs check" during unification.
+	 * 
 	 * @param variable the Variable to check for, not null.
 	 * @param substitution the existing set of Substitutions to work with, not null.
 	 * @return true if this Unifiable Object contains the Variable, false otherwise.

@@ -9,6 +9,7 @@ import java.util.HashMap;
  * <p>
  * The set of all Symbols that are declared during the execution of any FOPL program constitute
  * that program's domain of discourse. 
+ * 
  * @author recardona
  * @see <a href="https://en.wikipedia.org/wiki/Herbrand_interpretation">https://en.wikipedia.org/wiki/Herbrand_interpretation</a>
  */
