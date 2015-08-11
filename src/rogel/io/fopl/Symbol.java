@@ -5,11 +5,12 @@ import java.util.HashMap;
 /**
  * A Symbol is an object that represents. Everything expressed in FOPL is done in terms of
  * Symbols. In this implementation, Symbols follow the Herbrand interpretation and are merely 
- * objects that represent String-based names. There is only <b>one</b> Symbol with any given name.
+ * objects that represent String-based names. There is only <b>one</b> Symbol for any given name.
  * <p>
  * The set of all Symbols that are declared during the execution of any FOPL program constitute
  * that program's domain of discourse. 
  * @author recardona
+ * @see <a href="https://en.wikipedia.org/wiki/Herbrand_interpretation">https://en.wikipedia.org/wiki/Herbrand_interpretation</a>
  */
 public final class Symbol {
 
@@ -32,7 +33,8 @@ public final class Symbol {
 	/**
 	 * Returns a Symbol with the given name. If no such Symbol exists, this method creates a new 
 	 * one and adds it to the domain of discourse for future retrieval.
-	 * @param name the name of the Symbol that is sought.
+	 * 
+	 * @param name The name of the Symbol that is sought.
 	 * @return a Symbol with the given name.
 	 * @throws IllegalArgumentException if the Symbol name is null or empty.
 	 */
@@ -54,6 +56,7 @@ public final class Symbol {
 	/**
 	 * Generates a new Symbol within the domain of discourse. The new Symbol is guaranteed to be 
 	 * unique, and will be of the form {@code G{number}}, where {@code {number}} is an integer.
+	 * 
 	 * @return the newly generated Symbol.
 	 */
 	public static Symbol generateSymbol() {
@@ -75,7 +78,8 @@ public final class Symbol {
 	 * Generates a new Symbol within the domain of discourse. The new Symbol is guaranteed to be
 	 * unique, and will be of the form {@code {prefix}{number}}, where {@code {prefix}} is the 
 	 * parameter String, and {@code {number}} is an integer.
-	 * @param prefix the prefix of the Symbol to generate.
+	 * 
+	 * @param prefix The prefix of the Symbol to generate.
 	 * @return the newly generated Symbol.
 	 */
 	public static Symbol generateSymbol(String prefix) {
@@ -95,7 +99,8 @@ public final class Symbol {
 	
 	/**
 	 * Constructs a Symbol of the given name.
-	 * @param name the name of the symbol.
+	 * 
+	 * @param name The name of the symbol.
 	 */
 	private Symbol(String name) {
 		this.name = name;
@@ -113,6 +118,7 @@ public final class Symbol {
 	/**
 	 * Returns a String representation of this Symbol, which is simply the name that this object 
 	 * represents.
+	 * 
 	 * @return a String representation of this Symbol.
 	 */
 	@Override
@@ -121,12 +127,12 @@ public final class Symbol {
 	}
 	
 	/**
-	 * Compares this Symbol to the parameter object. The result is {@code true} if and only if the
-	 * argument is another {@code Symbol} whose name is syntactically equivalent (i.e. represents 
-	 * the same sequence of characters) as this object.
-	 * @param obj The object to compare this {@code Symbol} against.
-	 * @return {@code true} if the given object represents a {@code Symbol} whose name is syntactically
-	 * 	equivalent to this Symbol's name, {@code false} otherwise.
+	 * Compares this Symbol to the parameter object. The result is true if and only if the argument 
+	 * is another Symbol that represents the same sequence of characters as this object.
+	 * 
+	 * @param obj The object to compare this Symbol against.
+	 * @return true if the given object represents a Symbol whose name is syntactically equivalent 
+	 * 	to this Symbol's name, false otherwise.
 	 */
 	@Override
 	public boolean equals(Object obj) {
@@ -142,6 +148,7 @@ public final class Symbol {
 	 * Returns a hash code for this Symbol. The hash code for a Symbol object is computed as the 
 	 * hash of the sequence of characters the Symbol represents: i.e
 	 * {@code toString().hashCode()}.
+	 * 
 	 * @return a hash code value for this object.
 	 */
 	@Override

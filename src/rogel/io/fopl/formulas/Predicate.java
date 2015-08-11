@@ -16,7 +16,7 @@ import rogel.io.util.VarargsUtils;
  * A Predicate names a relation between Terms in a domain of discourse.
  * @author recardona
  */
-public class Predicate extends Formula implements Unifiable {
+public final class Predicate extends Formula implements Unifiable {
 	
 	/** The number of terms this Predicate describes. */
 	private int arity;

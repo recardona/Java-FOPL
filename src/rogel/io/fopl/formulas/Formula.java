@@ -7,7 +7,13 @@ import rogel.io.fopl.Symbol;
 /**
  * A Formula is an Expression made up from a Symbol and a boolean value. This class is the base 
  * class for all FOPL Formulas.
+ * <p>
+ * While in FOPL an interpretation is required in order to assign semantic meaning to Formula-based
+ * Expressions, this implementation embeds the Formula's interpretation (i.e. its truth value) in
+ * the class itself, such that each Formula object has the capacity to carry its own interpretation
+ * with it.
  * @author recardona
+ * @see <a href="https://en.wikipedia.org/wiki/Interpretation_%28logic%29">https://en.wikipedia.org/wiki/Interpretation_logic</a>
  */
 public abstract class Formula implements Expression {
 		
@@ -18,9 +24,9 @@ public abstract class Formula implements Expression {
 	protected Symbol symbol;
 	
 	/**
-	 * Defines a null-valued Formula with the given name.  If the name is a {@code String} that did
-	 * not already exist within the domain of discourse (defined as a {@code Symbol}), then a new 
-	 * {@code Symbol} is created.
+	 * Defines a null-valued Formula with the given name.  If the name is a String that did not 
+	 * already exist within the domain of discourse (defined as a Symbol), then a new Symbol is 
+	 * created.
 	 * @param the name of this Formula, not null.
 	 */
 	protected Formula(String name) {
@@ -39,8 +45,8 @@ public abstract class Formula implements Expression {
 	/**
 	 * Returns true if and only if this Formula is a literal. A literal is defined to be an atomic
 	 * Formula or its negation.
-	 * @return true if this Formula is atomic or is the negation of an atomic 
-	 * 	Formula, false otherwise
+	 * @return true if this Formula is atomic or is the negation of an atomic Formula, false 
+	 * 	otherwise.
 	 */
 	public abstract boolean isLiteral();
 	
@@ -53,6 +59,7 @@ public abstract class Formula implements Expression {
 	public abstract boolean isAtomic();
 	
 	/**
+	 * Gets the Symbol associated with this Formula.
 	 * @return the symbol.
 	 */
 	public final Symbol getSymbol() {
@@ -60,15 +67,21 @@ public abstract class Formula implements Expression {
 	}
 		
 	/**
+	 * Gets the boolean value associated with this Formula.
 	 * @return the value of this Formula.
 	 */
 	public boolean getValue() {
 		return this.value;
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
+	/**
+	 * Compares this Formula to the parameter object. The result is true if and only if the
+	 * argument is another Formula of the same Symbol and with the same boolean value as this
+	 * object.
+	 * 
+	 * @param obj The object to compare this Formula against.
+	 * @return true if the given object represents a Formula denoted by the same Symbol and with
+	 * 	the same boolean value as this Formula, false otherwise. 
 	 */
 	@Override
 	public boolean equals(Object obj) {
@@ -99,9 +112,12 @@ public abstract class Formula implements Expression {
 		return true;
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
+	/**
+	 * Returns a hash code for this Formula. The hash code for a Formula object is computed as
+	 * <p>
+	 * {@code (int) (31 * (31 + (this.getSymbol().hashCode()))) + this.getValue().hashCode() }
+	 * 
+	 * @return a hash code value for this object.
 	 */
 	@Override
 	public int hashCode() {
