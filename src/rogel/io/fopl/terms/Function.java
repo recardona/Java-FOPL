@@ -14,8 +14,8 @@ import rogel.io.fopl.Unifiable;
 import rogel.io.util.VarargsUtils;
 
 /**
- * A Function is a function between a set of inputs and a set of outputs. In
- * FOPL, the inputs and outputs are all Symbols. 
+ * A Function is a mapping between a set of inputs and a set of outputs. In FOPL, the inputs and 
+ * outputs are all Terms. 
  * @author recardona
  */
 public class Function extends Term {
