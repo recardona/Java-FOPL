@@ -67,13 +67,39 @@ public class QuantifiedFormula extends Formula {
 	public Formula getQuantifiedFormula() {
 		return quantifiedFormula;
 	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see rogel.io.fopl.formulas.Formula#isAtomic()
+	 */
+	@Override
+	public boolean isAtomic() {
+		return false; // Quantified formulae are never atomic.
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see rogel.io.fopl.formulas.Formula#isLiteral()
+	 */
+	@Override
+	public boolean isLiteral() {
+		return false; // Quantified formulae are never literals.
+	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see rogel.io.fopl.Expression#replaceVariables(rogel.io.fopl.Substitution)
+	 */
 	@Override
 	public Expression replaceVariables(Substitution substitution) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see rogel.io.fopl.Expression#standardizeVariablesApart(java.util.HashMap)
+	 */
 	@Override
 	public Expression standardizeVariablesApart(HashMap<Variable, Variable> newVariables) {
 		// TODO Auto-generated method stub

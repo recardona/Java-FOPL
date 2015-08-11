@@ -5,15 +5,9 @@ import rogel.io.fopl.Symbol;
 
 
 /**
- * The base class for FOPL Formulas. Formulas are Expressions made up of a
- * Symbol that identifies the Formula and a Boolean value. 
+ * A {@code Formula} is an {@link Expression} made up from a {@link Symbol} and a boolean value. 
+ * This class is the base class for all FOPL Formulas.
  * @author recardona
- * @see rogel.io.fopl.True.java
- * @see rogel.io.fopl.False.java
- * @see rogel.io.fopl.Predicate.java
- * @see rogel.NotOperator.io.fopl.formulas.connectives.NegatedFormula.java
- * @see rogel.io.fopl.formulas.operators.AbstractOperator.java
- * @see rogel.io.fopl.QuantifiedFormula.java
  */
 public abstract class Formula implements Expression {
 		
@@ -24,10 +18,10 @@ public abstract class Formula implements Expression {
 	protected Symbol symbol;
 	
 	/**
-	 * Defines a null-valued Formula with the given name.  If the name is a 
-	 * String that did not already exist within the domain of discourse 
-	 * (defined as a Symbol), then a new Symbol is created.
-	 * @param the name of this Formula
+	 * Defines a null-valued Formula with the given name.  If the name is a {@code String} that did
+	 * not already exist within the domain of discourse (defined as a {@code Symbol}), then a new 
+	 * {@code Symbol} is created.
+	 * @param the name of this Formula.
 	 */
 	protected Formula(String name) {
 		this(Symbol.get(name));
@@ -35,8 +29,7 @@ public abstract class Formula implements Expression {
 	
 	/**
 	 * Defines a null-valued Formula with the given Symbol. 
-	 * @param symbol the Symbol that represents this Formula within the domain
-	 * of discourse
+	 * @param symbol the Symbol that represents this Formula within the domain of discourse.
 	 */
 	protected Formula(Symbol symbol) {
 		this.value = null;
@@ -44,23 +37,18 @@ public abstract class Formula implements Expression {
 	}
 	
 	/**
-	 * A literal is an atomic Formula or its negation.
+	 * Returns true if and only if this Formula is a literal. A literal is defined to be an atomic
+	 * Formula or its negation.
 	 * @return true if this Formula is atomic or is the negation of an atomic 
 	 * 	Formula, false otherwise
 	 */
-	public boolean isLiteral() {
-		//default to false. (Let subclasses override if necessary)
-		return false; 
-	}
+	public abstract boolean isLiteral();
 	
 	/**
 	 * An atomic Formula is a Predicate.
 	 * @return true if this Formula is a Predicate, false otherwise.
 	 */
-	public boolean isAtomic() {
-		//default to false. (Let subclasses override if necessary)
-		return false;
-	}
+	public abstract boolean isAtomic();
 	
 	/**
 	 * @return the symbol.

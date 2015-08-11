@@ -32,6 +32,15 @@ public class AndOperator extends AbstractOperator {
 			}
 		}
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see rogel.io.fopl.formulas.Formula#isLiteral()
+	 */
+	@Override
+	public boolean isLiteral() {
+		return false; // AndOperators are not literals.
+	}
 	
 	/*
 	 * (non-Javadoc)

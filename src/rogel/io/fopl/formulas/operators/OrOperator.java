@@ -33,6 +33,15 @@ public class OrOperator extends AbstractOperator {
 	
 	/*
 	 * (non-Javadoc)
+	 * @see rogel.io.fopl.formulas.Formula#isLiteral()
+	 */
+	@Override
+	public boolean isLiteral() {
+		return false; // OrOperators are never literals.
+	}
+	
+	/*
+	 * (non-Javadoc)
 	 * @see rogel.io.fopl.formulas.operators.AbstractOperator#getOperatorTail()
 	 */
 	@Override

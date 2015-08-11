@@ -49,14 +49,14 @@ public abstract class AbstractOperator extends Formula {
 	/**
 	 * @return the number of operands this operator is applied to.
 	 */
-	public int operandCount() {
+	public final int operandCount() {
 		return this.operands.size();
 	}
 	
 	/**
 	 * @return true if there are no operands this operator is being applied to.
 	 */
-	public boolean isEmpty() {
+	public final boolean isEmpty() {
 		return this.operands.isEmpty();
 	}
 	
@@ -65,7 +65,7 @@ public abstract class AbstractOperator extends Formula {
 	 * @param index the index of the operand Formula to get.
 	 * @return the operand Formula at the given index.
 	 */
-	public Formula getOperand(int index) {
+	public final Formula getOperand(int index) {
 		return this.operands.get(index);
 	}
 	
@@ -74,7 +74,7 @@ public abstract class AbstractOperator extends Formula {
 	 * calling {@code this.getOperand(0)}.
 	 * @return the operand Formula at index 0.
 	 */
-	public Formula getOperatorHead() {
+	public final Formula getOperatorHead() {
 		return this.operands.get(0);
 	}
 	
@@ -84,5 +84,14 @@ public abstract class AbstractOperator extends Formula {
 	 * @return a new operator applied to the tail of this operator.
 	 */
 	public abstract AbstractOperator getOperatorTail();
+	
+	/*
+	 * (non-Javadoc)
+	 * @see rogel.io.fopl.formulas.Formula#isAtomic()
+	 */
+	@Override
+	public final boolean isAtomic() {
+		return false; // Operators are never atomic!
+	}
 	
 }

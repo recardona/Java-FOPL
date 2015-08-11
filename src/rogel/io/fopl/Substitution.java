@@ -16,18 +16,19 @@ public final class Substitution {
 	private HashMap<Variable, Unifiable> bindings;
 	
 	/**
-	 * Attempts to find the Substitution that unifies (i.e. makes syntactically equivalent) the 
-	 * Unifiable arguments. If no such Substitution exists, this method returns null. 
+	 * Attempts to find the {@code Substitution} that unifies (i.e. makes syntactically equivalent)
+	 * the {@code Unifiable} arguments. If no such {@code Substitution} exists, this method returns
+	 * null. 
 	 * <p>
 	 * This method is meant as an alternate way to perform the unify method outlined by the 
-	 * {@code Unifiable} interface. For example, calling {@code Substitution.unify(u1, u2)} is 
+	 * {@link Unifiable} interface. For example, calling {@code Substitution.unify(u1, u2)} is 
 	 * equivalent to calling {@code u1.unify(u2, substitution)}. This method, however, takes
 	 * care of providing the initial substitution context, and groups the chain of method calls
 	 * that would be needed to unify the method's arguments sequentially.
-	 * @param arg1 the first Unifiable argument to unify.
-	 * @param arg2 the second Unifiable argument to unify.
-	 * @param moreArgs additional Unifiable arguments.
-	 * @return a Substitution that unifies the arguments, or null if no Substitution exists.
+	 * @param arg1  the first {@code Unifiable} argument to unify, not null.
+	 * @param arg2  the second {@code Unifiable} argument to unify, not null.
+	 * @param moreArgs  additional {@code Unifiable} arguments, not null.
+	 * @return a {@link Substitution} that unifies the arguments, or null if no {@code Substitution} exists.
 	 */
 	public static Substitution unify(Unifiable arg1, Unifiable arg2, Unifiable... moreArgs) {
 
@@ -49,16 +50,16 @@ public final class Substitution {
 	}
 	
 	/**
-	 * Creates an empty substitution set.
+	 * Creates an empty {@code Substitution} set.
 	 */
 	public Substitution() {
 		this.bindings = new HashMap<Variable, Unifiable>();
 	}
 	
 	/**
-	 * Creates a non-empty substitution set, comprised of the bindings in the
-	 * parameter Substitution set s.
-	 * @param s the Substitution set to initialize with
+	 * Creates a non-empty {@code Substitution} set, comprised of the bindings in the
+	 * parameter {@code Substitution} set.
+	 * @param s the {@code Substitution} set to initialize with, not null.
 	 */
 	public Substitution(Substitution s) {
 		this.bindings = new HashMap<Variable, Unifiable>(s.getBindings());
