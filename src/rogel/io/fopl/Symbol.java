@@ -3,15 +3,13 @@ package rogel.io.fopl;
 import java.util.HashMap;
 
 /**
- * A {@code Symbol} is an object that represents. Everything expressed in FOPL is done in terms of
+ * A Symbol is an object that represents. Everything expressed in FOPL is done in terms of
  * Symbols. In this implementation, Symbols follow the Herbrand interpretation and are merely 
- * objects that represent {@code String}-based names. There is only <b>one</b> Symbol with any
- * given name.
+ * objects that represent String-based names. There is only <b>one</b> Symbol with any given name.
  * <p>
  * The set of all Symbols that are declared during the execution of any FOPL program constitute
  * that program's domain of discourse. 
  * @author recardona
- * @see {@link http://en.wikipedia.org/wiki/Herbrand_interpretation}
  */
 public final class Symbol {
 
@@ -113,8 +111,9 @@ public final class Symbol {
 	}
 	
 	/**
-	 * Returns a {@code String} representation of this Symbol, which is simply the name that this
-	 * object represents.
+	 * Returns a String representation of this Symbol, which is simply the name that this object 
+	 * represents.
+	 * @return a String representation of this Symbol.
 	 */
 	@Override
 	public String toString() {
@@ -140,9 +139,9 @@ public final class Symbol {
 	}
 	
 	/**
-	 * Returns a hash code for this Symbol. The hash code for a {@code Symbol} object is computed
-	 * as the hash of the sequence of characters the Symbol represents; i.e. 
-	 * {@code this.toString().hashCode()}.
+	 * Returns a hash code for this Symbol. The hash code for a Symbol object is computed as the 
+	 * hash of the sequence of characters the Symbol represents: i.e
+	 * {@code toString().hashCode()}.
 	 * @return a hash code value for this object.
 	 */
 	@Override

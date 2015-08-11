@@ -6,7 +6,7 @@ import rogel.io.fopl.terms.Variable;
 import rogel.io.util.VarargsUtils;
 
 /**
- * A {@code Substitution} is a mapping of a set of Variables to a set of Unifiable Objects. It 
+ * A Substitution is a mapping of a set of Variables to a set of Unifiable Objects. It 
  * serves as a solution of a unification/resolution problem.
  * @author recardona
  */
@@ -16,19 +16,18 @@ public final class Substitution {
 	private HashMap<Variable, Unifiable> bindings;
 	
 	/**
-	 * Attempts to find the {@code Substitution} that unifies (i.e. makes syntactically equivalent)
-	 * the {@code Unifiable} arguments. If no such {@code Substitution} exists, this method returns
-	 * null. 
+	 * Attempts to find the Substitution that unifies (i.e. makes syntactically equivalent)
+	 * the Unifiable arguments. If no such Substitution exists, this method returns null. 
 	 * <p>
 	 * This method is meant as an alternate way to perform the unify method outlined by the 
-	 * {@link Unifiable} interface. For example, calling {@code Substitution.unify(u1, u2)} is 
-	 * equivalent to calling {@code u1.unify(u2, substitution)}. This method, however, takes
-	 * care of providing the initial substitution context, and groups the chain of method calls
-	 * that would be needed to unify the method's arguments sequentially.
-	 * @param arg1  the first {@code Unifiable} argument to unify, not null.
-	 * @param arg2  the second {@code Unifiable} argument to unify, not null.
-	 * @param moreArgs  additional {@code Unifiable} arguments, not null.
-	 * @return a {@link Substitution} that unifies the arguments, or null if no {@code Substitution} exists.
+	 * Unifiable interface. For example, calling {@code Substitution.unify(u1, u2)} is equivalent to 
+	 * calling {@code u1.unify(u2, substitution)}. This method, however, takes care of providing the 
+	 * initial substitution context, and groups the chain of method calls that would be needed to 
+	 * unify the method's arguments sequentially.
+	 * @param arg1 the first Unifiable argument to unify, not null.
+	 * @param arg2 the second Unifiable argument to unify, not null.
+	 * @param moreArgs additional Unifiable arguments, not null.
+	 * @return a Substitution that unifies the arguments, or null if no Substitution exists.
 	 */
 	public static Substitution unify(Unifiable arg1, Unifiable arg2, Unifiable... moreArgs) {
 
@@ -50,16 +49,16 @@ public final class Substitution {
 	}
 	
 	/**
-	 * Creates an empty {@code Substitution} set.
+	 * Creates an empty Substitution set.
 	 */
 	public Substitution() {
 		this.bindings = new HashMap<Variable, Unifiable>();
 	}
 	
 	/**
-	 * Creates a non-empty {@code Substitution} set, comprised of the bindings in the
-	 * parameter {@code Substitution} set.
-	 * @param s the {@code Substitution} set to initialize with, not null.
+	 * Creates a non-empty Substitution set, comprised of the bindings in the
+	 * parameter Substitution set.
+	 * @param s the Substitution set to initialize with, not null.
 	 */
 	public Substitution(Substitution s) {
 		this.bindings = new HashMap<Variable, Unifiable>(s.getBindings());
@@ -74,33 +73,48 @@ public final class Substitution {
 	
 	/**
 	 * Binds the Term to the Variable.
-	 * @param variable the Variable to be bound
-	 * @param unifiable the Term that will be bound to the variable
+	 * @param variable the Variable to be bound, not null.
+	 * @param unifiable the Term that will be bound to the variable, not null.
 	 */
 	public void add(Variable variable, Unifiable unifiable) {
+		
+		if(variable == null) {
+			throw new IllegalArgumentException("Cannot bind to null variable.");
+		}
+		
+		if(unifiable == null) {
+			throw new IllegalArgumentException("Cannot bind with null unifiable.");
+		}
+		
 		this.bindings.put(variable, unifiable);
 	}
 	
 	/**
-	 * Gets the binding for this Variable. This binding is a Unifiable Object. 
-	 * If no such binding exists, this method returns null.
-	 * @param variable the Variable to lookup
-	 * @return the Unifiable Object bound to the variable, or null if the 
-	 * 	variable is not bound.
+	 * Gets the binding for this Variable. This binding is a Unifiable Object. If no such binding
+	 * exists, this method returns null.
+	 * @param variable the Variable to lookup, not null.
+	 * @return the Unifiable Object bound to the variable, or null if the variable is not bound.
 	 */
 	public Unifiable getBinding(Variable variable) {
 		return (Unifiable) this.bindings.get(variable);
 	}
 	
 	/**
+	 * Checks whether the parameter Variable is bound in this Substitution.
+	 * @param variable the Variable to check for bindings, not null.
 	 * @return true if the Variable is bound, false otherwise.
 	 */
 	public boolean isBound(Variable variable) {
+		
+		if(variable == null) {
+			throw new IllegalArgumentException("Binding against a null variable is not possible.");
+		}
+		
 		return (this.bindings.get(variable) != null);
 	}
 	
 	/**
-	 * A Substitution is "ground" if all terms are ground terms (no variables)
+	 * A Substitution is "ground" if all terms are ground terms (no variables).
 	 * @return true if this Substitution is ground
 	 */
 	public boolean isGround() {

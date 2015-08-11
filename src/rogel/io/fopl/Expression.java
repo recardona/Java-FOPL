@@ -5,7 +5,7 @@ import java.util.HashMap;
 import rogel.io.fopl.terms.Variable;
 
 /**
- * An {@code Expression} represents anything that can be expressed in FOPL.	
+ * An Expression represents anything that can be expressed in FOPL.	
  * @author recardona
  */
 public interface Expression {
