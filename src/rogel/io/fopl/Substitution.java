@@ -6,31 +6,28 @@ import rogel.io.fopl.terms.Variable;
 import rogel.io.util.VarargsUtils;
 
 /**
- * A Substitution is a mapping of a set of Variables to a set of Unifiable 
- * Objects. It serves as a solution of a unification problem.
+ * A Substitution is a mapping of a set of Variables to a set of Unifiable Objects. It serves as a
+ * solution of a unification/resolution problem.
  * @author recardona
  */
-public class Substitution 
-{
+public final class Substitution {
+	
 	/** The mappings between Variables and Unifiables. */
 	private HashMap<Variable, Unifiable> bindings;
 	
 	/**
-	 * Attempts to find the Substitution that unifies (i.e. makes syntactically
-	 * equivalent) the Unifiable arguments. If no such Substitution exists,
-	 * this method returns null. 
+	 * Attempts to find the Substitution that unifies (i.e. makes syntactically equivalent) the 
+	 * Unifiable arguments. If no such Substitution exists, this method returns null. 
 	 * <p>
-	 * This method is meant as an alternate way to perform the unify method 
-	 * outlined by the <code>Unifiable</code> interface. For example, calling
-	 * <code>Substitution.unify(u1, u2)</code> is equivalent to calling
-	 * <code>u1.unify(u2, substitution)</code>. This method, however, takes
-	 * care of providing the initial substitution context, and groups the
-	 * chain of method calls that would be needed to unify the method's
-	 * arguments sequentially.
-	 * @param arg1 the first Unifiable argument to unify
-	 * @param arg2 the second Unifiable argument to unify
-	 * @param moreArgs additional Unifiable arguments
-	 * @return a Substitution that unifies the arguments, or null if no Substitution exists
+	 * This method is meant as an alternate way to perform the unify method outlined by the 
+	 * {@code Unifiable} interface. For example, calling {@code Substitution.unify(u1, u2)} is 
+	 * equivalent to calling {@code u1.unify(u2, substitution)}. This method, however, takes
+	 * care of providing the initial substitution context, and groups the chain of method calls
+	 * that would be needed to unify the method's arguments sequentially.
+	 * @param arg1 the first Unifiable argument to unify.
+	 * @param arg2 the second Unifiable argument to unify.
+	 * @param moreArgs additional Unifiable arguments.
+	 * @return a Substitution that unifies the arguments, or null if no Substitution exists.
 	 */
 	public static Substitution unify(Unifiable arg1, Unifiable arg2, Unifiable... moreArgs) {
 
@@ -121,6 +118,28 @@ public class Substitution
 		return this.bindings;
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#clone()
+	 */
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		throw new CloneNotSupportedException("Symbol.clone() is not supported");
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Bindings: ["+this.bindings+"]";
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -143,6 +162,10 @@ public class Substitution
 		return true;
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -151,10 +174,5 @@ public class Substitution
 				+ ((bindings == null) ? 0 : bindings.hashCode());
 		return result;
 	}
-
-	@Override
-	public String toString() {
-		return "Bindings: ["+this.bindings+"]";
-	}
-		
+	
 }
