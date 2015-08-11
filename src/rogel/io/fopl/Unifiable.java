@@ -9,7 +9,7 @@ import rogel.io.fopl.terms.Variable;
 public interface Unifiable extends Expression {
 	
 	/**
-	 * Attempts to find the Substitution that unifies (i.e. makes syntactically equivalent) this 
+	 * Attempts to find the Substitution that unifies (makes syntactically equivalent) this 
 	 * Unifiable Object with the parameter Unifiable Object, given an existing set of 
 	 * Substitutions. If no such Substitution exists, this method returns null. 
 	 * <p>

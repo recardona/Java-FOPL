@@ -16,14 +16,15 @@ public final class Substitution {
 	private HashMap<Variable, Unifiable> bindings;
 	
 	/**
-	 * Attempts to find the Substitution that unifies (i.e. makes syntactically equivalent)
-	 * the Unifiable arguments. If no such Substitution exists, this method returns null. 
+	 * Attempts to find the Substitution that unifies (makes syntactically equivalent) the Unifiable 
+	 * arguments. If no such Substitution exists, this method returns null. 
 	 * <p>
 	 * This method is meant as an alternate way to perform the unify method outlined by the 
 	 * Unifiable interface. For example, calling {@code Substitution.unify(u1, u2)} is equivalent to 
 	 * calling {@code u1.unify(u2, substitution)}. This method, however, takes care of providing the 
 	 * initial substitution context, and groups the chain of method calls that would be needed to 
 	 * unify the method's arguments sequentially.
+	 * 
 	 * @param arg1 the first Unifiable argument to unify, not null.
 	 * @param arg2 the second Unifiable argument to unify, not null.
 	 * @param moreArgs additional Unifiable arguments, not null.
@@ -58,6 +59,7 @@ public final class Substitution {
 	/**
 	 * Creates a non-empty Substitution set, comprised of the bindings in the
 	 * parameter Substitution set.
+	 * 
 	 * @param s the Substitution set to initialize with, not null.
 	 */
 	public Substitution(Substitution s) {
@@ -73,6 +75,7 @@ public final class Substitution {
 	
 	/**
 	 * Binds the Term to the Variable.
+	 * 
 	 * @param variable the Variable to be bound, not null.
 	 * @param unifiable the Term that will be bound to the variable, not null.
 	 */
@@ -92,6 +95,7 @@ public final class Substitution {
 	/**
 	 * Gets the binding for this Variable. This binding is a Unifiable Object. If no such binding
 	 * exists, this method returns null.
+	 * 
 	 * @param variable the Variable to lookup, not null.
 	 * @return the Unifiable Object bound to the variable, or null if the variable is not bound.
 	 */
@@ -101,6 +105,7 @@ public final class Substitution {
 	
 	/**
 	 * Checks whether the parameter Variable is bound in this Substitution.
+	 * 
 	 * @param variable the Variable to check for bindings, not null.
 	 * @return true if the Variable is bound, false otherwise.
 	 */
@@ -115,6 +120,7 @@ public final class Substitution {
 	
 	/**
 	 * A Substitution is "ground" if all terms are ground terms (no variables).
+	 *
 	 * @return true if this Substitution is ground
 	 */
 	public boolean isGround() {
@@ -127,7 +133,9 @@ public final class Substitution {
 	}
 
 	/**
-	 * @return the bindings
+	 * Gets the Variable, Unifiable object pairs that are mapped in this Substitution. 
+	 * 
+	 * @return the bindings this Substitution represents, as a HashMap of Variables to Unifiable objects.
 	 */
 	public HashMap<Variable, Unifiable> getBindings() {
 		return this.bindings;
