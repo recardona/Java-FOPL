@@ -79,7 +79,6 @@ public class AbstractSolutionNodeTest {
 		while( (solution = root.nextSolution()) != null) {
 			solutionList.add(solution);
 			expressionsList.add(goal.replaceVariables(solution));
-			System.out.println(goal.replaceVariables(solution));
 		}
 		
 		assertEquals("There should be four solutions to the query.", 4, solutionList.size());

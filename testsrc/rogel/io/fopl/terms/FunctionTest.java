@@ -87,11 +87,6 @@ public class FunctionTest {
 	}
 	
 	@Test
-	public void testToString() {
-		assertEquals("[Function: father_of([Variable: x])]", father_of.toString());
-	}
-	
-	@Test
 	public void testEquals() {
 		assertEquals("father_of and father_of should be the same", father_of, father_of);
 		assertNotEquals("mother_of and father_of should be different", father_of, mother_of);
