@@ -152,11 +152,6 @@ public final class Substitution {
 		throw new CloneNotSupportedException("Symbol.clone() is not supported");
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	
 	/**
 	 * Compares this Substitution to the parameter object. The result is true if and only if the 
 	 * argument is another Substitution that contains the same Variable, Unifiable bindings as
