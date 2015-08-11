@@ -117,17 +117,6 @@ public final class Symbol {
 	}
 	
 	/**
-	 * Returns a String representation of this Symbol, which is simply the name that this object 
-	 * represents.
-	 * 
-	 * @return a String representation of this Symbol.
-	 */
-	@Override
-	public String toString() {
-		return this.name;
-	}
-	
-	/**
 	 * Compares this Symbol to the parameter object. The result is true if and only if the argument 
 	 * is another Symbol that represents the same sequence of characters as this object.
 	 * 
@@ -155,5 +144,16 @@ public final class Symbol {
 	@Override
 	public int hashCode() {
 		return this.name.hashCode();
+	}
+	
+	/**
+	 * Returns a String representation of this Symbol, which is simply the name that this object 
+	 * represents.
+	 * 
+	 * @return a String representation of this Symbol.
+	 */
+	@Override
+	public String toString() {
+		return this.name;
 	}
 }

@@ -1,6 +1,7 @@
 package rogel.io.fopl;
 
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 import rogel.io.fopl.terms.Variable;
 import rogel.io.util.VarargsUtils;
@@ -153,16 +154,17 @@ public final class Substitution {
 	
 	/*
 	 * (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "Bindings: ["+this.bindings+"]";
-	}
-	
-	/*
-	 * (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	
+	/**
+	 * Compares this Substitution to the parameter object. The result is true if and only if the 
+	 * argument is another Substitution that contains the same Variable, Unifiable bindings as
+	 * this object.
+	 * 
+	 * @param obj The object to compare this Substitution against.
+	 * @return true if the given object represents a Substitution with the same Variable, 
+	 * 	Unifiable bindings as this object, false otherwise.
 	 */
 	@Override
 	public boolean equals(Object obj) {
@@ -186,9 +188,12 @@ public final class Substitution {
 		return true;
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
+	/**
+	 * Returns a hash code for this Substitution. The hash code for a Substitution object is 
+	 * computed as the hash of the Variable, Unifiable entries in the HashMap used to represent
+	 * a Substitution set times a prime number: i.e. {@code getBindings().hashCode() * 31}.
+	 * 
+	 *  @return a hash code value for this object.
 	 */
 	@Override
 	public int hashCode() {
@@ -199,4 +204,27 @@ public final class Substitution {
 		return result;
 	}
 	
+	/**
+	 * Returns a String representation of this Substitution, which is a set of Variable, Unifiable
+	 * pairs. Historically, Substitutions have been denoted by the greek letter 'theta', which 
+	 * precedes the set.
+	 * 
+	 * @return a String representation of this Substitution.
+	 */
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("\u03F4"); // theta
+		builder.append(" = {");
+		
+		for(Entry<Variable, Unifiable> binding : bindings.entrySet()) {
+			builder.append(binding.getValue());
+			builder.append("/");
+			builder.append(binding.getKey());
+			builder.append(", ");
+		}
+		
+		builder.replace(builder.length()-2, builder.length(), "}");
+		return builder.toString();
+	}
 }
