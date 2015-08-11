@@ -3,7 +3,7 @@ package rogel.io.fopl;
 import rogel.io.fopl.terms.Variable;
 
 /**
- * A Unifiable Object is a logical expression that can be used in unification.
+ * A {@code Unifiable} Object is a logical Expression that can be used in unification.
  * @author recardona
  */
 public interface Unifiable extends Expression {
