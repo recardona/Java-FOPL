@@ -5,8 +5,8 @@ import rogel.io.fopl.Symbol;
 
 
 /**
- * A {@code Formula} is an {@link Expression} made up from a {@link Symbol} and a boolean value. 
- * This class is the base class for all FOPL Formulas.
+ * A Formula is an Expression made up from a Symbol and a boolean value. This class is the base 
+ * class for all FOPL Formulas.
  * @author recardona
  */
 public abstract class Formula implements Expression {
@@ -21,7 +21,7 @@ public abstract class Formula implements Expression {
 	 * Defines a null-valued Formula with the given name.  If the name is a {@code String} that did
 	 * not already exist within the domain of discourse (defined as a {@code Symbol}), then a new 
 	 * {@code Symbol} is created.
-	 * @param the name of this Formula.
+	 * @param the name of this Formula, not null.
 	 */
 	protected Formula(String name) {
 		this(Symbol.get(name));
@@ -29,11 +29,11 @@ public abstract class Formula implements Expression {
 	
 	/**
 	 * Defines a null-valued Formula with the given Symbol. 
-	 * @param symbol the Symbol that represents this Formula within the domain of discourse.
+	 * @param symbol the Symbol that represents this Formula within the domain of discourse, not null.
 	 */
 	protected Formula(Symbol symbol) {
-		this.value = null;
 		this.symbol = symbol;
+		this.value = null;
 	}
 	
 	/**
@@ -45,8 +45,10 @@ public abstract class Formula implements Expression {
 	public abstract boolean isLiteral();
 	
 	/**
-	 * An atomic Formula is a Predicate.
-	 * @return true if this Formula is a Predicate, false otherwise.
+	 * Returns true if and only if this Formula is atomic. An atomic Formula (or equivalently, an 
+	 * 'atom') is a Formula that contains no logical connectives or equivalently a Formula that has
+	 * no sub-formulas.
+	 * @return true if this Formula is atomic, false otherwise.
 	 */
 	public abstract boolean isAtomic();
 	
@@ -64,6 +66,10 @@ public abstract class Formula implements Expression {
 		return this.value;
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
@@ -93,6 +99,10 @@ public abstract class Formula implements Expression {
 		return true;
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;

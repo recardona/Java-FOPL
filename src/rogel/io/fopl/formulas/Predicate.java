@@ -25,30 +25,28 @@ public class Predicate extends Formula implements Unifiable {
 	private List<Term> terms;
 	
 	/**
-	 * Constructs an n-ary Predicate with the given name. If the name is a
-	 * String that did not already exist within the domain of discourse
-	 * (i.e. was already defined as a Symbol), then a new Symbol is created and
-	 * added to the domain of discourse. The arity of this Predicate depends on
-	 * the number of Terms added.
+	 * Constructs an n-ary Predicate with the given name. A 0-ary Predicate is used to represent a 
+	 * propositional symbol. The arity of this Predicate depends on the number of Terms added. 
 	 * <p>
-	 * Note: A 0-ary Predicate is used to represent a propositional symbol.
-	 * @param name the name of the Predicate
-	 * @param terms the terms this Predicate describes
+	 * If the name is a String that did not already exist within the domain of discourse (i.e. was 
+	 * already defined as a Symbol), then a new Symbol is created and added to the domain of 
+	 * discourse. 
+	 * 
+	 * @param name the name of the Predicate, not null.
+	 * @param terms the terms this Predicate describes, not null.
 	 */
 	public Predicate(String name, Term... terms) {
 		this(Symbol.get(name), terms);
 	}
 	
 	/**
-	 * Constructs an n-ary Predicate with the given Symbol. The arity of this
-	 * Predicate depends on the number of Terms added.
-	 * <p>
-	 * Note: A 0-ary Predicate is used to represent a propositional symbol.
-	 * @param symbol the Symbol that represents this Predicate within the
-	 * domain of discourse
-	 * @param terms the terms this Predicate describes
+	 * Constructs an n-ary Predicate with the given Symbol. A 0-ary Predicate is used to represent 
+	 * a propositional symbol. The arity of this Predicate depends on the number of Terms added.
+	 * 
+	 * @param symbol the Symbol that represents this Predicate within the domain of discourse, not null.
+	 * @param terms the terms this Predicate describes, not null.
 	 */
-	private Predicate(Symbol symbol, Term... terms) {
+	public Predicate(Symbol symbol, Term... terms) {
 		super(symbol);
 		VarargsUtils.throwExceptionOnNull((Object[]) terms);
 		
@@ -67,7 +65,7 @@ public class Predicate extends Formula implements Unifiable {
 	
 	/**
 	 * True if this Predicate is propositional. Propositions are 0-ary Predicates.
-	 * @return true if this Predicate describes no Terms
+	 * @return true if this Predicate describes no Terms.
 	 */
 	public boolean isPropositional() {
 		return (this.arity == 0);
@@ -75,27 +73,34 @@ public class Predicate extends Formula implements Unifiable {
 	
 	/**
 	 * Returns the number of Terms this Predicate describes.
-	 * @return this Predicate's arity
+	 * @return this Predicate's arity.
 	 */
 	public int getArity() {
 		return this.arity;
 	}
 	
 	/**
-	 * Returns the terms this Predicate applies to. For example, in the
-	 * Predicate <code>(cat Ash)</code> the term would be <code>Ash</code>.
-	 * If this Predicate is propositional, this method returns null.
+	 * Returns the terms this Predicate applies to. For example, in the Predicate {@code (cat Ash)}
+	 * the term would be {@code Ash}. If this Predicate is propositional, this method returns null.
 	 * @return this Predicate's terms.
 	 */
 	public List<Term> getTerms() {
 		return this.terms;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see rogel.io.fopl.formulas.Formula#isLiteral()
+	 */
 	@Override
 	public boolean isLiteral() {
 		return true;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see rogel.io.fopl.formulas.Formula#isAtomic()
+	 */
 	@Override
 	public boolean isAtomic() {
 		return true;
