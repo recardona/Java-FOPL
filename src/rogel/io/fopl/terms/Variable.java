@@ -10,20 +10,30 @@ import rogel.io.fopl.Unifiable;
 /**
  * A Variable is a "placeholder" Term, which can be assigned values through a
  * Substitution set. Variables also allow FOPL formulas that express quantified
- * ideas.
+ * ideas. Every variable that is constructed is different, despite them having
+ * the same symbolic name.
  * 
  * @author recardona
  */
 public class Variable extends Term {
+	
+	/** 
+	 * The Variable class' unique identifier. This number monotonically increases with each
+	 * constructed Variable object.
+	 */
+	private static int nextId = 1;
+	
+	/** This Variable's unique identifier. */
+	private int id;
 
 	/**
-	 * Constructs a Variable with the given name. If the name is a String that did
-	 * not already exist within the domain of discourse (defined as a Symbol),
-	 * then a new Symbol is created.
+	 * Constructs a Variable with the given name. If the name is a String that did not 
+	 * already exist within the domain of discourse (defined as a Symbol), then a new 
+	 * Symbol is created.
 	 * @param name the name of this Variable
 	 */
 	public Variable(String name) {
-		super(name);
+		this(Symbol.get(name));
 	}
 
 	/**
@@ -33,6 +43,8 @@ public class Variable extends Term {
 	 */	
 	public Variable(Symbol symbol) {
 		super(symbol);
+		this.id = Variable.nextId;
+		Variable.nextId++;
 	}
 
 	/*
@@ -127,46 +139,77 @@ public class Variable extends Term {
 		// Return the substitute Variable.
 		return standardizedVariable;
 	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see rogel.io.fopl.terms.Term#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object obj) {
-
-		//Variable equality is composed of type and symbol equality.
-		if (this == obj) {
-			return true;
-		}
-
-		if (!super.equals(obj)) {
-			return false;
-		}
-
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
 		
-		return true;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see rogel.io.fopl.terms.Term#hashCode()
+//	/*
+//	 * (non-Javadoc)
+//	 * @see rogel.io.fopl.terms.Term#equals(java.lang.Object)
+//	 */
+//	@Override
+//	public boolean equals(Object obj) {
+//
+//		//Variable equality is composed of type and symbol equality.
+//		if (this == obj) {
+//			return true;
+//		}
+//
+//		if (!super.equals(obj)) {
+//			return false;
+//		}
+//
+//		if (getClass() != obj.getClass()) {
+//			return false;
+//		}
+//		
+//		return true;
+//	}
+//
+//	/*
+//	 * (non-Javadoc)
+//	 * @see rogel.io.fopl.terms.Term#hashCode()
+//	 */
+//	@Override
+//	public int hashCode() {
+//		return super.hashCode();
+//	}
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
 	public int hashCode() {
-		return super.hashCode();
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + id;
+		return result;
 	}
-	
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		
+		//Variable equality is composed of type, symbol, and id equality.
+		
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Variable other = (Variable) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * @see rogel.io.fopl.terms.Term#toString()
 	 */
 	@Override
 	public String toString() {
-		return "[Variable: "+this.symbol.toString()+"]";
+		return "[Variable: "+this.symbol.toString()+"_"+this.id+"]";
 	}
 	
 }
