@@ -384,21 +384,16 @@ public class Function extends Term {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("[Function: ");
 		sb.append(this.symbol.toString());
 		
-		if(this.isConstant()) {
-			sb.append(" (constant)]");
-		}
-		
-		else {
+		if(!this.isConstant()) {
 			sb.append("(");
 			for(int argumentIndex = 0; argumentIndex < this.arguments.size(); argumentIndex++)
 			{
 				sb.append(this.arguments.get(argumentIndex));
 				sb.append(", ");
 			}
-			sb.replace(sb.length()-2, sb.length(), ")]"); //replace last comma+space for closing parenthesis
+			sb.replace(sb.length()-2, sb.length(), ")"); //replace last comma+space for closing parenthesis
 		}
 				
 		return sb.toString();
