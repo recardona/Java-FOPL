@@ -14,95 +14,95 @@ import rogel.io.fopl.terms.Variable;
  * @author recardona
  */
 public class NotOperator extends AbstractOperator {
-	
-	/** This is the Formula this operator negates. */
-	private Formula operand;
-	
-	/**
-	 * Constructs a NotOperator over the operand Formula. The value of this operator is 
-	 * {@code !formula.getValue()}.
-	 * 
-	 * @param operand This operator's operand, not null.
-	 */
-	public NotOperator(Formula operand) {
-		this(operand, false);
-	}
+    
+    /** This is the Formula this operator negates. */
+    private Formula operand;
+    
+    /**
+     * Constructs a NotOperator over the operand Formula. The value of this operator is 
+     * {@code !formula.getValue()}.
+     * 
+     * @param operand This operator's operand, not null.
+     */
+    public NotOperator(Formula operand) {
+        this(operand, false);
+    }
 
-	/**
-	 * Constructs a NotOperator over the operand Formula. The value of this operator is 
-	 * {@code !formula.getValue()} if {@code preserveOperandValue == false}, and is
-	 * {@code formula.getValue()} otherwise. 
-	 * 
-	 * @param operand This operator's operand.
-	 * @param preserveOperandValue Whether we should preserve the operand's value or invert it.
-	 */
-	private NotOperator(Formula operand, boolean preserveOperandValue) {
-		super("not", operand);
-		this.operand = this.operands.get(0);
-		
-		// If we are preserving the operand value (for example, when using this constructor as a 
-		// copy-constructor), we do not invert the value.
-		if(preserveOperandValue == true) {
-			this.value = this.operand.getValue();
-		}
-		
-		else {
-			this.value = !this.operand.getValue();
-		}
-	}
-	
-	/**
-	 * Because the NotOperator cannot have a tail as defined by 
-	 * {@link AbstractOperator#getOperatorTail()}, this method always returns null.
-	 * 
-	 * @return null, always.
-	 */
-	@Override
-	public AbstractOperator getOperatorTail() {
-		return null; // the NotOperator only ever applies to one Formula, so there is never a tail.
-	}
+    /**
+     * Constructs a NotOperator over the operand Formula. The value of this operator is 
+     * {@code !formula.getValue()} if {@code preserveOperandValue == false}, and is
+     * {@code formula.getValue()} otherwise. 
+     * 
+     * @param operand This operator's operand.
+     * @param preserveOperandValue Whether we should preserve the operand's value or invert it.
+     */
+    private NotOperator(Formula operand, boolean preserveOperandValue) {
+        super("not", operand);
+        this.operand = this.operands.get(0);
+        
+        // If we are preserving the operand value (for example, when using this constructor as a 
+        // copy-constructor), we do not invert the value.
+        if(preserveOperandValue == true) {
+            this.value = this.operand.getValue();
+        }
+        
+        else {
+            this.value = !this.operand.getValue();
+        }
+    }
+    
+    /**
+     * Because the NotOperator cannot have a tail as defined by 
+     * {@link AbstractOperator#getOperatorTail()}, this method always returns null.
+     * 
+     * @return null, always.
+     */
+    @Override
+    public AbstractOperator getOperatorTail() {
+        return null; // the NotOperator only ever applies to one Formula, so there is never a tail.
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see rogel.io.fopl.formulas.Formula#isLiteral()
-	 */
-	@Override
-	public boolean isLiteral() {
-		
-		// In FOPL, a literal is an atomic Formula or its negation. For a NegatedFormula to be a 
-		// literal, the Formula it describes must be atomic.
-		if(this.operand.isAtomic()) {
-			return true;
-		}
+    /*
+     * (non-Javadoc)
+     * @see rogel.io.fopl.formulas.Formula#isLiteral()
+     */
+    @Override
+    public boolean isLiteral() {
+        
+        // In FOPL, a literal is an atomic Formula or its negation. For a NegatedFormula to be a 
+        // literal, the Formula it describes must be atomic.
+        if(this.operand.isAtomic()) {
+            return true;
+        }
 
-		return false;
-	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see rogel.io.fopl.Expression#replaceVariables(rogel.io.fopl.Substitution)
-	 */
-	@Override
-	public Expression replaceVariables(Substitution substitution) {
-		
-		// Calling replaceVariables on Formulas will return Formula-type Expressions. Thus, get the
-		// Formula this NotOperator describes, replace its Variables and create a new NotOperator 
-		// out of it.
-		Formula replacedVariableFormula = (Formula) this.operand.replaceVariables(substitution);		
-		return new NotOperator(replacedVariableFormula, true);
-	}
+        return false;
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see rogel.io.fopl.Expression#replaceVariables(rogel.io.fopl.Substitution)
+     */
+    @Override
+    public Expression replaceVariables(Substitution substitution) {
+        
+        // Calling replaceVariables on Formulas will return Formula-type Expressions. Thus, get the
+        // Formula this NotOperator describes, replace its Variables and create a new NotOperator 
+        // out of it.
+        Formula replacedVariableFormula = (Formula) this.operand.replaceVariables(substitution);        
+        return new NotOperator(replacedVariableFormula, true);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see rogel.io.fopl.Expression#standardizeVariablesApart(java.util.HashMap)
-	 */
-	@Override
-	public Expression standardizeVariablesApart(HashMap<Variable, Variable> newVariables) {
-		
-		// Standardize Variables for all the operands and use them to create a new NotOperator.
-		// Create an empty placeholder for the new operands.
-		Formula standardizedVariableFormula = (Formula) this.operand.standardizeVariablesApart(newVariables);
-		return new NotOperator(standardizedVariableFormula, true);
-	}
-	
+    /*
+     * (non-Javadoc)
+     * @see rogel.io.fopl.Expression#standardizeVariablesApart(java.util.HashMap)
+     */
+    @Override
+    public Expression standardizeVariablesApart(HashMap<Variable, Variable> newVariables) {
+        
+        // Standardize Variables for all the operands and use them to create a new NotOperator.
+        // Create an empty placeholder for the new operands.
+        Formula standardizedVariableFormula = (Formula) this.operand.standardizeVariablesApart(newVariables);
+        return new NotOperator(standardizedVariableFormula, true);
+    }
+    
 }
