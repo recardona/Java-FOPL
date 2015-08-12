@@ -189,7 +189,7 @@ public final class Variable extends Term {
 	 */
 	@Override
 	public String toString() {
-		return "?"+this.symbol.toString()+"_"+this.id+"]";
+		return "?"+this.symbol.toString()+"_"+this.id+"";
 	}
 	
 }
