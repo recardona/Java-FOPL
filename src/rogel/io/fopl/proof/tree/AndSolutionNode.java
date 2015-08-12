@@ -10,6 +10,7 @@ import rogel.io.fopl.proof.RuleSet;
  * AndOperators are n-ary, this class must handle resolution for each of the individual arguments.
  * This class is implemented recursively, getting the head of the n-ary arguments, and requesting
  * solutions for the tail until the operands are exhausted.
+ * 
  * @author recardona
  */
 public class AndSolutionNode extends AbstractSolutionNode {
@@ -25,9 +26,11 @@ public class AndSolutionNode extends AbstractSolutionNode {
 	
 	/**
 	 * Constructor for the AndSolutionNode.
-	 * @param goal the goal for this node.
-	 * @param rules the logical basis for resolution.
-	 * @param parentSolution the solution that exists prior to the creation of this node.
+	 * 
+	 * @param goal The goal for this node, not null.
+	 * @param rules The RuleSet that defines the logical basis used for resolution, not null.
+	 * @param parentSolution The Substitution solution that exists prior to the creation of this
+	 *  node, not null.
 	 */
 	protected AndSolutionNode(AndOperator goal, RuleSet rules, Substitution parentSolution) {
 		super(rules, parentSolution);
@@ -37,14 +40,21 @@ public class AndSolutionNode extends AbstractSolutionNode {
 	}
 
 	/**
-	 * @return the headSolutionNode
+	 * Gets this AndSolutionNode's head solution node; i.e. the solution node for the Formula at
+	 * the head of this node's goal AndOperator.
+	 * 
+	 * @return the AbstractSolutionNode for the Formula at the head of this node's goal AndOperator.
 	 */
 	public AbstractSolutionNode getHeadSolutionNode() {
 		return this.headSolutionNode;
 	}
 
 	/**
-	 * @return the tailSolutionNode
+	 * Gets this AndSolutionNode's tail solution node; i.e. the solution node for the Formula at 
+	 * the tail of this node's goal AndOperator.
+	 * 
+	 * @return the tailSolutionNode the AbstractSolutionNode for the Formula at the tail of this
+	 * 	node's goal AndOperator.
 	 */
 	public AbstractSolutionNode getTailSolutionNode() {
 		return this.tailSolutionNode;

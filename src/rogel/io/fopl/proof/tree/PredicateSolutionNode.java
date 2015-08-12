@@ -8,6 +8,7 @@ import rogel.io.fopl.proof.RuleSet;
 
 /**
  * The PredicateSolutionNode is an AbstractSolutionNode for Predicate Formulas.
+ * 
  * @author recardona
  */
 public class PredicateSolutionNode extends AbstractSolutionNode {
@@ -20,9 +21,11 @@ public class PredicateSolutionNode extends AbstractSolutionNode {
 		
 	/**
 	 * Constructor for the PredicateSolutionNode.
-	 * @param goal the goal for this node.
-	 * @param rules the logical basis for resolution.
-	 * @param parentSolution the solution that exists prior to the creation of this node.
+	 * 
+	 * @param goal The Predicate resolution goal for this node.
+	 * @param rules The RuleSet that defines the logical basis used for resolution, not null.
+	 * @param parentSolution The Substitution solution that exists prior to the creation of this
+	 *  node, not null.
 	 */
 	public PredicateSolutionNode(Predicate goal, RuleSet rules, Substitution parentSolution) {
 		super(rules, parentSolution);
@@ -31,6 +34,8 @@ public class PredicateSolutionNode extends AbstractSolutionNode {
 	}
 	
 	/**
+	 * The Predicate that represents the resolution goal for this node.
+	 * 
 	 * @return the goal for this node.
 	 */
 	public Predicate getGoal() {
@@ -38,6 +43,8 @@ public class PredicateSolutionNode extends AbstractSolutionNode {
 	}
 	
 	/**
+	 * Gets the next node (subgoal) in this proof tree search space.
+	 * 
 	 * @return the next node (subgoal) in this proof tree search space.
 	 */
 	public AbstractSolutionNode getChild() {

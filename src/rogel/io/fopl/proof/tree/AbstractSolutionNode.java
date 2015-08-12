@@ -6,10 +6,11 @@ import rogel.io.fopl.proof.RuleSet;
 
 /**
  * An AbstractSolutionNode is the building-block for logical problem solving. This class defines 
- * the basic functionality for every node in a proof tree. The AbstractSolutionNode allows for the
- * traversal of the and/or graph used during proof construction. Proof trees are implemented as 
- * <a href="https://en.wikipedia.org/wiki/Continuation">continuations</a>, and this class is
- * designed to reflect that.
+ * the basic functionality for every node in a resolution proof tree. The AbstractSolutionNode 
+ * allows for the traversal of the and/or graph used during proof construction. Proof trees are 
+ * implemented as <a href="https://en.wikipedia.org/wiki/Continuation">continuations</a> and this
+ * class is designed to reflect that.
+ * 
  * @author recardona
  */
 public abstract class AbstractSolutionNode {
@@ -32,8 +33,10 @@ public abstract class AbstractSolutionNode {
 	
 	/**
 	 * Constructs an AbstractSolutionNode.
-	 * @param rules the logical basis used for resolution.
-	 * @param parentSolution the solution that exists prior to the creation of this node.
+	 * 
+	 * @param rules The RuleSet that defines the logical basis used for resolution, not null.
+	 * @param parentSolution The Substitution solution that exists prior to the creation of this
+	 *  node, not null.
 	 */
 	protected AbstractSolutionNode(RuleSet rules, Substitution parentSolution) {
 		this.ruleNumber = 0;
@@ -44,12 +47,14 @@ public abstract class AbstractSolutionNode {
 	
 	/**
 	 * Computes the next solution to this node, if it exists.
+	 * 
 	 * @return the Substitution that serves as the next solution to this node.
 	 */
 	public abstract Substitution nextSolution();
 	
 	/**
 	 * Gets the next rule in the RuleSet, with variables standardized apart.
+	 * 
 	 * @return the next rule in the RuleSet.
 	 */
 	public HornClause nextRule() {
@@ -66,29 +71,36 @@ public abstract class AbstractSolutionNode {
 	}
 
 	/**
-	 * @return the rules
+	 * Gets the RuleSet that defines the logical basis for resolution.
+	 * 
+	 * @return the RuleSet for resolution.
 	 */
 	public RuleSet getRules() {
-		return rules;
+		return this.rules;
 	}
 
 	/**
-	 * @return the parentSolution
+	 * Gets the Substitution object that existed prior to the creation of this node.
+	 * 
+	 * @return the parentSolution the Substitution that exited prior to the creation of this node.
 	 */
 	public Substitution getParentSolution() {
-		return parentSolution;
+		return this.parentSolution;
 	}
 	
 	/**
-	 * @return the currentRule
+	 * Gets the HornClause that is currently being used as the goal for resolution at this node.
+	 * 
+	 * @return the HornClause under consideration at this node.
 	 */
 	public HornClause getCurrentRule() {
-		return currentRule;
+		return this.currentRule;
 	}
 
 	/**
 	 * Resets the state of a solution node to that of a newly created node. This allows this node
 	 * to effectively serve again during proof tree construction when picked up during continuation.
+	 * 
 	 * @param newParentSubstitution the new solution Substitution to set.
 	 */
 	protected void reset(Substitution newParentSubstitution) {
@@ -97,7 +109,11 @@ public abstract class AbstractSolutionNode {
 	}
 	
 	/**
-	 * @return true if the index we're at is less than the total number of rules in the RuleSet.
+	 * Returns true if and only if the current index of the RuleSet HornClause rule is less than
+	 * the total number of rules in the RuleSet. 
+	 * 
+	 * @return true if the current HornClause index is less than the total number of rules in the 
+	 * 	RuleSet.
 	 */
 	protected boolean hasNextRule() {
 		return (this.ruleNumber < this.rules.getRuleCount());
