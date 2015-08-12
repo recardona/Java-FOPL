@@ -6,8 +6,9 @@ import rogel.io.fopl.terms.Variable;
 import rogel.io.util.VarargsUtils;
 
 /**
- * The RuleSet is the logic base, a list of HornClauses that are used during the construction of
- * the proof tree.
+ * The RuleSet is the logic base, a list of HornClauses that are used for the construction of the 
+ * proof tree during resolution. 
+ * 
  * @author recardona
  */
 public class RuleSet {
@@ -17,7 +18,9 @@ public class RuleSet {
 	
 	/**
 	 * Constructs a RuleSet from a list of HornClauses.
-	 * @param rules a varargs of HornClause objects that collectively define the logic base.
+	 * 
+	 * @param rules A varargs of HornClause objects that collectively define the logic base for
+	 * 	resolution, not null.
 	 */
 	public RuleSet(HornClause... rules) {
 		VarargsUtils.throwExceptionOnNull((Object[]) rules);
@@ -26,8 +29,9 @@ public class RuleSet {
 	
 	/**
 	 * Returns the HornClause rule at the given index within the RuleSet.
-	 * @param index the index of the rule within the RuleSet to get.
-	 * @return a HornClause.
+	 * 
+	 * @param index The non-negative index of the rule within the RuleSet to get.
+	 * @return a HornClause at the given index.
 	 */
 	public HornClause getRule(int index) {
 		return this.rules[index];
@@ -36,7 +40,8 @@ public class RuleSet {
 	/**
 	 * Returns the HornClause rule at the given index within the RuleSet with its Variables 
 	 * standardized apart.
-	 * @param index the index of the rule within the RuleSet to get.
+	 * 
+	 * @param index The non-negative index of the rule within the RuleSet to get.
 	 * @return a HornClause with Variables that have been standardized apart.
 	 */
 	public HornClause getRuleStandardizedApart(int index) {		
@@ -47,6 +52,8 @@ public class RuleSet {
 	}
 	
 	/**
+	 * Returns the number of HornClause rules within this RuleSet.
+	 * 
 	 * @return the number of HornClause rules within this RuleSet.
 	 */
 	public int getRuleCount() {

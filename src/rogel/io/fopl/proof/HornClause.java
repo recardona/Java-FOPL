@@ -18,6 +18,7 @@ import rogel.io.fopl.terms.Variable;
  *  <li> A HornClause of the form {@code u} is called a <i>fact</i>. </li>
  *  <li> A HornClause of the form {@code p ^ q ^ r} is called a <i>goal clause</i>. </li>
  * </ul>
+ * 
  * @author recardona
  */
 public class HornClause implements Expression {
@@ -36,7 +37,8 @@ public class HornClause implements Expression {
 		
 	/**
 	 * Constructs a HornClause with just one positive literal. This is a HornClause <i>fact</i>.
-	 * @param fact the Predicate this HornClause asserts.
+	 * 
+	 * @param fact The Predicate this HornClause asserts.
 	 */
 	public HornClause(Predicate fact) {
 		this(fact, null);
@@ -45,16 +47,19 @@ public class HornClause implements Expression {
 	/**
 	 * Constructor for a HornClause with one positive literal and a goal clause (which represents
 	 * implicitly disjunctive negated literals).
-	 * @param fact the Predicate this HornClause aims to prove.
-	 * @param goal the GoalClause portion of this HornClause.
+	 * 
+	 * @param consequent The Predicate this HornClause aims to prove.
+	 * @param antecedent The goal Formula portion of this HornClause.
 	 */
-	public HornClause(Predicate fact, Formula goal) {
-		this.consequent = fact; // head
-		this.antecedent = goal; // body
+	public HornClause(Predicate consequent, Formula antecedent) {
+		this.consequent = consequent; // head
+		this.antecedent = antecedent; // body
 	}
 	
 	/**
-	 * A HornClause is definite if it has both an antecedent and a consequent.
+	 * Returns true if this HornClause is a definite clause. A HornClause is definite if it has 
+	 * both an antecedent and a consequent.
+	 * 
 	 * @return true if this HornClause is a definite clause.
 	 */
 	public boolean isDefiniteClause() {
@@ -62,7 +67,9 @@ public class HornClause implements Expression {
 	}
 	
 	/**
-	 * A HornClause is definite if it has a consequent with no antecedent.
+	 * Returns true if this HornClause is a fact. A HornClause is a fact if it has a consequent 
+	 * with no antecedent.
+	 * 
 	 * @return true if this HornClause is a fact.
 	 */
 	public boolean isFact() {
@@ -70,7 +77,9 @@ public class HornClause implements Expression {
 	}
 	
 	/**
-	 * A HornClause is a goal clause if it has an antecedent with no consequent.
+	 * Returns true if this HornClause is a goal clause. A HornClause is a goal if it has an
+	 * antecedent with no consequent.
+	 * 
 	 * @return true if this HornClause is a goal clause.
 	 */
 	public boolean isGoalClause() {
@@ -78,17 +87,25 @@ public class HornClause implements Expression {
 	}
 
 	/**
-	 * @return the antecedent
+	 * Gets this HornClause's antecedent if it exists, null otherwise. The antecedent represents 
+	 * the body of the HornClause. e.g. for a HornClause {@code u <- p ^ q ^ r}, the antecedent 
+	 * would be {@code p ^ q ^ r}.
+	 * 
+	 * @return the antecedent Formula.
 	 */
 	public Formula getAntecedent() {
-		return antecedent;
+		return this.antecedent;
 	}
 	
 	/**
-	 * @return the consequent
+	 * Gets this HornClause's consequent. The antecedent represents the assertion of the 
+	 * HornClause. e.g. for a HornClause {@code u <- p ^ q ^ r}, the consequent would be 
+	 * {@code u}.
+	 * 
+	 * @return the consequent Predicate.
 	 */
 	public Predicate getConsequent() {
-		return consequent;
+		return this.consequent;
 	}
 
 	/*
@@ -135,13 +152,24 @@ public class HornClause implements Expression {
 		return new HornClause(newConsequent, newAntecedent);
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
+	/**
+	 * Returns a String representation of this HornClause, which is a Prolog-style String.
+	 * <ul>
+	 * 	<li> For facts, the String appears as {@code consequent}.
+	 * 	<li> For goal clauses, the String appears as {@code :- antecedent}.
+	 * 	<li> For definite clauses, the String appears as {@code consequent :- antecedent}. 
+	 * </ul> 
+	 * 
+	 * @return a String representation of this object.
 	 */
 	@Override
 	public String toString() {
-		if(antecedent == null) {
+		if(this.isFact()) {
 			return consequent.toString();
+		}
+		
+		if(this.isGoalClause()) {
+			return ":- " + antecedent.toString();
 		}
 		
 		else {
