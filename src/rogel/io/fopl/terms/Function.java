@@ -18,7 +18,7 @@ import rogel.io.util.VarargsUtils;
  * outputs are all Terms. 
  * @author recardona
  */
-public class Function extends Term {
+public final class Function extends Term {
 		
 	/** The number of arguments this Function has. */
 	private int arity; 
@@ -87,7 +87,7 @@ public class Function extends Term {
 	 * (this is useful for defining multi-dimensional arguments).
 	 * @throws UnsupportedOperationException if this is a constant (i.e. a 0-ary function symbol).
 	 * @throws IllegalArgumentException if the number of arguments does not match the arity of this Function.
-	 * @see {@code evaluate(Symbol... argument)} 
+	 * @see Function#evaluate(Term...) 
 	 */
 	public void map(Term value, Term firstArgument, Term... otherArguments) {
 		
@@ -125,7 +125,7 @@ public class Function extends Term {
 	 * @param arguments the arguments to this Function.
 	 * @return the value in this Function's co-domain given the argument, or 
 	 * 	null if the argument does not form part of this Function's domain.
-	 * @see {@code map(Symbol value, Symbol firstArgument, Symbol... otherArguments)}
+	 * @see Function#map(Term, Term, Term...)
 	 */
 	public Term evaluate(Term... arguments) {
 		

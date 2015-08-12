@@ -8,14 +8,13 @@ import rogel.io.fopl.Symbol;
 import rogel.io.fopl.Unifiable;
 
 /**
- * A Variable is a "placeholder" Term, which can be assigned values through a
- * Substitution set. Variables also allow FOPL formulas that express quantified
- * ideas. Every variable that is constructed is different, despite them having
- * the same symbolic name.
+ * A Variable is a "placeholder" Term, which can be assigned values through a Substitution set. 
+ * Variables also allow FOPL formulas that express quantified ideas. Every Variable that is 
+ * constructed is different, even if declared with the same symbolic name.
  * 
  * @author recardona
  */
-public class Variable extends Term {
+public final class Variable extends Term {
 	
 	/** 
 	 * The Variable class' unique identifier. This number monotonically increases with each
@@ -30,7 +29,8 @@ public class Variable extends Term {
 	 * Constructs a Variable with the given name. If the name is a String that did not 
 	 * already exist within the domain of discourse (defined as a Symbol), then a new 
 	 * Symbol is created.
-	 * @param name the name of this Variable
+	 * 
+	 * @param name The name of this Variable.
 	 */
 	public Variable(String name) {
 		this(Symbol.get(name));
@@ -38,8 +38,8 @@ public class Variable extends Term {
 
 	/**
 	 * Constructs a Variable with the given Symbol.
-	 * @param symbol the Symbol that represents this Variable within the domain of
-	 * discourse
+	 * 
+	 * @param symbol The Symbol that represents this Variable within the domain of discourse.
 	 */	
 	public Variable(Symbol symbol) {
 		super(symbol);
@@ -139,52 +139,13 @@ public class Variable extends Term {
 		// Return the substitute Variable.
 		return standardizedVariable;
 	}
-		
-//	/*
-//	 * (non-Javadoc)
-//	 * @see rogel.io.fopl.terms.Term#equals(java.lang.Object)
-//	 */
-//	@Override
-//	public boolean equals(Object obj) {
-//
-//		//Variable equality is composed of type and symbol equality.
-//		if (this == obj) {
-//			return true;
-//		}
-//
-//		if (!super.equals(obj)) {
-//			return false;
-//		}
-//
-//		if (getClass() != obj.getClass()) {
-//			return false;
-//		}
-//		
-//		return true;
-//	}
-//
-//	/*
-//	 * (non-Javadoc)
-//	 * @see rogel.io.fopl.terms.Term#hashCode()
-//	 */
-//	@Override
-//	public int hashCode() {
-//		return super.hashCode();
-//	}
 	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + id;
-		return result;
-	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
+	/**
+	 * Compares this Variable to the parameter object. The result is true if and only if the
+	 * argument is the same exact object (reference-equality).
+	 * 
+	 * @param obj The object to compare this Variable against.
+	 * @return true if the given object is the same exact object (reference-equality).
 	 */
 	@Override
 	public boolean equals(Object obj) {
@@ -202,14 +163,33 @@ public class Variable extends Term {
 			return false;
 		return true;
 	}
+	
+	/**
+	 * Returns a hash code for this Variable. The hash code for a Variable object is computed as
+	 * the integer addition of the Variable's unique id plus a prime number (31).
+	 * 
+	 * @return a hash code value for this object.
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + id;
+		return result;
+	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see rogel.io.fopl.terms.Term#toString()
+	/**
+	 * Returns a String representation of this Variable in Lisp-style, with a prepended '?'
+	 * character and its unique id appended with an underscore.
+	 * <p>
+	 * For example, if the variable name is {@code X}, then its String representation will be
+	 * {@code ?X_1} (assuming only one variable has been declared, namely X itself). 
+	 * 
+	 * @return a String representation of this Symbol.
 	 */
 	@Override
 	public String toString() {
-		return "[Variable: "+this.symbol.toString()+"_"+this.id+"]";
+		return "?"+this.symbol.toString()+"_"+this.id+"]";
 	}
 	
 }

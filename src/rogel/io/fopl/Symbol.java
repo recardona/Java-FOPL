@@ -136,7 +136,7 @@ public final class Symbol {
 	
 	/**
 	 * Returns a hash code for this Symbol. The hash code for a Symbol object is computed as the 
-	 * hash of the sequence of characters the Symbol represents: i.e
+	 * hash of the sequence of characters the Symbol represents; i.e
 	 * {@code toString().hashCode()}.
 	 * 
 	 * @return a hash code value for this object.

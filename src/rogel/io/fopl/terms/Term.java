@@ -5,13 +5,13 @@ import java.util.List;
 import rogel.io.fopl.Substitution;
 import rogel.io.fopl.Symbol;
 import rogel.io.fopl.Unifiable;
+import rogel.io.fopl.formulas.Predicate;
 
 /**
- * Terms name objects or things. As such, Terms require at least one Symbol,
- * to uniquely identify the Term within the domain of discourse.
+ * Terms name objects or things. As such, Terms require at least one Symbol, to uniquely identify
+ * the Term within the domain of discourse.
+ * 
  * @author recardona
- * @see rogel.io.fopl.terms.Function.java
- * @see rogel.io.fopl.terms.Variable.java
  */
 public abstract class Term implements Unifiable {
 	
@@ -19,31 +19,69 @@ public abstract class Term implements Unifiable {
 	protected Symbol symbol;
 	
 	/**
-	 * Defines a Term with the given name. If the name is a String that did not
-	 * already exist within the domain of discourse (defined as a Symbol), then
-	 * a new Symbol is created.
-	 * @param name the name of this Term
+	 * Constructs a Term with the given name. If the name is a String that did not already exist
+	 * within the domain of discourse (defined as a Symbol), then a new Symbol is created.
+	 * 
+	 * @param name The name of this Term.
 	 */
 	protected Term(String name) {
-		this.symbol = Symbol.get(name);
+		this(Symbol.get(name));
 	}
 	
 	/**
-	 * Defines a Term with the given Symbol.
-	 * @param symbol the Symbol that represents this Term within the domain of
-	 *   discourse
+	 * Constructs a Term with the given Symbol.
+	 * 
+	 * @param symbol The Symbol that represents this Term within the domain of discourse.
 	 */
 	protected Term(Symbol symbol) {
 		this.symbol = symbol;
 	}
 	
 	/**
-	 * @return the symbol
+	 * Gets the Symbol associated with this Term.
+	 * 
+	 * @return the Symbol.
 	 */
 	public final Symbol getSymbol() {
 		return this.symbol;
 	}
 	
+	/**
+	 * Compares this Term to the parameter object. The result is true if and only if the argument
+	 * is another Term with the same symbol.
+	 * 
+	 * @param obj The object to compare this Symbol against.
+	 * @return true if the given object represents a Term with the same Symbol as this Term, false
+	 * 	otherwise.
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		//Term equality is composed of type and symbol equality
+		if(!(obj instanceof Term)) {
+			return false;
+		}
+		
+		Term other = (Term) obj;
+		return this.symbol.equals(other.symbol);		
+	}
+	
+	/**
+	 * Returns a hash code for this Term. The hash code for a Term object is computed as the hash
+	 * of the underlying Symbol that represents this term; i.e. {@code getSymbol().hashCode()}
+	 * 
+	 * @return a hash code value for this object.
+	 */
+	@Override
+	public int hashCode() {
+		return this.symbol.hashCode();
+	}
+	
+	/**
+	 * Returns a String representation of this Term. Since this class is abstract, the class defers 
+	 * to the {@code toString()} methods of the known implementing classes: Function and Variable. 
+	 * 
+	 * @return a String representation of this object.
+	 */
 	@Override
 	public String toString() {
 		if(this instanceof Function) {
@@ -59,34 +97,20 @@ public abstract class Term implements Unifiable {
 		}
 	}
 	
-	@Override
-	public boolean equals(Object obj) {
-		//Term equality is composed of type and symbol equality
-		if(!(obj instanceof Term)) {
-			return false;
-		}
-		
-		Term other = (Term) obj;
-		return this.symbol.equals(other.symbol);		
-	}
-	
-	@Override
-	public int hashCode() {
-		return this.symbol.hashCode();
-	}
-	
 	/**
-	 * Checks to see if the parameter List of Terms contains the parameter 
-	 * Variable, given an existing set of Substitutions (which may involve 
-	 * the Variable to check for). This method accomplishes what is 
-	 * colloquially referred to as the "occurs check" during unification.
+	 * Checks to see if the parameter List of Terms contains the parameter Variable, given an 
+	 * existing set of Substitutions (which may involve the Variable to check for). This method
+	 * accomplishes what is colloquially referred to as the "occurs check" during unification.
 	 * <p>
-	 * This method is used by two types of Unifiable Objects which have access
-	 * to a List of Unifiable Terms: Predicates and Functions.
-	 * @param terms a List of Terms to check through.
-	 * @param variable the Variable to check for.
-	 * @param substitution the existing set of Substitutions to work with.
+	 * This method is used by two types of Unifiable Objects which have access to a List of 
+	 * Unifiable Terms: Predicates and Functions.
+	 * 
+	 * @param terms A List of Terms to check through, not null.
+	 * @param variable The Variable to check for, not null.
+	 * @param substitution The existing set of Substitutions to work with, not null.
 	 * @return true if any of the Terms in the List contains the Variable, false otherwise.
+	 * @see Predicate#containsVariable(Variable, Substitution)
+	 * @see Function#containsVariable(Variable, Substitution)
 	 */
 	public static boolean containsVariable(List<Term> terms, Variable variable, Substitution substitution) {
 		
