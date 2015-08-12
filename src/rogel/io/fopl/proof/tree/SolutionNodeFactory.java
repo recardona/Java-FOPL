@@ -4,8 +4,6 @@ import rogel.io.fopl.Substitution;
 import rogel.io.fopl.formulas.Formula;
 import rogel.io.fopl.formulas.Predicate;
 import rogel.io.fopl.formulas.operators.AndOperator;
-import rogel.io.fopl.formulas.operators.NotOperator;
-import rogel.io.fopl.formulas.operators.OrOperator;
 import rogel.io.fopl.proof.RuleSet;
 
 /**
