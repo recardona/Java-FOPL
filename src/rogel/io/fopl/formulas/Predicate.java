@@ -75,9 +75,10 @@ public final class Predicate extends Formula implements Unifiable {
 	}
 	
 	/**
-	 * True if this Predicate is propositional. Propositions are 0-ary Predicates.
+	 * Returns true if this Predicate is propositional, false otherwise. Propositions are 0-ary 
+	 * Predicates.
 	 * 
-	 * @return true if this Predicate describes no Terms.
+	 * @return true if this Predicate describes no Terms, false otherwise.
 	 */
 	public boolean isPropositional() {
 		return (this.arity == 0);
@@ -318,8 +319,9 @@ public final class Predicate extends Formula implements Unifiable {
 	/**
 	 * Returns a String representation of this Predicate, which is a Lisp-style string. 
 	 * <ul>
-	 * 	<li> For Predicates with no Terms, the String appears as {@code (predicate_name)}.
-	 * 	<li> Otherwise, the String appears as {@code (predicate_name term1 term2 ...)}.
+	 * 	<li> For propositional Predicates (with no Terms), the String appears as 
+	 * 		 {@code (predicate_symbol)}.
+	 * 	<li> Otherwise, the String appears as {@code (predicate_symbol term1 term2 ...)}.
 	 * </ul>
 	 * 
 	 * @return a String representation of this object.

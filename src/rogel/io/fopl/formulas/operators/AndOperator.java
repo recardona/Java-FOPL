@@ -10,14 +10,16 @@ import rogel.io.fopl.terms.Variable;
 /**
  * An AndOperator is an AbstractOperator Formula that computes the logical conjunction of its 
  * constituent Formulas as its value. 
+ * 
  * @author recardona
  */
-public class AndOperator extends AbstractOperator {
+public final class AndOperator extends AbstractOperator {
 
 	/**
 	 * Constructs an AndOperator over the operand Formulas. The value of this operator is the
-	 * logical conjunction of all the operands. 
-	 * @param operands the operands of this operator.
+	 * logical conjunction of all the operands.
+	 *  
+	 * @param operands The operands of this operator, not null.
 	 */
 	public AndOperator(Formula... operands) {
 		super("and", operands);
@@ -31,15 +33,6 @@ public class AndOperator extends AbstractOperator {
 				break; // if we ever become false, break
 			}
 		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * @see rogel.io.fopl.formulas.Formula#isLiteral()
-	 */
-	@Override
-	public boolean isLiteral() {
-		return false; // AndOperators are not literals.
 	}
 	
 	/*

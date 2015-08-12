@@ -40,8 +40,8 @@ public final class Function extends Term {
 	 * of Terms added.
 	 * <p>
 	 * Note: A 0-ary Function is used to represent a constant symbol.
-	 * @param name the name of the Function
-	 * @param terms the parameters to this Function
+	 * @param name The name of the Function, not null.
+	 * @param terms The parameters to this Function, not null.
 	 */
 	public Function(String name, Term... terms) {
 		this(Symbol.get(name), terms);
@@ -52,8 +52,9 @@ public final class Function extends Term {
 	 * depends on the number of Terms added.
 	 * <p>
 	 * Note: A 0-ary Function is used to represent a constant symbol.
-	 * @param symbol the Symbol that represents this Function within the domain of discourse
-	 * @param terms the parameters to this Function
+	 * @param symbol The Symbol that represents this Function within the domain of discourse, not 
+	 * 	null.
+	 * @param terms The parameters to this Function, not null.
 	 */
 	private Function(Symbol symbol, Term... terms) {
 		super(symbol);
@@ -73,42 +74,48 @@ public final class Function extends Term {
 	}
 	
 	/**
-	 * Defines a relation between the argument(s) and the value. This operation
-	 * expands this Function's domain by the arguments, and the Function's 
-	 * co-domain by the value.
+	 * Defines a relation between the argument(s) and the value. This operation expands this 
+	 * Function's domain by the arguments, and the Function's co-domain by the value.
 	 * <p>
-	 * For example, if {@code x} and {@code y} are Terms, and {@code f} is a
-	 * Function, calling {@code f.map(y, x)} implies that subsequently calling 
-	 * {@code f.evaluate(x)} will return {@code y}.
+	 * For example, if {@code x} and {@code y} are Terms, and {@code f} is a Function, calling
+	 * {@code f.map(y, x)} implies that subsequently calling {@code f.evaluate(x)} will return 
+	 * {@code y}.
 	 * 
-	 * @param value a Symbol that will be in the co-domain of this Function mapped to the argument Symbol(s).
-	 * @param firstArgument a Symbol that will be in the domain of this Function.
-	 * @param otherArguments a varargs of Symbols that serve as additional arguments to this Function
-	 * (this is useful for defining multi-dimensional arguments).
+	 * @param value A Term that will be in the co-domain of this Function mapped to the argument
+	 * 	Terms.
+	 * @param firstArgument A Term that will be in the domain of this Function.
+	 * @param otherArguments a varargs of Terms that serve as additional arguments to this Function
+	 * 	(used for defining multi-dimensional arguments).
 	 * @throws UnsupportedOperationException if this is a constant (i.e. a 0-ary function symbol).
-	 * @throws IllegalArgumentException if the number of arguments does not match the arity of this Function.
+	 * @throws IllegalArgumentException if the number of arguments does not match the arity of this
+	 * 	Function.
 	 * @see Function#evaluate(Term...) 
 	 */
 	public void map(Term value, Term firstArgument, Term... otherArguments) {
 		
 		if(this.isConstant()) {
-			throw new UnsupportedOperationException("Cannot map arguments to values for a constant Function Symbol");
+			throw new UnsupportedOperationException("Cannot map arguments to values for a constant "
+					+ "Function Symbol");
 		}
 		
 		if((1 + otherArguments.length) != this.arity) {
-			throw new IllegalArgumentException("Number of arguments (" + (1 + otherArguments.length) + ") does not match this Function's defined arity of "+this.arity);
+			throw new IllegalArgumentException("Number of arguments (" + (1 + otherArguments.length) 
+					+ ") does not match this Function's defined arity of "+this.arity);
 		}
 		
 		if(value == null) {
-			throw new IllegalArgumentException("Attempted to map to a null value in Function's co-domain");
+			throw new IllegalArgumentException("Attempted to map to a null value in Function's "
+					+ "co-domain");
 		}
 		
 		if(firstArgument == null || VarargsUtils.containsNull((Object[]) otherArguments)) {
 			throw new IllegalArgumentException("Arguments in Function's domain cannot be null");
 		}
 		
-		// Prepare the argument list.
-		List<Term> argumentList= new ArrayList<Term>(this.arity); //arity should be 1 + otherArguments.length
+		// Prepare the argument list. 
+		List<Term> argumentList= new ArrayList<Term>(this.arity);
+		
+		// Arity should be 1 + otherArguments.length.
 		argumentList.add(firstArgument);
 		argumentList.addAll(Arrays.asList(otherArguments));
 				
@@ -119,12 +126,13 @@ public final class Function extends Term {
 	/**
 	 * Attempts to evaluate the Function on the parameter argument.
 	 * <p> 
-	 * If this is a constant Function, the parameters are ignored, and the 
-	 * method returns this Function. Otherwise, this method returns the value 
-	 * mapped to the parameter arguments.
-	 * @param arguments the arguments to this Function.
-	 * @return the value in this Function's co-domain given the argument, or 
-	 * 	null if the argument does not form part of this Function's domain.
+	 * If this is a constant Function, the parameters are ignored, and the method returns this
+	 * Function. Otherwise, this method returns the value mapped to the parameter arguments.
+	 * 
+	 * @param arguments The arguments to this Function, not null.
+	 * @return the value in this Function's co-domain given the argument, null if the argument
+	 * 	does not form part of this Function's domain, or this object itself if this is a constant
+	 * 	Function. 
 	 * @see Function#map(Term, Term, Term...)
 	 */
 	public Term evaluate(Term... arguments) {
@@ -136,7 +144,8 @@ public final class Function extends Term {
 		else {
 			VarargsUtils.throwExceptionOnNull( (Object[]) arguments );
 			if(arguments.length != this.arity) {
-				throw new IllegalArgumentException("Number of arguments (" + (1 + arguments.length) + ") does not match this Function's defined arity of "+this.arity);
+				throw new IllegalArgumentException("Number of arguments (" + (1 + arguments.length) 
+						+ ") does not match this Function's defined arity of "+this.arity);
 			}
 			
 			// Prepare the argument List.
@@ -148,7 +157,8 @@ public final class Function extends Term {
 	}
 	
 	/**
-	 * True if this Function is a constant. Constants are 0-ary Functions.
+	 * Returns true if this Function is a constant. Constants are 0-ary Functions.
+	 * 
 	 * @return true if this Function has no arguments attached.
 	 */
 	public boolean isConstant() {
@@ -157,6 +167,7 @@ public final class Function extends Term {
 
 	/**
 	 * Returns the number of arguments this Function has.
+	 * 
 	 * @return this Function's arity.
 	 */
 	public int getArity() {
@@ -164,9 +175,10 @@ public final class Function extends Term {
 	}
 	
 	/**
-	 * Returns a List of placeholder terms this function applies to. For 
-	 * example, in the Function {@code f(x)} the argument would be {@code x}.
-	 * If this Function is constant, this method returns null.
+	 * Returns a List of Terms this Function was defined with. For example, in the Function defined 
+	 * as {@code f(x)}, the argument would be {@code x}. If this Function is constant, this method 
+	 * returns null.
+	 * 
 	 * @return this Function's arguments.
 	 */
 	public List<Term> getArguments() {
@@ -174,6 +186,8 @@ public final class Function extends Term {
 	}
 	
 	/**
+	 * Returns this Function's signature, defined as a Pair: (Symbol, getArity()).
+	 * 
 	 * @return this Function's signature, defined as a Pair: (Symbol, getArity()). 
 	 */
 	public Pair<Symbol, Integer> getSignature() {
@@ -341,9 +355,13 @@ public final class Function extends Term {
 		throw new CloneNotSupportedException("Function.clone() is not supported.");
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see rogel.io.fopl.terms.Term#equals(java.lang.Object)
+	/**
+	 * Compares this Function to the parameter object. The result is true if and only if the 
+	 * argument is another Function that has the same signature identified by 
+	 * {@link Function#signature}.
+	 * 
+	 * @return true if the given object represents a Function with the same signature, false
+	 * 	otherwise.
 	 */
 	@Override
 	public boolean equals(Object obj) {
@@ -364,9 +382,12 @@ public final class Function extends Term {
 		return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see rogel.io.fopl.terms.Term#hashCode()
+	/**
+	 * Returns a hash code for this Function. The hash code for a Function object is computed as
+	 * the hash of its parent class multiplied by a prime number (31) plus the hash of its
+	 * signature.
+	 * 
+	 * @return a hash code value for this object.
 	 */
 	@Override
 	public int hashCode() {
@@ -377,9 +398,14 @@ public final class Function extends Term {
 		return result;
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 * @see rogel.io.fopl.terms.Term#toString()
+	/**
+	 * Returns a String representation of this Function, meant to look like a typical mathematical
+	 * function.
+	 * <ul>
+	 * 	<li> For constant Functions (with no argument Terms), the String appears as 
+	 * 		 {@code function_symbol}.
+	 * 	<li> Otherwise, the String appears as {@code function_symbol(term1, term2, ...)}.
+	 * </ul>
 	 */
 	@Override
 	public String toString() {
