@@ -21,8 +21,6 @@ public class SolutionNodeFactory {
 	 * <ul>
 	 * 	<li> If the Formula is a Predicate, this method returns a PredicateSolutionNode.
 	 * 	<li> If the Formula is an AndOperator, this method returns an AndSolutionNode.
-	 * 	<li> If the Formula is an OrOperator, this method returns an OrSolutionNode.
-	 * 	<li> If the Formula is a NotOperator, this method returns a NotSolutionNode.
 	 * </ul>
 	 * 
 	 * @param goal The Formula for which a solution node is desired, not null.
