@@ -92,7 +92,7 @@ public abstract class AbstractOperator extends Formula {
 	 * Constructs a new operator applied to {@code this.operandCount() - 1} operands: the operands
 	 * obtained by removing the operand Formula returned by {@code this.getOperatorHead()}.
 	 * 
-	 * @return a new operator applied to the tail of this operator.
+	 * @return a new operator applied to the tail of this operator, or null if no tail can exist.
 	 */
 	public abstract AbstractOperator getOperatorTail();
 	
@@ -114,5 +114,24 @@ public abstract class AbstractOperator extends Formula {
 	@Override
 	public boolean isLiteral() {
 		return false; // AndOperators are not literals.
+	}
+	
+	/**
+	 * Returns a String representation of this operator, which is a Lisp-style String of the form
+	 * {@code (operator_symbol operand1 operand2 ...)}.
+	 * 
+	 * @return a String representation of this operator.
+	 */
+	@Override
+	public final String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("(");
+		builder.append(this.symbol);
+		for(Formula operand : this.operands) {
+			builder.append(" ");
+			builder.append(operand.toString());
+		}
+		builder.append(")");
+		return builder.toString();
 	}
 }

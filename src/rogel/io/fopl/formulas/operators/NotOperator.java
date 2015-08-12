@@ -10,6 +10,7 @@ import rogel.io.fopl.terms.Variable;
 /**
  * A NotOperator is an AbstractOperator Formula that computes the logical opposite of its 
  * constituent Formula as its value.
+ * 
  * @author recardona
  */
 public class NotOperator extends AbstractOperator {
@@ -20,7 +21,8 @@ public class NotOperator extends AbstractOperator {
 	/**
 	 * Constructs a NotOperator over the operand Formula. The value of this operator is 
 	 * {@code !formula.getValue()}.
-	 * @param operand this operator's operand
+	 * 
+	 * @param operand This operator's operand, not null.
 	 */
 	public NotOperator(Formula operand) {
 		this(operand, false);
@@ -30,8 +32,9 @@ public class NotOperator extends AbstractOperator {
 	 * Constructs a NotOperator over the operand Formula. The value of this operator is 
 	 * {@code !formula.getValue()} if {@code preserveOperandValue == false}, and is
 	 * {@code formula.getValue()} otherwise. 
-	 * @param operand this operator's operand.
-	 * @param preserveOperandValue whether we should preserve the operand's value or invert it.
+	 * 
+	 * @param operand This operator's operand.
+	 * @param preserveOperandValue Whether we should preserve the operand's value or invert it.
 	 */
 	private NotOperator(Formula operand, boolean preserveOperandValue) {
 		super("not", operand);
@@ -48,9 +51,11 @@ public class NotOperator extends AbstractOperator {
 		}
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 * @see rogel.io.fopl.formulas.operators.AbstractOperator#getOperatorTail()
+	/**
+	 * Because the NotOperator cannot have a tail as defined by 
+	 * {@link AbstractOperator#getOperatorTail()}, this method always returns null.
+	 * 
+	 * @return null, always.
 	 */
 	@Override
 	public AbstractOperator getOperatorTail() {
@@ -100,12 +105,4 @@ public class NotOperator extends AbstractOperator {
 		return new NotOperator(standardizedVariableFormula, true);
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "(not " + this.operand + ")";
-	}
 }

@@ -9,7 +9,8 @@ import rogel.io.fopl.terms.Variable;
 
 /**
  * An OrOperator is an AbstractOperator Formula that computes the logical disjunction of its 
- * constituent Formulas as its value. 
+ * constituent Formulas as its value.
+ *  
  * @author recardona
  */
 public class OrOperator extends AbstractOperator {
@@ -17,7 +18,8 @@ public class OrOperator extends AbstractOperator {
 	/**
 	 * Constructs an OrOperator over the operand Formulas. The value of this operator is the 
 	 * logical disjunction of all the operands.
-	 * @param operands the operands of this operator.
+	 * 
+	 * @param operands The operands of this operator.
 	 */
 	public OrOperator(Formula... operands) {
 		super("or", operands);
@@ -29,15 +31,6 @@ public class OrOperator extends AbstractOperator {
 				break; // if we ever become true, break
 			}
 		}
-	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see rogel.io.fopl.formulas.Formula#isLiteral()
-	 */
-	@Override
-	public boolean isLiteral() {
-		return false; // OrOperators are never literals.
 	}
 	
 	/*
@@ -101,19 +94,4 @@ public class OrOperator extends AbstractOperator {
 		return new OrOperator(newOperands);
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("(or");
-		for(Formula operand : this.operands) {
-			builder.append(" ");
-			builder.append(operand.toString());
-		}
-		builder.append(")");
-		return builder.toString();
-	}
 }

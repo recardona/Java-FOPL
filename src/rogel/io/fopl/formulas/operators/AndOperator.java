@@ -96,18 +96,4 @@ public final class AndOperator extends AbstractOperator {
 		return new AndOperator(newOperands);
 	}
 	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("(and");
-		for(Formula operand : this.operands) {
-			builder.append(" ");
-			builder.append(operand.toString());
-		}
-		builder.append(")");
-		return builder.toString();
-	}
 }
