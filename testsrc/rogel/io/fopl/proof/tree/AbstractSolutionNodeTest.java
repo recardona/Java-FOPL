@@ -41,17 +41,21 @@ public class AbstractSolutionNodeTest {
 		new HornClause(new Predicate("parent", joe, maria)),	// Joe is Maria's parent.
 		new HornClause(new Predicate("parent", charles, joe)),	// Charles is Joe's parent.
 		
+		// If x is a parent of y,
+		// then x is an ancestor of y.
 		new HornClause(
-			new Predicate("ancestor", X, Y), /* <- */ 	// If x is a parent of y,
+			new Predicate("ancestor", X, Y), /* <- */ 	
 				new AndOperator(
-					new Predicate("parent", X, Y)				// then x is an ancestor of y.
+					new Predicate("parent", X, Y)		
 				)
 			),
 		
+		// If x is a parent of z and z is an ancestor of y,
+		// then x is an ancestor of y.
 		new HornClause(
-			new Predicate("ancestor", X, Y),  /* <- */	// If x is a parent of z,
-				new AndOperator(							// and z is an ancestor of y,
-					new Predicate("parent", X, Z), /* ^ */  // then x is an ancestor of y.
+			new Predicate("ancestor", X, Y),  /* <- */		
+				new AndOperator(							
+					new Predicate("parent", X, Z), /* ^ */  
 					new Predicate("ancestor", Z, Y)
 				)
 			)
