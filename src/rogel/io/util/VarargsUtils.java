@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 /**
  * Contains utility methods to help manage variable argument references.
+ * 
  * @author recardona
  */
 public class VarargsUtils {
@@ -11,11 +12,10 @@ public class VarargsUtils {
 	private VarargsUtils() { /* Private constructor for no initialization. */ }
 	
 	/**
-	 * Throws a NullPointerException if the parameter varargs is null or 
-	 * contains a null element.
-	 * @param o the varargs to check.
-	 * @throws NullPointerException if either the argument is null or contains
-	 * 	a null element.
+	 * Throws a NullPointerException if the parameter varargs is null or contains a null element.
+	 * 
+	 * @param o The varargs to check.
+	 * @throws NullPointerException if either the argument is null or contains a null element.
 	 */
 	public static void throwExceptionOnNull(Object... o) throws NullPointerException {
 		if(o == null) {
@@ -29,9 +29,9 @@ public class VarargsUtils {
 	
 	/**
 	 * Checks the parameter varargs for a null reference.
-	 * @param o the varargs to check.
-	 * @return true if the argument is null or contains a null element, false
-	 * 	otherwise.
+	 * 
+	 * @param o The varargs to check.
+	 * @return true if the argument is null or contains a null element, false otherwise.
 	 */
 	public static boolean containsNull(Object... o) {
 		
