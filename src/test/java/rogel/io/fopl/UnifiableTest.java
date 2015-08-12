@@ -106,7 +106,7 @@ public class UnifiableTest {
 
 	@Test
 	public void testUnify() {
-				
+
 		mostGeneralUnifier = f_of_x.unify(f_of_z, identity);
 		assertNotNull(mostGeneralUnifier);
 		
