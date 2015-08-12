@@ -4,6 +4,10 @@ Java-FOPL is a Java-based meta-linguistic abstraction of the [first-order predic
 
 Most FOPL constructs are organized into the two sub-packages `fopl.formulas` and `fopl.terms`, with constructs that are used by all others placed in the top-level `fopl` package. The domain of discourse (i.e. the symbols used in FOPL expressions) is defined implicitly through the construction of FOPL expressions, but symbols are recorded explicitly via the `fopl.Symbol` class (instead of implicitly through the use of `String` objects, which seems to be the standard way of doing so).
 
+## Getting Started
+
+If you want to see an example of things you can do with this code base, consult the `testsrc` folder for example codes. In there you'll find examples of both [unification](https://en.wikipedia.org/wiki/Unification_%28computer_science%29) and [resolution](https://en.wikipedia.org/wiki/SLD_resolution), under `UnifiableTest.java` and `AbstractSolutionNodeTest.java` respectively.
+
 # License
 
-Copyright 2015-present Rogelio E. Cardona-Rivera
+The MIT License (See LICENSE.md)
