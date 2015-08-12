@@ -42,8 +42,8 @@ public final class Predicate extends Formula implements Unifiable {
 	 * already defined as a Symbol), then a new Symbol is created and added to the domain of 
 	 * discourse. 
 	 * 
-	 * @param name the name of the Predicate, not null.
-	 * @param terms the terms this Predicate describes, not null.
+	 * @param name The name of the Predicate, not null.
+	 * @param terms The terms this Predicate describes, not null.
 	 */
 	public Predicate(String name, Term... terms) {
 		this(Symbol.get(name), terms);
@@ -54,8 +54,8 @@ public final class Predicate extends Formula implements Unifiable {
 	 * to represent a propositional symbol. The arity of this Predicate depends on the number of 
 	 * Terms added.
 	 * 
-	 * @param symbol the Symbol that represents this Predicate within the domain of discourse, not null.
-	 * @param terms the terms this Predicate describes, not null.
+	 * @param symbol The Symbol that represents this Predicate within the domain of discourse, not null.
+	 * @param terms The terms this Predicate describes, not null.
 	 */
 	public Predicate(Symbol symbol, Term... terms) {
 		super(symbol);
@@ -265,9 +265,14 @@ public final class Predicate extends Formula implements Unifiable {
 		return standardizedVariablePredicate;
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 * @see rogel.io.fopl.formulas.Formula#equals(java.lang.Object)
+	/**
+	 * Compares this Predicate to the parameter object. The result is true if and only if the
+	 * argument is another Predicate of the same arity and whose Terms are all equals to this
+	 * object's arity and Terms.
+	 * 
+	 * @param obj The object to compare this Predicate against.
+	 * @return true if the given object represents a Predicate of the same arity and Terms as this
+	 * 	Predicate, false otherwise.
 	 */
 	@Override
 	public boolean equals(Object obj) {
@@ -294,9 +299,12 @@ public final class Predicate extends Formula implements Unifiable {
 		return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see rogel.io.fopl.formulas.Formula#hashCode()
+	/**
+	 * Returns a hash code for this Predicate. The hash code for a Predicate object is computed as
+	 * the integer addition of the parent's hash code, the Predicate's arity, and the hash for the 
+	 * list of Terms, each multiplied by a prime number (31).
+	 * 
+	 * @return a hash code value for this object.
 	 */
 	@Override
 	public int hashCode() {
@@ -307,9 +315,14 @@ public final class Predicate extends Formula implements Unifiable {
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see java.lang.Object#toString()
+	/**
+	 * Returns a String representation of this Predicate, which is a Lisp-style string. 
+	 * <ul>
+	 * 	<li> For Predicates with no Terms, the String appears as {@code (predicate_name)}.
+	 * 	<li> Otherwise, the String appears as {@code (predicate_name term1 term2 ...)}.
+	 * </ul>
+	 * 
+	 * @return a String representation of this object.
 	 */
 	@Override
 	public String toString() {
