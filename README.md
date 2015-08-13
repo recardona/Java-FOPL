@@ -6,16 +6,6 @@ Most FOPL constructs are organized into the two sub-packages `fopl.formulas` and
 
 ## Getting Started
 
-If you want to see an example of things you can do with this code base, consult the `testsrc` folder for example codes. In there you'll find examples of both [unification](https://en.wikipedia.org/wiki/Unification_%28computer_science%29) and [resolution](https://en.wikipedia.org/wiki/SLD_resolution), under `UnifiableTest.java` and `AbstractSolutionNodeTest.java` respectively.
-
-## Special Thanks
-
-To [AI Algorithms, Data Structures, and Idioms in Prolog, Lisp, and Java by Luger and Stubblefield](http://www.amazon.com/Algorithms-Data-Structures-Idioms-Prolog/dp/0136070477), which outlined a great deal of the architecture for the code base in this repository.
-
-# License
-
-The MIT License (See LICENSE.md)
-
 # Build instructions
 
 To build run
@@ -37,3 +27,16 @@ To see the list of tasks available through gradle, see
 ```
 ./gradlew tasks
 ```
+
+# Example code
+
+If you want to see an example of things you can do with this code base, consult the `testsrc` folder for example codes. In there you'll find examples of both [unification](https://en.wikipedia.org/wiki/Unification_%28computer_science%29) and [resolution](https://en.wikipedia.org/wiki/SLD_resolution), under `UnifiableTest.java` and `AbstractSolutionNodeTest.java` respectively.
+
+## Special Thanks
+
+To [AI Algorithms, Data Structures, and Idioms in Prolog, Lisp, and Java by Luger and Stubblefield](http://www.amazon.com/Algorithms-Data-Structures-Idioms-Prolog/dp/0136070477), which outlined a great deal of the architecture for the code base in this repository.
+
+# License
+
+The MIT License (See LICENSE.md)
+
