@@ -1,4 +1,4 @@
-# Java-FOPL
+# Java-FOPL [![Build Status](https://travis-ci.org/recardona/Java-FOPL.svg?branch=master)](https://travis-ci.org/recardona/Java-FOPL)
 
 Java-FOPL is a Java-based meta-linguistic abstraction of the [first-order predicate logic](http://en.wikipedia.org/wiki/First-order_logic) (FOPL). The approach taken in this work is to mirror the [predicate logic formation rules](http://en.wikipedia.org/wiki/First-order_logic#Formation_rules) inasmuch as is possible. The point of this work is to make predicate logic expressions clear (*read: not efficient*) and intuitive, and to have the structure of code reflect the language with which FOPL is typically explained in a classroom setting (for instance _Constants_ are implemented as _0-ary Functions_, not as their own class).
 
