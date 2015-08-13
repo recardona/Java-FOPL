@@ -15,3 +15,25 @@ To [AI Algorithms, Data Structures, and Idioms in Prolog, Lisp, and Java by Luge
 # License
 
 The MIT License (See LICENSE.md)
+
+# Build instructions
+
+To build run
+
+```
+./gradlew assemble
+```
+
+You will find a brand new jar built at the 'build/libs' directory.
+
+To test
+
+```
+./gradlew test
+```
+
+To see the list of tasks available through gradle, see
+
+```
+./gradlew tasks
+```
