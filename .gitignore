@@ -3,3 +3,5 @@
 .project
 .settings/org.eclipse.jdt.core.prefs
 .settings/org.eclipse.jdt.ui.prefs
+build/
+.gradle
