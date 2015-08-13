@@ -6,7 +6,7 @@ Most FOPL constructs are organized into the two sub-packages `fopl.formulas` and
 
 ## Getting Started
 
-# Build instructions
+### Build instructions
 
 To build run
 
@@ -28,7 +28,7 @@ To see the list of tasks available through gradle, see
 ./gradlew tasks
 ```
 
-# Example code
+### Example code
 
 If you want to see an example of things you can do with this code base, consult the `testsrc` folder for example codes. In there you'll find examples of both [unification](https://en.wikipedia.org/wiki/Unification_%28computer_science%29) and [resolution](https://en.wikipedia.org/wiki/SLD_resolution), under `UnifiableTest.java` and `AbstractSolutionNodeTest.java` respectively.
 
